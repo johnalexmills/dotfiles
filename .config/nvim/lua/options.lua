@@ -63,3 +63,15 @@ if package.config:sub(1, 1) == "\\" then
   vim.cmd ":set shell=cmd.exe"
 end
 vim.opt.formatoptions:remove { "c", "r", "o" } -- This is a sequence of letters which describes how automatic formatting is to be done
+
+if vim.fn.has "win32" ~= 0 then
+  vim.o.shell = "bash.exe"
+  vim.o.shellcmdflag = "-c"
+  vim.o.shellredir = ">%s 2>&1"
+  vim.o.shellquote = ""
+  vim.o.shellxescape = ""
+  -- vim.o.noshelltemp = true
+  vim.o.shellxquote = ""
+  vim.o.shellpipe = "2>&1| tee"
+  vim.env.TMP = "/tmp"
+end
