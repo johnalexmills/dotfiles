@@ -1,5 +1,6 @@
 local M = {
   "kyazdani42/nvim-tree.lua",
+  dependencies = { "famiu/bufdelete.nvim" },
   event = "VimEnter",
 }
 
