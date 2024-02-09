@@ -21,7 +21,7 @@ palette = 'catppuccin_mocha'
 rosewater = "#f5e0dc"
 flamingo = "#f2cdcd"
 pink = "#f5c2e7"
-orange = "#cba6f7"
+mauve = "#cba6f7"
 red = "#f38ba8"
 maroon = "#eba0ac"
 peach = "#fab387"
@@ -47,7 +47,7 @@ crust = "#11111b"
 
 [os]
 disabled = false
-style = "fg:text"
+style = "sapphire"
 
 [os.symbols]
 Windows = "󰍲"
@@ -89,7 +89,7 @@ ssh_only = false
 disabled = false
 
 [directory]
-style = "fg:green"
+style = "fg:mauve"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -101,8 +101,11 @@ truncation_symbol = "…/"
 "Pictures" = " "
 "Developer" = "󰲋 "
 
+[git_branch]
+style = "green"
+
 [git_status]
-style = "white"
+style = "green"
 ahead = "⇡${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 behind = "⇣${count}"
@@ -110,6 +113,7 @@ deleted = "x"
 
 [cmd_duration]
 min_time = 1
+style = "peach"
 format = "took [$duration]($style)"
 disabled = false
 
