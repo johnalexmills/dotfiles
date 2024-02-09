@@ -18,6 +18,7 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 12.0
 config.enable_tab_bar = false
 config.check_for_updates = false
+config.window_close_confirmation = "NeverPrompt"
 config.window_padding = {
 	left = 4,
 	right = 4,
