@@ -57,3 +57,7 @@ alias gm='git merge'
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+
+alias lg="lazygit"
+
+eval "$(starship init bash)"
