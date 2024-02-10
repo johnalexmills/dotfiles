@@ -72,7 +72,7 @@ RedHatEnterprise = "󱄛"
 
 [shell]
 unknown_indicator = "mystery shell"
-style = "cyan bold"
+style = "yellow bold"
 disabled = false
 
 [username]
@@ -118,8 +118,8 @@ format = "took [$duration]($style)"
 disabled = false
 
 [character]
-success_symbol = "[╰─λ](cyan bold)"
-error_symbol = "[╰─🔴](cyan bold)"
+success_symbol = "[╰─λ](green bold)"
+error_symbol = "[╰─🔴](green bold)"
 
 [status]
 symbol = "🔴"

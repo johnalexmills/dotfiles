@@ -6,10 +6,6 @@ return {
     lint.linters_by_ft = {
       python = { "ruff" },
       sh = { "shellcheck" },
-      markdown = { "markdownlint" },
-      yaml = { "yamllint" },
-      json = { "jsonlint" },
-      terraform = { "terraform" },
     }
 
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
