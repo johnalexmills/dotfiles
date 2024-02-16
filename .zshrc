@@ -11,5 +11,5 @@ alias lg='lazygit'
 
 source $ZSH/oh-my-zsh.sh
 
-# activate starship prompt
+eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"

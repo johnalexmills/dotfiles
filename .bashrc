@@ -60,4 +60,5 @@ alias grep='grep --color=auto'
 
 alias lg="lazygit"
 
+eval "$(zoxide init --cmd cd bash)"
 eval "$(starship init bash)"
