@@ -11,10 +11,10 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        async = false,
-      },
+      -- format_on_save = {
+      --   lsp_fallback = true,
+      --   async = false,
+      -- },
     }
   end,
 }

@@ -8,7 +8,7 @@ source ~/.oh-my-zsh/custom/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 alias lg='lazygit'
-
+alias rmo='sudo pacman -Rs $(pacman -Qqtd)'
 source $ZSH/oh-my-zsh.sh
 
 eval "$(zoxide init --cmd cd zsh)"
