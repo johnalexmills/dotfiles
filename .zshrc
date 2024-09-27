@@ -9,6 +9,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 alias lg='lazygit'
 alias rmo='sudo pacman -Rs $(pacman -Qqtd)'
+alias ivn='nvim $(fzf -m --preview="bat --color=always {}")'
 source $ZSH/oh-my-zsh.sh
 
 eval "$(zoxide init --cmd cd zsh)"

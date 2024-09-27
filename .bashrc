@@ -60,5 +60,7 @@ alias grep='grep --color=auto'
 
 alias lg="lazygit"
 
+alias ivn='nvim $(fzf -m --preview="bat --color=always {}")'
+
 eval "$(zoxide init --cmd cd bash)"
 eval "$(starship init bash)"
