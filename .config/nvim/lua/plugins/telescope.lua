@@ -25,6 +25,13 @@ return {
           "--hidden",
           "--glob=!.git/",
         },
+        file_ignore_patterns = {
+            -- List of patterns to ignore, e.g., node_modules, .cache, .git
+            ".git/*",
+            "node_modules/*",
+            "*.swp",
+            "*.swo"
+        },
         git_files = {
           hidden = true,
           previewer = false,
