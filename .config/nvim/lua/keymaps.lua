@@ -48,7 +48,7 @@ local mappings = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     "Buffers",
   },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+  ["e"] = { "<CMD>Oil<CR>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["x"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
@@ -66,12 +66,6 @@ local mappings = {
     l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
     r = { "Go to reference" },
     d = { "Go to definition" },
-  },
-
-  h = {
-    name = "Harpoon",
-    a = "Append to list",
-    r = "Remove from list",
   },
 
   l = {
