@@ -80,6 +80,6 @@ return {
   event = "VeryLazy",
   config = function()
     require("which-key").setup { setup }
-    require("which-key").register(keymaps, opts)
+    require("which-key").add(keymaps)
   end,
 }
