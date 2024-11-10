@@ -1,11 +1,13 @@
 return {
   "akinsho/bufferline.nvim",
-  event = { "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
-  version = "*",
   dependencies = "nvim-tree/nvim-web-devicons",
-  require("bufferline").setup {
-    options = {
-      separator_style = "slant",
-    },
-  },
+  event = { "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
+  config = function()
+    require("bufferline").setup {
+      options = {
+        separator_style = "slope",
+        diagnostics = "nvim_lsp",
+      },
+    }
+  end,
 }
