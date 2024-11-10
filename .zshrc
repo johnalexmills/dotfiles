@@ -14,3 +14,4 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"

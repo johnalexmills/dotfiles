@@ -1,93 +1,74 @@
+-- Set lualine as statusline
 return {
-  "nvim-lualine/lualine.nvim",
-  dependencies = { "nvim-lua/lsp-status.nvim" },
-  event = { "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
+  'nvim-lualine/lualine.nvim',
+    event = { "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
   config = function()
-    -- local config = require "configs.lualine"
-    -- require("lualine").setup(config)
-    local status_ok, lualine = pcall(require, "lualine")
-    if not status_ok then
-      return
-    end
-
-    local hide_in_width = function()
-      return vim.fn.winwidth(0) > 80
-    end
-
-    local diagnostics = {
-      "diagnostics",
-      sources = { "nvim_diagnostic" },
-      sections = { "error", "warn" },
-      symbols = { error = " ", warn = " " },
-      colored = false,
-      always_visible = true,
-    }
-
-    local lsp_info = {
-      function()
-        local msg = "No Active Lsp"
-        local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-        local clients = vim.lsp.get_active_clients()
-        if next(clients) == nil then
-          return msg
-        end
-        for _, client in ipairs(clients) do
-          local filetypes = client.config.filetypes
-          if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return client.name
-          end
-        end
-        return msg
+    local mode = {
+      'mode',
+      fmt = function(str)
+        -- return ' ' .. str:sub(1, 1) -- displays only the first character of the mode
+        return ' ' .. str
       end,
-      icon = { " LSP:" },
-      color = { { fg = "#ffffff", gui = "bold" } },
-    }
-
-    local diff = {
-      "diff",
-      colored = false,
-      symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-      cond = hide_in_width,
-    }
-
-    local filetype = {
-      "filetype",
-      icons_enabled = true,
     }
 
     local filename = {
-      "filename",
-      icons_enabled = false,
+      'filename',
+      file_status = true, -- displays file status (readonly status, modified status)
+      path = 0,           -- 0 = just filename, 1 = relative path, 2 = absolute path
     }
 
-    local location = {
-      "location",
-      padding = 0,
-    }
-
-    local spaces = function()
-      return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+    local hide_in_width = function()
+      return vim.fn.winwidth(0) > 100
     end
 
-    lualine.setup {
-      extensions = { "toggleterm" },
+    local diagnostics = {
+      'diagnostics',
+      sources = { 'nvim_diagnostic' },
+      sections = { 'error', 'warn' },
+      symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+      colored = false,
+      update_in_insert = false,
+      always_visible = false,
+      cond = hide_in_width,
+    }
+
+    local diff = {
+      'diff',
+      colored = false,
+      symbols = { added = ' ', modified = ' ', removed = ' ' }, -- changes diff symbols
+      cond = hide_in_width,
+    }
+
+    require('lualine').setup {
       options = {
-        globalstatus = true,
         icons_enabled = true,
-        theme = "auto",
-        component_separators = { left = "", right = "" },
-        section_separators = { left = "", right = "" },
-        disabled_filetypes = { "alpha", "dashboard" },
+        theme = "catppuccin", -- Set theme based on environment variable
+        -- Some useful glyphs:
+        -- https://www.nerdfonts.com/cheat-sheet
+        --        
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
+        disabled_filetypes = { 'alpha', 'neo-tree', 'Avante' },
         always_divide_middle = true,
       },
       sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "branch", "buffers" },
-        lualine_c = { { "copilot", show_colors = true }, lsp_info, diagnostics },
-        lualine_x = { "searchcount", "selectioncount", diff, spaces, "encoding", "filesize", filename, filetype },
-        lualine_y = { location },
-        lualine_z = { "progress" },
+        lualine_a = { mode },
+        lualine_b = { 'branch' },
+        lualine_c = { filename },
+        lualine_x = { diagnostics, diff, { 'encoding', cond = hide_in_width }, { 'filetype', cond = hide_in_width } },
+        lualine_y = { 'location' },
+        lualine_z = { 'progress' },
       },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { { 'filename', path = 1 } },
+        lualine_x = { { 'location', padding = 0 } },
+        lualine_y = {},
+        lualine_z = {},
+      },
+      tabline = {},
+      extensions = { 'fugitive' },
     }
   end,
 }
