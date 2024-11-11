@@ -1,3 +1,4 @@
+-- allows "q" to close man and help pages.
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
   callback = function()
@@ -15,8 +16,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.spell = true
   end,
 })
--- Automatically close tab/vim when nvim-tree is the last window in the tab
-vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
@@ -24,6 +23,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   end,
 })
 
+-- highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
     vim.highlight.on_yank { higroup = "Visual", timeout = 200 }

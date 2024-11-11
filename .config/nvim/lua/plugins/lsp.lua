@@ -66,6 +66,7 @@ return {
         settings = {
           Lua = {
             diagnostics = {
+              -- handles the vim missing error message
               globals = { "ConfigMode", "vim" },
             },
           },
