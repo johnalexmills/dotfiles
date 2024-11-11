@@ -7,6 +7,10 @@ return {
       "nvim-lua/plenary.nvim",
       "BurntSushi/ripgrep",
       "nvim-telescope/telescope-project.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+      },
     },
   },
   config = function()
@@ -26,22 +30,7 @@ return {
           "--glob=!.git/",
         },
         file_ignore_patterns = {
-            -- List of patterns to ignore, e.g., node_modules, .cache, .git
-            ".git/*",
-            "node_modules/*",
-            "*.swp",
-            "*.swo"
-        },
-        git_files = {
-          hidden = true,
-          previewer = false,
-          layout_config = {
-            horizontal = {
-              width = 0.5,
-              height = 0.4,
-              preview_width = 0.6,
-            },
-          },
+          ".git/*" -- ignore the git folder
         },
         live_grep = {
           --@usage don't include the filename in the search results
@@ -78,20 +67,8 @@ return {
           theme = "dropdown",
           order_by = "asc",
           search_by = "title",
-          sync_with_nvim_tree = true, -- default false
         },
       },
     }
-    local M = {}
-
-    M.project_files = function()
-      local opts = {}
-      local ok = pcall(require("telescope.builtin").git_files, opts)
-      if not ok then
-        require("telescope.builtin").find_files(opts)
-      end
-    end
-
-    return M
   end,
 }
