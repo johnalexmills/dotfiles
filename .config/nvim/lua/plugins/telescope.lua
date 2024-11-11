@@ -17,6 +17,14 @@ return {
     local actions = require "telescope.actions"
     local telescope = require "telescope"
     telescope.setup {
+      pickers = {
+        find_files = {
+          hidden = true,
+          file_ignore_patterns = {
+            ".git/*", -- ignore the git folder
+          },
+        },
+      },
       defaults = {
         vimgrep_arguments = {
           "rg",
@@ -28,9 +36,6 @@ return {
           "--smart-case",
           "--hidden",
           "--glob=!.git/",
-        },
-        file_ignore_patterns = {
-          ".git/*" -- ignore the git folder
         },
         live_grep = {
           --@usage don't include the filename in the search results
