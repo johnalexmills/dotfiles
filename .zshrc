@@ -12,6 +12,5 @@ alias rmo='sudo pacman -Rs $(pacman -Qqtd)'
 alias ivn='nvim $(fzf -m --preview="bat --color=always {}")'
 source $ZSH/oh-my-zsh.sh
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
