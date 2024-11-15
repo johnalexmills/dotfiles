@@ -1,3 +1,1 @@
-return {'famiu/bufdelete.nvim',
-    event = "VimEnter",
-}
+return { "famiu/bufdelete.nvim", event = "VimEnter" }
