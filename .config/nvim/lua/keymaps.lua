@@ -51,7 +51,7 @@ local mappings = {
     { "<leader>f", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", desc = "Find files", nowait = true, remap = false },
     { "<leader>g", group = "Git", nowait = true, remap = false },
     { "<leader>gd", desc = "Go to definition", nowait = true, remap = false },
-    { "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", desc = "Lazygit", nowait = true, remap = false },
+    { "<leader>gg", "<cmd>Neogit<CR>", desc = "Neogit", nowait = true, remap = false },
     { "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame", nowait = true, remap = false },
     { "<leader>gr", desc = "Go to reference", nowait = true, remap = false },
     { "<leader>l", group = "LSP", nowait = true, remap = false },

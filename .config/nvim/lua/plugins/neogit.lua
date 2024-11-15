@@ -8,7 +8,7 @@ return {
     -- Only one of these is needed.
     "nvim-telescope/telescope.nvim", -- optional
   },
-    event = { "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
+    lazy = false,
   config = function()
     require('lualine').setup {}
     end
