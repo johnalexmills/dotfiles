@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export PATH=/opt/homebrew/bin:$PATH
 
 # set theme of syntax zsh-syntax-highlighting
 source ~/.oh-my-zsh/custom/themes/catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
