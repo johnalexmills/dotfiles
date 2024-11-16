@@ -26,7 +26,7 @@ return {
       sources = { "nvim_diagnostic" },
       sections = { "error", "warn" },
       symbols = { error = " ", warn = " ", info = " ", hint = " " },
-      colored = false,
+      colored = true,
       update_in_insert = false,
       always_visible = false,
       cond = hide_in_width,
@@ -48,12 +48,11 @@ return {
         return msg
       end,
       icon = { " LSP:" },
-      color = { { fg = "#ffffff", gui = "bold" } },
     }
 
     local diff = {
       "diff",
-      colored = false,
+      colored = true,
       symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
       cond = hide_in_width,
     }
@@ -61,7 +60,7 @@ return {
     require("lualine").setup {
       options = {
         icons_enabled = true,
-        theme = "catppuccin", -- Set theme based on environment variable
+        theme = "auto", -- Set theme based on environment variable
         -- Some useful glyphs:
         -- https://www.nerdfonts.com/cheat-sheet
         --        
@@ -78,8 +77,8 @@ return {
           lsp_info,
           diagnostics,
           diff,
-          { "encoding", cond = hide_in_width },
-          { "filetype", cond = hide_in_width },
+          { "encoding", colored = true, cond = hide_in_width },
+          { "filetype", colored = true, cond = hide_in_width },
         },
         lualine_y = { "location" },
         lualine_z = { "progress" },
