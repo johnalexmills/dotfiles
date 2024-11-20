@@ -90,12 +90,5 @@ local mappings = {
     { "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical", nowait = true, remap = false },
     { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
     { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
-    { "<leader>d", group = "Debug" },
-    { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc = "Toggle Breakpoint", nowait = true, remap = false },
-    { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue/Launch", nowait = true, remap = false },
-    { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue", nowait = true, remap = false },
-    { "<leader>dd", "<cmd>lua require('dapui').toggle()<cr>", desc = "Toggle Debug", nowait = true, remap = false },
-    { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue", nowait = true, remap = false },
-    { "<leader>dd", "<cmd>lua require('dapui').toggle()<cr>", desc = "Toggle Debug", nowait = true, remap = false },
   }
 return mappings
