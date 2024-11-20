@@ -1,4 +1,4 @@
--- return {
+ return {
 --   {
 --     "zbirenbaum/copilot.lua",
 --     cmd = "Copilot",
@@ -57,4 +57,4 @@
 --   {
 --     "AndreM222/copilot-lualine",
 --   },
--- }
+ }
