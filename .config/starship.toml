@@ -22,7 +22,7 @@ $python\
 [](fg:teal bg:blue)\
 $docker_context\
 [](fg:blue bg:purple)\
-$time\
+$cmd_duration\
 [ ](fg:purple)\
 $line_break$character"""
 
@@ -175,7 +175,7 @@ format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
 min_time = 1
 disabled = false
 style = "bg:peach"
-format = '[[  $cmd_duration ](fg:mantle bg:purple)]($style)'
+format = '[[  $duration ](fg:mantle bg:purple)]($style)'
 
 [line_break]
 disabled = false
