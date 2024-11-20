@@ -8,7 +8,5 @@ return {
     "nvim-telescope/telescope.nvim", -- optional
   },
   lazy = false,
-  config = function()
-    require("lualine").setup {}
-  end,
+  config = true
 }
