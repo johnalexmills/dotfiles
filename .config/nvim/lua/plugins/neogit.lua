@@ -8,5 +8,13 @@ return {
     "nvim-telescope/telescope.nvim", -- optional
   },
   lazy = false,
-  config = true
+  config = function()
+        require("neogit").setup{
+            auto_close_console = false,
+            integrations = {
+                telescope = true,
+                diffview = true
+            }
+        }
+    end
 }
