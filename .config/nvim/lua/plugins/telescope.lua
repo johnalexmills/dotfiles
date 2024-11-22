@@ -6,7 +6,6 @@ return {
     {
       "nvim-lua/plenary.nvim",
       "BurntSushi/ripgrep",
-      "nvim-telescope/telescope-project.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
@@ -19,10 +18,7 @@ return {
     telescope.setup {
       pickers = {
         find_files = {
-          hidden = true,
-          file_ignore_patterns = {
-            ".git/*", -- ignore the git folder
-          },
+          hidden = true
         },
       },
       defaults = {
@@ -63,15 +59,6 @@ return {
           override_generic_sorter = true, -- override the generic sorter
           override_file_sorter = true, -- override the file sorter
           case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-        },
-        project = {
-          base_dirs = {
-            "~/git-projects/",
-          },
-          hidden_files = true, -- default: false
-          theme = "dropdown",
-          order_by = "asc",
-          search_by = "title",
         },
       },
     }
