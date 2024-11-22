@@ -7,7 +7,11 @@ return {
     -- Only one of these is needed.
     "nvim-telescope/telescope.nvim", -- optional
   },
+<<<<<<< ours
   lazy = false,
+=======
+    event = { "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
+>>>>>>> theirs
   config = function()
         require("neogit").setup{
             auto_close_console = false,
