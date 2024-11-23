@@ -44,7 +44,6 @@ keymap("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(v
 
 local mappings = {
     { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
-    { "<leader>P", "<cmd>lua require('telescope').extensions.project.project()<cr>", desc = "Projects", nowait = true, remap = false },
     { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
     { "<leader>b", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", desc = "Buffers", nowait = true, remap = false },
     { "<leader>e", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
@@ -52,7 +51,6 @@ local mappings = {
     { "<leader>g", group = "Git", nowait = true, remap = false },
     { "<leader>gd", desc = "Go to definition", nowait = true, remap = false },
     { "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", desc = "Lazygit", nowait = true, remap = false },
-    { "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame", nowait = true, remap = false },
     { "<leader>gr", desc = "Go to reference", nowait = true, remap = false },
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     { "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document Diagnostics", nowait = true, remap = false },
