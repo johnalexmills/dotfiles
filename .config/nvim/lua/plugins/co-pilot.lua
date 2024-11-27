@@ -11,23 +11,9 @@
       require("copilot").setup {
         panel = {
           enabled = false,
-          keymap = {
-            jump_next = "<c-j>",
-            jump_prev = "<c-k>",
-            accept = "<c-l>",
-            refresh = "r",
-            open = "<M-CR>",
-          },
         },
         suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          keymap = {
-            accept = "<c-l>",
-            next = "<c-j>",
-            prev = "<c-k>",
-            dismiss = "<c-h>",
-          },
+          enabled = false,
         },
         filetypes = {
           markdown = true,
