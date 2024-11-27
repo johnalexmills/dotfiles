@@ -36,10 +36,14 @@ return {
     {
       "hrsh7th/cmp-nvim-lua",
     },
+    {
+      "onsails/lspkind.nvim",
+    },
   },
   config = function()
     local cmp = require "cmp"
     local luasnip = require "luasnip"
+    local lspkind = require "lspkind"
     require("luasnip/loaders/from_vscode").lazy_load()
 
     vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
@@ -104,6 +108,19 @@ return {
       },
       formatting = {
         fields = { "kind", "abbr", "menu" },
+        format = lspkind.cmp_format {
+          mode = "symbol_text",
+          max_width = {
+            menu = 50,
+            abbr = 50,
+          },
+          ellipsis_char = "...",
+          show_labelDetails = true,
+          before = function(_, vim_item)
+            return vim_item
+          end,
+          symbol_map = { Copilot = "" },
+        },
       },
       sources = {
         { name = "copilot", group_index = 2 },

@@ -13,7 +13,7 @@
           enabled = false,
         },
         suggestion = {
-          enabled = false,
+        enabled = true,
         },
         filetypes = {
           markdown = true,
