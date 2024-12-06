@@ -43,6 +43,8 @@ keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.curren
 keymap("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
 
 local mappings = {
+    { "<leader>c", "<cmd>lua require('smear_cursor').toggle()<cr>", desc = "Smear Cursor", nowait = true, remap = false },
+    { "<leader>C", "<cmd>Copilot enable<cr>", desc = "Copilot", nowait = true, remap = false },
     { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
     { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
     { "<leader>b", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", desc = "Buffers", nowait = true, remap = false },
