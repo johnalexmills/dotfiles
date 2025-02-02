@@ -4,7 +4,7 @@ return {
   config = function()
     require("toggleterm").setup {
       size = 20,
-      open_mapping = [[<a-\>]],
+      open_mapping = [[<c-\>]],
       hide_numbers = true,
       start_in_insert = true,
       insert_mappings = true,
