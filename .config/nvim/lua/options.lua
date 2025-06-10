@@ -66,6 +66,7 @@ vim.opt.formatoptions:remove { "c", "r", "o" } -- This is a sequence of letters 
 
 -- checks OS and sets terminal accordingly. Needed for Windows since gitbash is used.
 if vim.fn.has "win32" ~= 0 then
+  vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
   vim.o.shell = "bash.exe"
   vim.o.shellcmdflag = "-c"
   vim.o.shellredir = ">%s 2>&1"
