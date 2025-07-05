@@ -54,6 +54,7 @@ return {
   {
     "AndreM222/copilot-lualine",
   },
+
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     cmd = { "CopilotChat", "CopilotChatToggle" },
