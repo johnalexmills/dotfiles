@@ -81,5 +81,12 @@ local mappings = {
     { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", nowait = true, remap = false },
     { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
     { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
+    { "<leader>t", group = "Trouble", nowait = true, remap = false },
+    { "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Trouble Diagnostics", nowait = true, remap = false },
+    { "<leader>ts", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Toggle Trouble Symbols", nowait = true, remap = false },
+    { "<leader>tq", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Toggle Trouble Buffer Diagnostics", nowait = true, remap = false },
+    { "<leader>tL", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions / references", nowait = true, remap = false },
+    { "<leader>tl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List", nowait = true, remap = false },
+    { "<leader>tQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List", nowait = true, remap = false },
   }
 return mappings
