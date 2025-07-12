@@ -19,6 +19,12 @@ return {
       pickers = {
         find_files = {
           hidden = true,
+          file_ignore_patterns = {
+            "%.git/", -- Ignore .git directory
+            "%.git$", -- Ignore .git files
+            "node_modules/", -- You might want to ignore these too
+            "%.DS_Store$", -- macOS system files
+          },
         },
       },
       defaults = {
