@@ -26,4 +26,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Go 
 export PATH=$PATH:$HOME/go/bin
 
+<<<<<<< Updated upstream
 alias claude="/Users/alexmills/.claude/local/claude"
+=======
+alias claude="/home/phantom/.claude/local/claude"
+>>>>>>> Stashed changes
