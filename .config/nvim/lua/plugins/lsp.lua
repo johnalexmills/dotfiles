@@ -56,13 +56,16 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      local lspconfig = require "lspconfig"
-      lspconfig.pyright.setup {
+      -- Configure LSP servers using Neovim 0.11+ native config
+      vim.lsp.config.pyright = {
         capabilities = capabilities,
         filetypes = { "python" },
+        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
       }
-      lspconfig.lua_ls.setup {
+
+      vim.lsp.config.lua_ls = {
         capabilities = capabilities,
+        root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
         settings = {
           Lua = {
             diagnostics = {
@@ -72,15 +75,28 @@ return {
           },
         },
       }
-      lspconfig.bashls.setup {
+
+      vim.lsp.config.bashls = {
         capabilities = capabilities,
+        filetypes = { "sh", "bash" },
+        root_markers = { ".git" },
       }
-      lspconfig.terraformls.setup {
+
+      vim.lsp.config.terraformls = {
         capabilities = capabilities,
+        filetypes = { "terraform", "tf" },
+        root_markers = { ".terraform", ".git" },
       }
-      lspconfig.gdscript.setup {
+
+      vim.lsp.config.gdscript = {
         capabilities = capabilities,
+        filetypes = { "gdscript" },
+        root_markers = { "project.godot", ".git" },
       }
+
+      -- Enable all configured LSP servers
+      vim.lsp.enable({ "pyright", "lua_ls", "bashls", "terraformls", "gdscript" })
+
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd("LspAttach", {
