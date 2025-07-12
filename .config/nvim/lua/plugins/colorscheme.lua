@@ -11,11 +11,11 @@ return {
         cmp = true,
         gitsigns = true,
         treesitter = true,
-        diffview = false,
+        diffview = true,
         neogit = true,
         dap = true,
         dap_ui = true,
-        which_key = false,
+        which_key = true,
         telescope = { enabled = true },
         illuminate = { enabled = true, lsp = false },
         native_lsp = {
