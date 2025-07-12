@@ -10,10 +10,10 @@ return {
     config = function()
       require("copilot").setup {
         panel = {
-          enabled = false,
+          enabled = true,
         },
         suggestion = {
-          enabled = true,
+          enabled = false,
           auto_trigger = true,
           hide_during_completion = true,
           debounce = 75,
