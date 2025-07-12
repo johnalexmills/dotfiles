@@ -25,3 +25,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Go 
 export PATH=$PATH:$HOME/go/bin
+
+alias claude="/Users/alexmills/.claude/local/claude"
