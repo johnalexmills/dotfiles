@@ -74,7 +74,6 @@ return {
         lualine_b = { "branch" },
         lualine_c = {
           filename,
-          { "copilot", show_colors = true },
           {
             require("noice").api.status.message.get_hl,
             cond = require("noice").api.status.message.has,
@@ -96,6 +95,7 @@ return {
           },
         },
         lualine_x = {
+          { "copilot", show_colors = true },
           lsp_info,
           diagnostics,
           diff,
