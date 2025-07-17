@@ -48,7 +48,7 @@ local mappings = {
     { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
     -- { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
     { "<leader>b", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Buffers", nowait = true, remap = false },
-    { "<leader>e", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
+    { "-", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
     { "<leader>f", "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find files", nowait = true, remap = false },
     { "<leader>g", group = "Git", nowait = true, remap = false },
     { "<leader>gd", desc = "Go to definition", nowait = true, remap = false },
