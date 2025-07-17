@@ -26,4 +26,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Go 
 export PATH=$PATH:$HOME/go/bin
 
-alias claude="/Users/alexmills/.claude/local/claude"
+# Claude CLI alias - OS dependent
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias claude="/Users/alexmills/.claude/local/claude"
+else
+    alias claude="/home/phantom/.claude/local/claude"
+fi
