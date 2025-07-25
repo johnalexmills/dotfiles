@@ -65,7 +65,16 @@ return {
 
       vim.lsp.config.lua_ls = {
         capabilities = capabilities,
-        root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
+        root_markers = {
+          ".luarc.json",
+          ".luarc.jsonc",
+          ".luacheckrc",
+          ".stylua.toml",
+          "stylua.toml",
+          "selene.toml",
+          "selene.yml",
+          ".git",
+        },
         settings = {
           Lua = {
             diagnostics = {
@@ -95,7 +104,7 @@ return {
       }
 
       -- Enable all configured LSP servers
-      vim.lsp.enable({ "pyright", "lua_ls", "bashls", "terraformls", "gdscript" })
+      vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript" }
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
