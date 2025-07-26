@@ -1,7 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("mason").setup {
         ui = {
@@ -17,7 +17,7 @@ return {
 
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       require("mason-tool-installer").setup {
         ensure_installed = {
@@ -38,7 +38,7 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       auto_install = true,
       ensure_installed = {
@@ -52,7 +52,8 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
