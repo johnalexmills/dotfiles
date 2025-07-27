@@ -107,20 +107,32 @@ return {
       -- Enable all configured LSP servers
       vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript" }
 
+      -- Enable inlay hints globally
+      vim.lsp.inlay_hint.enable(true)
+
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
+          -- Enable semantic tokens if supported
+          if client and client.server_capabilities.semanticTokensProvider then
+            vim.lsp.semantic_tokens.start(ev.buf, client.id)
+          end
+
           -- Buffer local mappings.
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "<leader>lh", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
         end,
       })
     end,

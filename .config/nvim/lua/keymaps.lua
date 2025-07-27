@@ -9,11 +9,11 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Normal --
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+-- Better window navigation (handled by smart-splits plugin)
+-- keymap("n", "<C-h>", "<C-w>h", opts)
+-- keymap("n", "<C-j>", "<C-w>j", opts)
+-- keymap("n", "<C-k>", "<C-w>k", opts)
+-- keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -39,8 +39,8 @@ keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Comment
-keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
+keymap("n", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
+keymap("x", "<C-/>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
 
 local mappings = {
   { "<leader>c", "<cmd>CopilotChat<cr>", desc = "CopilotChat", nowait = true, remap = false },
@@ -105,6 +105,13 @@ local mappings = {
   { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", nowait = true, remap = false },
   { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
   { "<leader>n", "<cmd>nohlsearch<CR>", desc = "No Highlight", nowait = true, remap = false },
+  { "<leader>/", function()
+    if vim.v.hlsearch == 1 then
+      vim.cmd("nohlsearch")
+    else
+      vim.cmd("set hlsearch")
+    end
+  end, desc = "Toggle Search Highlight", nowait = true, remap = false },
   { "<leader>q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
   { "<leader>s", group = "Search", nowait = true, remap = false },
   { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands", nowait = true, remap = false },

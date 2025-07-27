@@ -11,6 +11,7 @@ local options = {
   fileencoding = "utf-8", -- the encoding written to a file
   hlsearch = true, -- highlight all matches on previous search pattern
   incsearch = true, -- show search matches incrementally
+  wrapscan = true, -- searches wrap around the end of the file
   ignorecase = true, -- ignore case in search patterns
   mouse = "a", -- allow the mouse to be used in neovim
   pumheight = 10, -- pop up menu height
@@ -38,8 +39,11 @@ local options = {
   signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
   wrap = false, -- display lines as one long line
   sidescrolloff = 8,
-  foldmethod = "syntax",
+  foldmethod = "expr",
+  foldexpr = "v:lua.vim.treesitter.foldexpr()",
+  foldtext = "",
   foldlevelstart = 99,
+  foldnestmax = 4,
   guifont = "JetBrainsMono Nerd Font:h17",
   errorbells = false, -- no error bells
   -- guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175",
@@ -63,6 +67,34 @@ if package.config:sub(1, 1) == "\\" then
   vim.cmd ":set shell=cmd.exe"
 end
 vim.opt.formatoptions:remove { "c", "r", "o" } -- This is a sequence of letters which describes how automatic formatting is to be done
+
+-- Enhanced diagnostics
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    source = "if_many",
+    spacing = 2,
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "✘",
+      [vim.diagnostic.severity.WARN] = "▲",
+      [vim.diagnostic.severity.HINT] = "⚑",
+      [vim.diagnostic.severity.INFO] = "»",
+    },
+  },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})
 
 -- checks OS and sets terminal accordingly. Needed for Windows since gitbash is used.
 if vim.fn.has "win32" ~= 0 then
