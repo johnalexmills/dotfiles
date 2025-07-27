@@ -31,7 +31,7 @@ return {
           "ruff",
           "markdownlint",
         },
-        run_on_start = true,
+        run_on_start = false,
       }
     end,
   },

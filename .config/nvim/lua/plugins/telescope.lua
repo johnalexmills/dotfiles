@@ -30,6 +30,13 @@ return {
                         "%.git$", -- Ignore .git files
                         "node_modules/", -- You might want to ignore these too
                         "%.DS_Store$", -- macOS system files
+                        "%.cache/", -- Cache directories
+                        "%.npm/", -- npm cache
+                        "%.venv/", -- Python virtual environments
+                        "__pycache__/", -- Python cache
+                        "%.pyc$", -- Python compiled files
+                        "%.tmp$", -- Temporary files
+                        "%.swp$", -- Vim swap files
                     },
                 },
             },

@@ -61,7 +61,6 @@ end
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 if package.config:sub(1, 1) == "\\" then
   vim.cmd ":set shell=cmd.exe"
