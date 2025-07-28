@@ -11,11 +11,6 @@ return {
         {
             "nvim-lua/plenary.nvim",
             "BurntSushi/ripgrep",
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make",
-            },
-            "nvim-telescope/telescope-file-browser.nvim",
         },
     },
     config = function()
@@ -72,20 +67,6 @@ return {
                     },
                 },
             },
-            extensions = {
-                fzf = {
-                    fuzzy = true, -- false will only do exact matching
-                    override_generic_sorter = true, -- override the generic sorter
-                    override_file_sorter = true, -- override the file sorter
-                    case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-                },
-                file_browser = {
-                    theme = "ivy",
-                    hijack_netrw = true,
-                },
-            },
         }
-        telescope.load_extension("fzf")
-        telescope.load_extension("file_browser")
     end,
 }
