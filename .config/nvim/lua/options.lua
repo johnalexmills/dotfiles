@@ -1,7 +1,6 @@
 local options = {
   backup = false, -- creates a backup file
   exrc = true, -- enable .exrc files
-  hidden = true, -- enable modified buffers in background
   nu = true, -- enable line numbers
   undofile = true, -- enable persistent undo
   clipboard = "unnamedplus", -- allows neovim to access the system clipboard
