@@ -83,8 +83,15 @@ return {
       list_opener = "copen",
     },
   },
-  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  build = "make",
+  -- Cross-platform build configuration for Windows compatibility
+  build = function()
+    if vim.fn.has("win32") == 1 then
+      -- Windows: Use powershell or ensure make is available via Git Bash/WSL
+      return "powershell -Command \"if (Get-Command make -ErrorAction SilentlyContinue) { make } else { Write-Host 'Please install make via Git Bash, WSL, or chocolatey: choco install make' }\""
+    else
+      return "make"
+    end
+  end,
   dependencies = {
     "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",

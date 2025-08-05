@@ -55,23 +55,4 @@ return {
     "AndreM222/copilot-lualine",
   },
 
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    cmd = { "CopilotChat", "CopilotChatToggle" },
-    dependencies = {
-      { "nvim-lua/plenary.nvim", branch = "master" },
-      { "zbirenbaum/copilot.lua" },
-    },
-    config = function()
-      require("CopilotChat").setup {
-        commands = {
-          open = {
-            function()
-              require("CopilotChat.ui").open()
-            end,
-          },
-        },
-      }
-    end,
-  },
 }

@@ -43,7 +43,7 @@ keymap("n", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<
 keymap("x", "<C-/>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
 
 local mappings = {
-  { "<leader>c", "<cmd>CopilotChat<cr>", desc = "CopilotChat", nowait = true, remap = false },
+  { "<leader>c", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
   { "<leader>C", "<cmd>Copilot enable<cr>", desc = "Copilot", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
   -- { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
