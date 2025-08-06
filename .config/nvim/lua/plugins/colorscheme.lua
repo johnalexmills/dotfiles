@@ -7,6 +7,8 @@ return {
     require("catppuccin").setup {
       flavour = "mocha",
       -- transparent_background = true,
+      term_colors = true,
+      compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       integrations = {
         cmp = true,
         gitsigns = true,
@@ -18,6 +20,8 @@ return {
         which_key = true,
         telescope = { enabled = true },
         illuminate = { enabled = true, lsp = false },
+        noice = true,
+        notify = true,
         native_lsp = {
           enabled = true,
           virtual_text = {
