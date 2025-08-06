@@ -125,7 +125,12 @@ local mappings = {
   { "<leader>sf", "<cmd>Telescope file_browser<cr>", desc = "File Browser", nowait = true, remap = false },
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
-  { "<leader>t", group = "Trouble", nowait = true, remap = false },
+  { "<leader>t", group = "Terminal/Trouble", nowait = true, remap = false },
+  -- Terminal keymaps
+  { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal", nowait = true, remap = false },
+  { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Vertical Terminal", nowait = true, remap = false },
+  { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal", nowait = true, remap = false },
+  -- Trouble keymaps
   {
     "<leader>tt",
     "<cmd>Trouble diagnostics toggle<cr>",

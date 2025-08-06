@@ -3,7 +3,14 @@ return {
   event = "VeryLazy",
   config = function()
     require("toggleterm").setup {
-      size = 20,
+      size = function(term)
+        if term.direction == "horizontal" then
+          return 15
+        elseif term.direction == "vertical" then
+          return vim.o.columns * 0.4
+        end
+        return 20
+      end,
       open_mapping = [[<c-\>]],
       hide_numbers = true,
       start_in_insert = true,
@@ -14,6 +21,8 @@ return {
       shell = vim.o.shell,
       float_opts = {
         border = "curved",
+        width = math.floor(vim.o.columns * 0.8),
+        height = math.floor(vim.o.lines * 0.8),
       },
     }
   end,
