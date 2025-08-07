@@ -64,6 +64,8 @@ return {
     },
     config = function()
       require("CopilotChat").setup {
+        model = 'claude-sonnet-4',
+        provider = 'copilot'
         commands = {
           open = {
             function()
