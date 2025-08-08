@@ -38,11 +38,18 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
+-- CodeCompanion
+keymap("v", "ga", "<cmd>CodeCompanionAdd<cr>", opts)
+
 -- Comment
 keymap("n", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("x", "<C-/>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
 
 local mappings = {
+  { "<leader>a", group = "AI Assistant", nowait = true, remap = false },
+  { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "AI Actions", nowait = true, remap = false },
+  { "<leader>at", "<cmd>CodeCompanion<cr>", desc = "Toggle AI Chat", nowait = true, remap = false },
+  { "<leader>ac", "<cmd>CodeCompanionChat<cr>", desc = "AI Chat", nowait = true, remap = false },
   { "<leader>c", "<cmd>CopilotChat<cr>", desc = "CopilotChat", nowait = true, remap = false },
   { "<leader>C", "<cmd>Copilot enable<cr>", desc = "Copilot", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
