@@ -51,12 +51,7 @@ return {
       filter = vim.log.levels.INFO,
       history_size = 128,
       override_vim_notify = false,
-      configs = { default = require("fidget.notification").default_config },
-      redirect = function(msg, level, opts)
-        if opts and opts.on_open then
-          return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-        end
-      end,
+      configs = { default = {} },
       view = {
         stack_upwards = true,
         icon_separator = " ",
