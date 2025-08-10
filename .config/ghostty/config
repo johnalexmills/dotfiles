@@ -1,3 +1,4 @@
 theme = catppuccin-mocha
 font-family = "JetBrainsMono NF"
 keybind = shift+enter=text:\n
+macos-option-as-alt = false

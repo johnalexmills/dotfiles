@@ -1,17 +1,12 @@
 return {
+  -- Main Copilot plugin
   {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
     event = { "InsertEnter", "LspAttach" },
-    dependencies = {
-      "zbirenbaum/copilot-cmp",
-    },
-
+    dependencies = { "zbirenbaum/copilot-cmp" },
     config = function()
       require("copilot").setup {
-        panel = {
-          enabled = true,
-        },
+        panel = { enabled = true },
         suggestion = {
           enabled = false,
           auto_trigger = true,
@@ -36,42 +31,39 @@ return {
           cvs = false,
           ["."] = false,
         },
-        copilot_node_command = "node",
+        copilot_node_command = vim.env.COPILOT_NODE_CMD or "node",
       }
     end,
   },
 
+  -- Copilot completion source for nvim-cmp
   {
     "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
     event = { "InsertEnter", "LspAttach" },
-    fix_pairs = true,
     config = function()
       require("copilot_cmp").setup()
     end,
   },
 
-  {
-    "AndreM222/copilot-lualine",
-  },
+  -- Copilot status for lualine
+  { "AndreM222/copilot-lualine" },
 
+  -- CopilotChat integration
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     cmd = { "CopilotChat", "CopilotChatToggle" },
     dependencies = {
-      { "nvim-lua/plenary.nvim", branch = "master" },
+      { "nvim-lua/plenary.nvim" },
       { "zbirenbaum/copilot.lua" },
     },
     config = function()
       require("CopilotChat").setup {
-        model = 'claude-sonnet-4',
+        model = 'gpt-4.1',
         provider = 'copilot',
         commands = {
-          open = {
-            function()
-              require("CopilotChat.ui").open()
-            end,
-          },
+          open = function()
+            require("CopilotChat.ui").open()
+          end,
         },
       }
     end,
