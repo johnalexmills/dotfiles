@@ -6,18 +6,28 @@ return {
   config = function()
     require("catppuccin").setup {
       flavour = "mocha",
-      -- transparent_background = true,
+      transparent_background = true,
       term_colors = true,
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       integrations = {
         cmp = true,
         gitsigns = true,
         treesitter = true,
+<<<<<<< Updated upstream
 
         which_key = true,
         telescope = { enabled = true },
         illuminate = { enabled = true, lsp = false },
 
+=======
+        diffview = true,
+        dap = true,
+        dap_ui = true,
+        which_key = true,
+        telescope = { enabled = true },
+        illuminate = { enabled = true, lsp = false },
+        notify = true,
+>>>>>>> Stashed changes
         native_lsp = {
           enabled = true,
           virtual_text = {
