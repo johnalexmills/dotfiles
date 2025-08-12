@@ -34,6 +34,17 @@ return {
                         "%.swp$", -- Vim swap files
                     },
                 },
+                live_grep = {
+                    only_sort_text = true,
+                    previewer = true,
+                    layout_config = {
+                        horizontal = {
+                            width = 0.9,
+                            height = 0.75,
+                            preview_width = 0.6,
+                        },
+                    },
+                },
             },
             defaults = {
                 vimgrep_arguments = {
@@ -47,18 +58,7 @@ return {
                     "--hidden",
                     "--glob=!.git/",
                 },
-                live_grep = {
-                    --@usage don't include the filename in the search results
-                    only_sort_text = true,
-                    previewer = true,
-                    layout_config = {
-                        horizontal = {
-                            width = 0.9,
-                            height = 0.75,
-                            preview_width = 0.6,
-                        },
-                    },
-                },
+
                 mappings = {
                     i = {
                         ["<esc>"] = actions.close,

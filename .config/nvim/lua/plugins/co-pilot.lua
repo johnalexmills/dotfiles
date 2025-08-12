@@ -2,13 +2,13 @@ return {
   -- Main Copilot plugin
   {
     "zbirenbaum/copilot.lua",
-    event = { "InsertEnter", "LspAttach" },
+    event = "InsertEnter",
     dependencies = { "zbirenbaum/copilot-cmp" },
     config = function()
       require("copilot").setup {
         panel = { enabled = true },
         suggestion = {
-          enabled = false,
+          enabled = true,
           auto_trigger = true,
           hide_during_completion = true,
           debounce = 75,
@@ -39,7 +39,7 @@ return {
   -- Copilot completion source for nvim-cmp
   {
     "zbirenbaum/copilot-cmp",
-    event = { "InsertEnter", "LspAttach" },
+    event = "InsertEnter",
     config = function()
       require("copilot_cmp").setup()
     end,
@@ -58,7 +58,7 @@ return {
     },
     config = function()
       require("CopilotChat").setup {
-        model = 'gpt-4.1',
+        model = 'gpt-4o',
         provider = 'copilot',
         commands = {
           open = function()

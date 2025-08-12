@@ -14,11 +14,11 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize +2<CR>", opts)
+-- Resize with Alt+hjkl
+keymap("n", "<A-h>", ":vertical resize -2<CR>", opts)
+keymap("n", "<A-j>", ":resize +2<CR>", opts)
+keymap("n", "<A-k>", ":resize -2<CR>", opts)
+keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
 keymap("n", "<Tab>", ":bnext<CR>", opts)
@@ -45,10 +45,6 @@ keymap("n", "<C-'>", "<cmd>lua require('Comment.api').toggle.linewise.current()<
 keymap("x", "<C-'>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
 
 local mappings = {
-  { "<leader>a", group = "AI Assistant", nowait = true, remap = false },
-  { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "AI Actions", nowait = true, remap = false },
-  { "<leader>at", "<cmd>CodeCompanion<cr>", desc = "Toggle AI Chat", nowait = true, remap = false },
-  { "<leader>ac", "<cmd>CodeCompanionChat<cr>", desc = "AI Chat", nowait = true, remap = false },
   { "<leader>c", "<cmd>CopilotChat<cr>", desc = "CopilotChat", nowait = true, remap = false },
   { "<leader>C", "<cmd>Copilot enable<cr>", desc = "Copilot", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
@@ -167,5 +163,9 @@ local mappings = {
   },
   { "<leader>tl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List", nowait = true, remap = false },
   { "<leader>tQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List", nowait = true, remap = false },
+
+  -- Auto-session keymaps
+  { "<leader>Wr", "<cmd>SessionRestore<CR>", desc = "Restore session for cwd", nowait = true, remap = false },
+  { "<leader>Ws", "<cmd>SessionSave<CR>", desc = "Save session for auto session root dir", nowait = true, remap = false },
 }
 return mappings
