@@ -3,6 +3,9 @@ local keymap = vim.keymap.set
 -- Silent keymap option
 local opts = { noremap = true, silent = true }
 
+--Source nvim config changes
+vim.keymap.set("n", "<leader>so", ":update<CR> :source<CR>")
+
 --Remap space as leader key
 keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "

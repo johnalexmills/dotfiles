@@ -43,7 +43,7 @@ local options = {
   foldtext = "",
   foldlevelstart = 99,
   foldnestmax = 4,
-  guifont = "JetBrainsMono Nerd Font:h17",
+  guifont = "CaskaydiaCove Nerd Font:h17:i",
   errorbells = false, -- no error bells
   -- guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175",
 }

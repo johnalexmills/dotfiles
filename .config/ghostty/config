@@ -1,6 +1,6 @@
 theme = catppuccin-mocha
-font-family = "JetBrainsMono NF"
+font-family = "CaskaydiaCove Nerd Font"
 keybind = shift+enter=text:\n
 macos-option-as-alt = false
 background-opacity = 0.95
-gtk-titlebar = false
+gtk-titlebar = true
