@@ -40,9 +40,6 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
--- CodeCompanion
-keymap("v", "ga", "<cmd>CodeCompanionAdd<cr>", opts)
-
 -- Comment
 keymap("n", "<C-'>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("x", "<C-'>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)

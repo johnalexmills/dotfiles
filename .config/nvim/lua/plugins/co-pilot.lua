@@ -58,7 +58,7 @@ return {
     },
     config = function()
       require("CopilotChat").setup {
-        model = 'gpt-4o',
+        model = 'claude-sonnet-4',
         provider = 'copilot',
         commands = {
           open = function()
