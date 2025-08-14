@@ -58,6 +58,19 @@ return {
                     "--hidden",
                     "--glob=!.git/",
                 },
+                file_ignore_patterns = {
+                    "%.git/",
+                    "%.git$",
+                    "node_modules/",
+                    "%.DS_Store$",
+                    "%.cache/",
+                    "%.npm/",
+                    "%.venv/",
+                    "__pycache__/",
+                    "%.pyc$",
+                    "%.tmp$",
+                    "%.swp$",
+                },
 
                 mappings = {
                     i = {
