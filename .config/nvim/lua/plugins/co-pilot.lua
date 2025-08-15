@@ -1,5 +1,6 @@
 return {
   {
+<<<<<<< HEAD
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
@@ -84,6 +85,13 @@ return {
         debug = false,
         override_timeoutlen = 500,
       },
+=======
+    "CopilotC-Nvim/CopilotChat.nvim",
+    cmd = { "CopilotChat", "CopilotChatToggle" },
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "zbirenbaum/copilot.lua" },
+>>>>>>> d02b27cb0c51f3da883892cc715d13b04cd3ad86
     },
     build = "make",
     dependencies = {
