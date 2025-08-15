@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("render-markdown").setup {
-      file_types = { "markdown", "copilot-chat" },
+      file_types = { "markdown", "Avante", "avante" },
       code = {
         sign = false,
         width = "block",

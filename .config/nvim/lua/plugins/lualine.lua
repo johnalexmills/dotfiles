@@ -74,7 +74,7 @@ return {
         lualine_b = { "branch" },
         lualine_c = { filename },
         lualine_x = {
-          { "copilot", show_colors = true },
+
           lsp_info,
           diagnostics,
           diff,

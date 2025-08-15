@@ -27,7 +27,7 @@ return {
     local lspkind = require "lspkind"
     require("luasnip/loaders/from_vscode").lazy_load()
 
-    vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+    vim.api.nvim_set_hl(0, "CmpItemKindAvante", { fg = "#6CC644" })
     vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 
     local check_backspace = function()
@@ -102,7 +102,7 @@ return {
         },
       },
       sources = {
-        { name = "copilot", group_index = 2 },
+
         { name = "nvim_lsp", group_index = 2 },
         { name = "luasnip", group_index = 2 },
         { name = "nvim_lua", group_index = 2 },

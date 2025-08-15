@@ -45,8 +45,14 @@ keymap("n", "<C-'>", "<cmd>lua require('Comment.api').toggle.linewise.current()<
 keymap("x", "<C-'>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
 
 local mappings = {
-  { "<leader>c", "<cmd>CopilotChat<cr>", desc = "CopilotChat", nowait = true, remap = false },
-  { "<leader>C", "<cmd>Copilot enable<cr>", desc = "Copilot", nowait = true, remap = false },
+  { "<leader>a", group = "Avante", nowait = true, remap = false },
+  { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Avante Ask", nowait = true, remap = false },
+  { "<leader>ac", "<cmd>AvanteChat<cr>", desc = "Avante Chat", nowait = true, remap = false },
+  { "<leader>at", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
+  { "<leader>af", "<cmd>AvanteFocus<cr>", desc = "Avante Focus", nowait = true, remap = false },
+  { "<leader>ar", "<cmd>AvanteRefresh<cr>", desc = "Avante Refresh", nowait = true, remap = false },
+  { "<leader>c", "<cmd>AvanteChat<cr>", desc = "Avante Chat", nowait = true, remap = false },
+  { "<leader>C", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
   -- { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
   {
@@ -65,6 +71,7 @@ local mappings = {
     remap = false,
   },
   { "<leader>g", group = "Git", nowait = true, remap = false },
+  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   { "<leader>gd", desc = "Go to definition", nowait = true, remap = false },
   { "<leader>gr", desc = "Go to reference", nowait = true, remap = false },
   { "<leader>l", group = "LSP", nowait = true, remap = false },

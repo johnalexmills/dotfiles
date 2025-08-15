@@ -26,7 +26,7 @@ return {
       dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
       dashboard.button("e", " " .. " New file", ":ene <BAR> startinsert <CR>"),
       dashboard.button("p", " " .. " Find files", ":Telescope find_files<CR>"),
-      dashboard.button("r", "󰄉 " .. " Recent files", ":Telescope oldfiles <CR>"),
+      dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
       dashboard.button("t", " " .. " Find text", ":Telescope live_grep <CR>"),
       dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
       dashboard.button("q", " " .. " Quit", ":qa<CR>"),
