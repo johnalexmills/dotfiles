@@ -47,11 +47,8 @@ alias gm='git merge'
  alias ll.='ls -la'
  alias lls='ls -la --sort=size'
  alias llt='ls -la --sort=time'
- alias work='cd /c/Users/554711'
  alias sbrc='source ~/.bashrc && echo "sourced new .bashrc"'
  alias obrc='nvim ~/.bashrc'
- alias oawsc='nvim ~/.aws/credentials'
- alias rdevc=''
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 

@@ -1,3 +1,29 @@
+-- Disable built-in plugins for better performance
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
+
+-- Disable unused providers
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python_provider = 0
+
+-- Disable built-in plugins you don't use
+vim.g.loaded_gzip = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimball = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_rrhelper = 1
+vim.g.loaded_spellfile_plugin = 1
+
 local options = {
   backup = false, -- creates a backup file
   exrc = true, -- enable .exrc files
@@ -24,7 +50,7 @@ local options = {
   termguicolors = true, -- set term gui colors (most terminals support this)
   scrolloff = 10, -- is one of my fav
   colorcolumn = "80", -- limit line length
-  timeoutlen = 500, -- time to wait for a mapped sequence to complete (in milliseconds)
+  timeoutlen = 300, -- time to wait for a mapped sequence to complete (faster which-key popup)
   linebreak = true,
   updatetime = 250, -- faster completion (4000ms default)
   writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -39,9 +65,10 @@ local options = {
   wrap = false, -- display lines as one long line
   sidescrolloff = 8,
   foldmethod = "expr",
-  foldexpr = "v:lua.vim.treesitter.foldexpr()",
+  foldexpr = "nvim_treesitter#foldexpr()",
   foldtext = "",
   foldlevelstart = 99,
+  ttimeoutlen = 10, -- faster key sequence timeout
   foldnestmax = 4,
   guifont = "CaskaydiaCove Nerd Font:h17:i",
   errorbells = false, -- no error bells

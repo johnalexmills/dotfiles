@@ -47,14 +47,10 @@ keymap("x", "<C-'>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.f
 local mappings = {
   { "<leader>a", group = "Avante", nowait = true, remap = false },
   { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Avante Ask", nowait = true, remap = false },
-  { "<leader>ac", "<cmd>AvanteChat<cr>", desc = "Avante Chat", nowait = true, remap = false },
   { "<leader>at", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
   { "<leader>af", "<cmd>AvanteFocus<cr>", desc = "Avante Focus", nowait = true, remap = false },
   { "<leader>ar", "<cmd>AvanteRefresh<cr>", desc = "Avante Refresh", nowait = true, remap = false },
-  { "<leader>c", "<cmd>AvanteChat<cr>", desc = "Avante Chat", nowait = true, remap = false },
-  { "<leader>C", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
-  -- { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
   {
     "<leader>b",
     "<cmd>lua require('telescope.builtin').buffers()<cr>",

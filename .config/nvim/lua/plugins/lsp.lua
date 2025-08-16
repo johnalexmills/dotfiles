@@ -53,9 +53,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+    dependencies = { "williamboman/mason-lspconfig.nvim", "saghen/blink.cmp" },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       -- Configure LSP servers using Neovim 0.11+ native config
       vim.lsp.config.pyright = {
