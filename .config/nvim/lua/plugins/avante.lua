@@ -91,12 +91,7 @@ return {
       "MunifTanjim/nui.nvim",
       {
         "HakonHarnes/img-clip.nvim",
-    cmd = { "AvanteAsk", "AvanteChat", "AvanteToggle", "AvanteRefresh" },
-    keys = {
-      { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Avante Ask" },
-      { "<leader>ac", "<cmd>AvanteChat<cr>", desc = "Avante Chat" },
-      { "<leader>at", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle" },
-    },        opts = {
+    cmd = { "AvanteAsk", "AvanteChat", "AvanteToggle", "AvanteRefresh" },        opts = {
           default = {
             embed_image_as_base64 = false,
             prompt_for_file_name = false,

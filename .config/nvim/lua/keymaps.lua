@@ -40,9 +40,7 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
--- Comment
-keymap("n", "<C-'>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("x", "<C-'>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
+-- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
   { "<leader>a", group = "Avante", nowait = true, remap = false },
@@ -50,22 +48,12 @@ local mappings = {
   { "<leader>at", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
   { "<leader>af", "<cmd>AvanteFocus<cr>", desc = "Avante Focus", nowait = true, remap = false },
   { "<leader>ar", "<cmd>AvanteRefresh<cr>", desc = "Avante Refresh", nowait = true, remap = false },
-  { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text", nowait = true, remap = false },
-  {
-    "<leader>b",
-    "<cmd>lua require('telescope.builtin').buffers()<cr>",
-    desc = "Buffers",
-    nowait = true,
-    remap = false,
-  },
+  { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", nowait = true, remap = false },
+  { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text", nowait = true, remap = false },
+  { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers", nowait = true, remap = false },
+
   { "-", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
-  {
-    "<leader>f",
-    "<cmd>lua require('telescope.builtin').find_files()<cr>",
-    desc = "Find files",
-    nowait = true,
-    remap = false,
-  },
+
   { "<leader>g", group = "Git", nowait = true, remap = false },
   { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   { "<leader>gd", desc = "Go to definition", nowait = true, remap = false },
@@ -126,7 +114,8 @@ local mappings = {
   { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme", nowait = true, remap = false },
   { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help", nowait = true, remap = false },
   { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps", nowait = true, remap = false },
-  { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", nowait = true, remap = false },
+  { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files", nowait = true, remap = false },
+
   { "<leader>sf", "<cmd>Telescope file_browser<cr>", desc = "File Browser", nowait = true, remap = false },
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
