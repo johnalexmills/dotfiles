@@ -98,6 +98,9 @@ local mappings = {
   { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", nowait = true, remap = false },
   { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
   { "<leader>n", "<cmd>nohlsearch<CR>", desc = "No Highlight", nowait = true, remap = false },
+  { "<leader>rn", function()
+    vim.opt.relativenumber = not vim.opt.relativenumber:get()
+  end, desc = "Toggle Relative Numbers", nowait = true, remap = false },
   { "<leader>/", function()
     if vim.v.hlsearch == 1 then
       vim.cmd("nohlsearch")
