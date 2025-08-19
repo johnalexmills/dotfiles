@@ -5,6 +5,12 @@ return {
   config = function()
     local configs = require "nvim-treesitter.configs"
 
+    -- Windows-specific configuration
+    if vim.fn.has("win32") == 1 then
+      require("nvim-treesitter.install").compilers = { "clang", "gcc" }
+      require("nvim-treesitter.install").prefer_git = true
+    end
+
     configs.setup {
       ensure_installed = { "lua", "python", "bash", "markdown", "json", "terraform" },
       auto_install = true,
