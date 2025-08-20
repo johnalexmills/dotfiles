@@ -22,6 +22,11 @@ return {
         which_key = true,
         telescope = { enabled = true },
         illuminate = { enabled = true, lsp = false },
+        alpha = true,
+        fidget = true,
+        lualine = true,
+        mason = true,
+        indent_blankline = { enabled = true },
         native_lsp = {
           enabled = true,
           virtual_text = {

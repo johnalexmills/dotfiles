@@ -1,12 +1,7 @@
 return {
     "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
-    dependencies = {
-        {
-            "nvim-lua/plenary.nvim",
-            "BurntSushi/ripgrep",
-        },
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local actions = require "telescope.actions"
         local telescope = require "telescope"
