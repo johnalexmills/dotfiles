@@ -2,6 +2,7 @@ return {
     "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
+    -- Note: ripgrep must be installed on your system for live_grep to work
     config = function()
         local actions = require "telescope.actions"
         local telescope = require "telescope"
@@ -9,19 +10,7 @@ return {
             pickers = {
                 find_files = {
                     hidden = true,
-                    file_ignore_patterns = {
-                        "%.git/", -- Ignore .git directory
-                        "%.git$", -- Ignore .git files
-                        "node_modules/", -- You might want to ignore these too
-                        "%.DS_Store$", -- macOS system files
-                        "%.cache/", -- Cache directories
-                        "%.npm/", -- npm cache
-                        "%.venv/", -- Python virtual environments
-                        "__pycache__/", -- Python cache
-                        "%.pyc$", -- Python compiled files
-                        "%.tmp$", -- Temporary files
-                        "%.swp$", -- Vim swap files
-                    },
+                    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
                 },
                 live_grep = {
                     only_sort_text = true,
@@ -48,7 +37,7 @@ return {
                     "--glob=!.git/",
                 },
                 file_ignore_patterns = {
-                    "%.git/",
+                    "^%.git/",
                     "%.git$",
                     "node_modules/",
                     "%.DS_Store$",
