@@ -6,22 +6,9 @@ return {
     cmd = { "AvanteAsk", "AvanteChat", "AvanteToggle", "AvanteRefresh" },
     build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" or "make",
     dependencies = {
-      "stevearc/dressing.nvim",
+      "folke/snacks.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      {
-        "HakonHarnes/img-clip.nvim",
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            use_absolute_path = true,
-          },
-        },
-      },
       {
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
