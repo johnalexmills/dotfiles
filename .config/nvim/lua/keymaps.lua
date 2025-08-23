@@ -43,11 +43,11 @@ keymap("v", "K", ":m '<-2<CR>gv=gv")
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
-  { "<leader>a", group = "Avante", nowait = true, remap = false },
-  { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Avante Ask", nowait = true, remap = false },
-  { "<leader>at", "<cmd>AvanteToggle<cr>", desc = "Avante Toggle", nowait = true, remap = false },
-  { "<leader>af", "<cmd>AvanteFocus<cr>", desc = "Avante Focus", nowait = true, remap = false },
-  { "<leader>ar", "<cmd>AvanteRefresh<cr>", desc = "Avante Refresh", nowait = true, remap = false },
+  { "<leader>c", group = "Copilot", nowait = true, remap = false },
+  { "<leader>cc", group = "CopilotChat", nowait = true, remap = false },
+  { "<leader>cct", "<cmd>CopilotChatToggle<cr>", desc = "Toggle CopilotChat", nowait = true, remap = false },
+  { "<leader>ccx", "<cmd>CopilotChatReset<cr>", desc = "Reset CopilotChat", nowait = true, remap = false },
+  { "<leader>ccq", "<cmd>CopilotChat<cr>", desc = "Open CopilotChat", nowait = true, remap = false },
   { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text", nowait = true, remap = false },
   { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers", nowait = true, remap = false },
