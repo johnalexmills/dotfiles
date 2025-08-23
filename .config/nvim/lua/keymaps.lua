@@ -53,9 +53,8 @@ local mappings = {
   { "-", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
 
   { "<leader>g", group = "Git", nowait = true, remap = false },
+  { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit", nowait = true, remap = false },
   { "<leader>h", group = "Harpoon", nowait = true, remap = false },
-  { "<leader>gd", desc = "Go to definition", nowait = true, remap = false },
-  { "<leader>gr", desc = "Go to reference", nowait = true, remap = false },
   { "<leader>l", group = "LSP", nowait = true, remap = false },
   {
     "<leader>lD",
@@ -95,10 +94,6 @@ local mappings = {
   { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
   { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", nowait = true, remap = false },
   { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
-  { "<leader>n", "<cmd>nohlsearch<CR>", desc = "No Highlight", nowait = true, remap = false },
-  { "<leader>rn", function()
-    vim.opt.relativenumber = not vim.opt.relativenumber:get()
-  end, desc = "Toggle Relative Numbers", nowait = true, remap = false },
   { "<leader>/", function()
     if vim.v.hlsearch == 1 then
       vim.cmd("nohlsearch")
@@ -106,6 +101,9 @@ local mappings = {
       vim.cmd("set hlsearch")
     end
   end, desc = "Toggle Search Highlight", nowait = true, remap = false },
+  { "<leader>rn", function()
+    vim.opt.relativenumber = not vim.opt.relativenumber:get()
+  end, desc = "Toggle Relative Numbers", nowait = true, remap = false },
   { "<leader>q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
   { "<leader>s", group = "Search", nowait = true, remap = false },
   { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands", nowait = true, remap = false },
