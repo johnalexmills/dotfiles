@@ -19,9 +19,9 @@ return {
       model = "gpt-4o",
       temperature = 0.1,
       headers = {
-        user = "👤 You: ",
-        assistant = "🤖 Copilot: ",
-        tool = "🔧 Tool: ",
+        user = " You: ",
+        assistant = "  Copilot: ",
+        tool = " Tool: ",
       },
       separator = " ",
       show_folds = true,
