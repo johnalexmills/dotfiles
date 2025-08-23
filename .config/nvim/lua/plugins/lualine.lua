@@ -53,9 +53,11 @@ return {
     local diff = {
       "diff",
       colored = true,
-      symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+      symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
       cond = hide_in_width,
     }
+
+
 
     require("lualine").setup {
       options = {
@@ -74,7 +76,7 @@ return {
         lualine_b = { "branch" },
         lualine_c = { filename },
         lualine_x = {
-
+          "copilot",
           lsp_info,
           diagnostics,
           diff,
