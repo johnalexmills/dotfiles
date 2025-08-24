@@ -52,6 +52,12 @@ alias gm='git merge'
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Performance optimizations
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend
+
 # alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 

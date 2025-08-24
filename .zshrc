@@ -5,6 +5,13 @@ export PATH=/opt/homebrew/bin:$PATH
 # set theme of syntax zsh-syntax-highlighting
 source ~/.oh-my-zsh/custom/themes/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 
+# History optimization
+export HISTSIZE=10000
+export SAVEHIST=20000
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt SHARE_HISTORY
+
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 

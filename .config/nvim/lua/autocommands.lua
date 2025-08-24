@@ -43,11 +43,15 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end,
 })
 
+-- Performance optimization for large files
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   callback = function()
     local line_count = vim.api.nvim_buf_line_count(0)
     if line_count >= 5000 then
       require("illuminate").pause_buf()
+      -- Disable other heavy features for large files
+      vim.opt_local.foldmethod = "manual"
+      vim.opt_local.syntax = "off"
     end
   end,
 })
