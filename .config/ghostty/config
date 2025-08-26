@@ -1,4 +1,4 @@
-theme = catppuccin-mocha
+theme = tokyonight
 font-family = "CaskaydiaCove Nerd Font"
 macos-option-as-alt = false
 background-opacity = 0.95

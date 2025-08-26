@@ -1,16 +1,12 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](surface0)\
 $os\
 $username\
 $shell\
-[](bg:peach fg:surface0)\
 $directory\
-[](fg:peach bg:green)\
 $git_branch\
 $git_status\
-[](fg:green bg:teal)\
 $c\
 $rust\
 $golang\
@@ -20,14 +16,11 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](fg:teal bg:blue)\
 $docker_context\
-[](fg:blue bg:purple)\
 $cmd_duration\
-[ ](fg:purple)\
 $line_break$character"""
 
-palette = 'catppuccin_mocha'
+palette = 'tokyonight_night'
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fbf1c7'
@@ -69,9 +62,55 @@ base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
 
+[palettes.tokyonight_night]
+# Main colors
+bg = "#1a1b26"
+bg_dark = "#16161e"
+bg_highlight = "#292e42"
+fg = "#c0caf5"
+fg_dark = "#a9b1d6"
+comment = "#565f89"
+black = "#15161e"
+
+# Accent colors
+blue = "#7aa2f7"
+cyan = "#7dcfff"
+green = "#9ece6a"
+magenta = "#bb9af7"
+purple = "#9d7cd8"
+orange = "#ff9e64"
+red = "#f7768e"
+yellow = "#e0af68"
+teal = "#1abc9c"
+
+# Additional colors
+blue1 = "#2ac3de"
+green1 = "#73daca"
+red1 = "#db4b4b"
+terminal_black = "#414868"
+dark3 = "#545c7e"
+dark5 = "#737aa2"
+
+# Surface colors for backgrounds
+surface0 = "#16161e"
+surface1 = "#1f2335"
+surface2 = "#24283b"
+mantle = "#1a1b26"
+base = "#1a1b26"
+text = "#c0caf5"
+subtext0 = "#a9b1d6"
+subtext1 = "#c0caf5"
+overlay0 = "#565f89"
+overlay1 = "#545c7e"
+overlay2 = "#737aa2"
+
+# Git colors
+git_add = "#449dab"
+git_change = "#6183bb"
+git_delete = "#914c54"
+
 [os]
 disabled = false
-style = "bg:surface0 fg:text"
 
 [os.symbols]
 Windows = "󰍲"
@@ -96,12 +135,9 @@ RedHatEnterprise = "󱄛"
 
 [username]
 show_always = true
-style_user = "bg:surface0 fg:text"
-style_root = "bg:surface0 fg:text"
 format = '[ $user ]($style)'
 
 [directory]
-style = "fg:mantle bg:peach"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -115,68 +151,62 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
 
 [git_status]
-style = "bg:teal"
-format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [c]
 symbol = " "
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [php]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [java]
 symbol = " "
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [kotlin]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [haskell]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [python]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol ${pyenv_prefix}($version )(\($virtualenv\) ) ](fg:base bg:teal)]($style)'
+style = "bg:blue"
+format = '[[ $symbol ${pyenv_prefix}($version )(\($virtualenv\) ) ](fg:bg bg:blue)]($style)'
 
 [docker_context]
 symbol = ""
-style = "bg:mantle"
-format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+style = "bg:cyan"
+format = '[[ $symbol( $context) ](fg:bg bg:cyan)]($style)'
 
 [cmd_duration]
 min_time = 1
 disabled = false
-style = "bg:peach"
-format = '[[  $duration ](fg:mantle bg:purple)]($style)'
 
 [line_break]
 disabled = false
@@ -193,7 +223,6 @@ xonsh_indicator = 'xsh'
 cmd_indicator = ''
 nu_indicator = 'nu'
 unknown_indicator = ''
-style = 'bg:surface0 fg:text'
 format = '[$indicator ]($style)'
 disabled = false
 
