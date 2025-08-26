@@ -47,9 +47,15 @@ keymap("v", "<leader>aa", "<cmd>CodeCompanionAdd<cr>", { desc = "Add to CodeComp
 
 local mappings = {
   { "<leader>a", group = "AI Assistant", nowait = true, remap = false },
-  { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions", nowait = true, remap = false },
+  { "<leader>aA", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions", nowait = true, remap = false },
   { "<leader>ac", "<cmd>CodeCompanion<cr>", desc = "CodeCompanion Chat", nowait = true, remap = false },
-  { "<leader>at", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat", nowait = true, remap = false },
+  {
+    "<leader>at",
+    "<cmd>CodeCompanionChat Toggle<cr>",
+    desc = "Toggle CodeCompanion Chat",
+    nowait = true,
+    remap = false,
+  },
   { "<leader>ai", "<cmd>CodeCompanionInline<cr>", desc = "CodeCompanion Inline", nowait = true, remap = false },
   { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text", nowait = true, remap = false },
@@ -68,7 +74,7 @@ local mappings = {
     nowait = true,
     remap = false,
   },
-  { "<leader>lI", "<cmd>LspInstallInfo<cr>", desc = "Installer Info", nowait = true, remap = false },
+  { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer", nowait = true, remap = false },
   { "<leader>lL", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action", nowait = true, remap = false },
   {
     "<leader>lS",
@@ -99,16 +105,28 @@ local mappings = {
   { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
   { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", nowait = true, remap = false },
   { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
-  { "<leader>/", function()
-    if vim.v.hlsearch == 1 then
-      vim.cmd("nohlsearch")
-    else
-      vim.cmd("set hlsearch")
-    end
-  end, desc = "Toggle Search Highlight", nowait = true, remap = false },
-  { "<leader>rn", function()
-    vim.opt.relativenumber = not vim.opt.relativenumber:get()
-  end, desc = "Toggle Relative Numbers", nowait = true, remap = false },
+  {
+    "<leader>/",
+    function()
+      if vim.v.hlsearch == 1 then
+        vim.cmd "nohlsearch"
+      else
+        vim.cmd "set hlsearch"
+      end
+    end,
+    desc = "Toggle Search Highlight",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>rn",
+    function()
+      vim.opt.relativenumber = not vim.opt.relativenumber:get()
+    end,
+    desc = "Toggle Relative Numbers",
+    nowait = true,
+    remap = false,
+  },
   { "<leader>q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
   { "<leader>s", group = "Search", nowait = true, remap = false },
   { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands", nowait = true, remap = false },
@@ -123,11 +141,24 @@ local mappings = {
   { "<leader>sf", "<cmd>Telescope file_browser<cr>", desc = "File Browser", nowait = true, remap = false },
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
+
   { "<leader>t", group = "Terminal/Trouble", nowait = true, remap = false },
   -- Terminal keymaps
   { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal", nowait = true, remap = false },
-  { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Vertical Terminal", nowait = true, remap = false },
-  { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal", nowait = true, remap = false },
+  {
+    "<leader>tv",
+    "<cmd>ToggleTerm direction=vertical size=80<cr>",
+    desc = "Vertical Terminal",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>th",
+    "<cmd>ToggleTerm direction=horizontal size=15<cr>",
+    desc = "Horizontal Terminal",
+    nowait = true,
+    remap = false,
+  },
   -- Trouble keymaps
   {
     "<leader>tt",
@@ -159,9 +190,5 @@ local mappings = {
   },
   { "<leader>tl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List", nowait = true, remap = false },
   { "<leader>tQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List", nowait = true, remap = false },
-
-  -- Auto-session keymaps
-  { "<leader>Wr", "<cmd>SessionRestore<CR>", desc = "Restore session for cwd", nowait = true, remap = false },
-  { "<leader>Ws", "<cmd>SessionSave<CR>", desc = "Save session for auto session root dir", nowait = true, remap = false },
 }
 return mappings
