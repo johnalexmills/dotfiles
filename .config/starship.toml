@@ -156,53 +156,33 @@ symbol = ""
 
 [nodejs]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [c]
 symbol = " "
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [php]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [java]
 symbol = " "
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [kotlin]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [haskell]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $version) ](fg:bg bg:blue)]($style)'
 
 [python]
 symbol = ""
-style = "bg:blue"
-format = '[[ $symbol ${pyenv_prefix}($version )(\($virtualenv\) ) ](fg:bg bg:blue)]($style)'
 
 [docker_context]
 symbol = ""
-style = "bg:cyan"
-format = '[[ $symbol( $context) ](fg:bg bg:cyan)]($style)'
 
 [cmd_duration]
 min_time = 1
