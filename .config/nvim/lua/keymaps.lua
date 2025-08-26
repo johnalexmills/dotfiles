@@ -121,7 +121,7 @@ local mappings = {
   {
     "<leader>rn",
     function()
-      vim.opt.relativenumber = not vim.opt.relativenumber:get()
+      vim.opt.relativenumber = not vim.opt.relativenumber:get() and true or false
     end,
     desc = "Toggle Relative Numbers",
     nowait = true,

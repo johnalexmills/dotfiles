@@ -1,6 +1,6 @@
 return {
   "olimorris/codecompanion.nvim",
-  cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionAdd", "CodeCompanionInline", "CodeCompanionChat" },
+  event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
