@@ -1,12 +1,10 @@
 "$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
-[](fg:#769ff0)\
 $os\
 $directory\
-[](fg:#769ff0 bg:#394260)\
 $git_branch\
 $git_status\
-[](fg:#394260 bg:#212736)\
 $c\
 $rust\
 $golang\
@@ -17,64 +15,12 @@ $kotlin\
 $haskell\
 $python\
 $docker_context\
-[](fg:#212736 bg:#1d2230)\
 $time\
-[ ](fg:#1d2230)\
 \n$character"""
 
 
-palette = 'tokyonight_night'
-
-[palettes.tokyonight_night]
-# Main colors
-bg = "#1a1b26"
-bg_dark = "#16161e"
-bg_highlight = "#292e42"
-fg = "#c0caf5"
-fg_dark = "#a9b1d6"
-comment = "#565f89"
-black = "#15161e"
-
-# Accent colors
-blue = "#7aa2f7"
-cyan = "#7dcfff"
-green = "#9ece6a"
-magenta = "#bb9af7"
-purple = "#9d7cd8"
-orange = "#ff9e64"
-red = "#f7768e"
-yellow = "#e0af68"
-teal = "#1abc9c"
-
-# Additional colors
-blue1 = "#2ac3de"
-green1 = "#73daca"
-red1 = "#db4b4b"
-terminal_black = "#414868"
-dark3 = "#545c7e"
-dark5 = "#737aa2"
-
-# Surface colors for backgrounds
-surface0 = "#16161e"
-surface1 = "#1f2335"
-surface2 = "#24283b"
-mantle = "#1a1b26"
-base = "#1a1b26"
-text = "#c0caf5"
-subtext0 = "#a9b1d6"
-subtext1 = "#c0caf5"
-overlay0 = "#565f89"
-overlay1 = "#545c7e"
-overlay2 = "#737aa2"
-
-# Git colors
-git_add = "#449dab"
-git_change = "#6183bb"
-git_delete = "#914c54"
-
 [os]
 disabled = false
-style = "fg:#e3e5e5 bg:#769ff0"
 
 [os.symbols]
 Windows = "󰍲 "
@@ -99,11 +45,8 @@ RedHatEnterprise = "󱄛 "
 
 [username]
 show_always = true
-format = '[ $user ]($style)'
 
 [directory]
-style = "fg:#e3e5e5 bg:#769ff0"
-format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -116,62 +59,38 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 
 [git_status]
-style = "bg:#394260"
-format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 
 [nodejs]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [c]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [rust]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [golang]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [php]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [java]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [kotlin]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [haskell]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [python]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [docker_context]
 symbol = " "
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [cmd_duration]
 min_time = 1
@@ -180,24 +99,22 @@ disabled = false
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 
 [line_break]
 disabled = false
 
 [shell]
-fish_indicator = '󰈺'
-zsh_indicator = ''
-bash_indicator = ''
-powershell_indicator = ''
+fish_indicator = '󰈺 '
+zsh_indicator = ' '
+bash_indicator = ' '
+powershell_indicator = ' '
 ion_indicator = 'ion'
 elvish_indicator = 'esh'
 tcsh_indicator = 'tsh'
 xonsh_indicator = 'xsh'
-cmd_indicator = ''
+cmd_indicator = ' '
 nu_indicator = 'nu'
-unknown_indicator = ''
+unknown_indicator = ' '
 format = '[$indicator ]($style)'
 disabled = false
 
