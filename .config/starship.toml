@@ -155,34 +155,34 @@ symbol = ""
 [git_status]
 
 [nodejs]
-symbol = ""
+symbol = " "
 
 [c]
 symbol = " "
 
 [rust]
-symbol = ""
+symbol = " "
 
 [golang]
-symbol = ""
+symbol = " "
 
 [php]
-symbol = ""
+symbol = " "
 
 [java]
 symbol = " "
 
 [kotlin]
-symbol = ""
+symbol = " "
 
 [haskell]
-symbol = ""
+symbol = " "
 
 [python]
-symbol = ""
+symbol = " "
 
 [docker_context]
-symbol = ""
+symbol = " "
 
 [cmd_duration]
 min_time = 1
