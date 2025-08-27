@@ -119,6 +119,6 @@ format = '[$indicator ]($style)'
 disabled = false
 
 [character]
-success_symbol = "[╰─➤](white bold)"
+success_symbol = "[╰─⋗](white bold)"
 error_symbol = "[╰─](white bold)"
 disabled = false

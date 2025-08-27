@@ -7,6 +7,8 @@ return {
       python = { "black", "isort", "ruff" },
       json = { "prettier" },
       yaml = { "prettier" },
+      yml = { "prettier" },
+      toml = { "taplo" },
       markdown = { "prettier" },
       terraform = { "terraform_fmt" },
       hcl = { "terraform_fmt" },
