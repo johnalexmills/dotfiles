@@ -138,7 +138,7 @@ local mappings = {
   { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps", nowait = true, remap = false },
   { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files", nowait = true, remap = false },
 
-  { "<leader>sf", "<cmd>Telescope file_browser<cr>", desc = "File Browser", nowait = true, remap = false },
+  -- File browser removed - use Oil with '-' key instead
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
 
@@ -190,5 +190,13 @@ local mappings = {
   },
   { "<leader>tl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List", nowait = true, remap = false },
   { "<leader>tQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List", nowait = true, remap = false },
+  
+  -- Diff keymaps
+  { "<leader>d", group = "Diff", nowait = true, remap = false },
+  { "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "Open Diff View", nowait = true, remap = false },
+  { "<leader>dc", "<cmd>DiffviewClose<cr>", desc = "Close Diff View", nowait = true, remap = false },
+  { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "File History", nowait = true, remap = false },
+  { "<leader>df", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle File Panel", nowait = true, remap = false },
+  { "<leader>dr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh Diff", nowait = true, remap = false },
 }
 return mappings

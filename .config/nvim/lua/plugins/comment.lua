@@ -13,10 +13,10 @@ return {
       pad_comment_parts = true,
     },
     mappings = {
-      comment = 'gc',
-      comment_line = 'gcc',
-      comment_visual = 'gc',
-      textobject = 'gc',
+      comment = "gc",
+      comment_line = "gcc",
+      comment_visual = "gc",
+      textobject = "gc",
     },
   },
 }

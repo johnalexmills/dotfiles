@@ -2,7 +2,7 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   config = function()
-    require("which-key").setup({
+    require("which-key").setup {
       preset = "modern",
       icons = {
         breadcrumb = "»",
@@ -24,7 +24,7 @@ return {
       },
       show_help = true,
       show_keys = true,
-    })
-    require("which-key").add(require("keymaps"))
+    }
+    require("which-key").add(require "keymaps")
   end,
 }

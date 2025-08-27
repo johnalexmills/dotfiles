@@ -65,13 +65,16 @@ return {
       },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 200,
+        auto_show_delay_ms = 100, -- Reduced from 200ms for faster response
         window = {
           border = "rounded",
         },
       },
       ghost_text = {
         enabled = false,
+      },
+      list = {
+        max_items = 50, -- Limit items for performance
       },
     },
     signature = {

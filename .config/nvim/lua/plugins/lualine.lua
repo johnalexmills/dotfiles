@@ -57,8 +57,6 @@ return {
       cond = hide_in_width,
     }
 
-
-
     require("lualine").setup {
       options = {
         icons_enabled = true,
@@ -68,7 +66,7 @@ return {
         --        
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
-        disabled_filetypes = { "alpha", "neo-tree", "copilot-chat" },
+        disabled_filetypes = { "alpha", "codecompanion" },
         always_divide_middle = true,
       },
       sections = {
@@ -76,7 +74,6 @@ return {
         lualine_b = { "branch" },
         lualine_c = { filename },
         lualine_x = {
-          "copilot",
           lsp_info,
           diagnostics,
           diff,

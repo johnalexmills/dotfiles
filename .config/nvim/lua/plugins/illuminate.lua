@@ -5,3 +5,4 @@ return {
     delay = 100, -- Delay before highlighting (ms)
   },
 }
+
