@@ -40,23 +40,25 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
--- CodeCompanion visual mode keymap
-keymap("v", "<leader>aa", "<cmd>CodeCompanionAdd<cr>", { desc = "Add to CodeCompanion", noremap = true, silent = true })
+-- CopilotChat visual mode keymap
+keymap("v", "<leader>cc", "<cmd>CopilotChatVisual<cr>", { desc = "CopilotChat Visual", noremap = true, silent = true })
 
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
-  { "<leader>a", group = "AI Assistant", nowait = true, remap = false },
-  { "<leader>aA", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions", nowait = true, remap = false },
-  { "<leader>ac", "<cmd>CodeCompanion<cr>", desc = "CodeCompanion Chat", nowait = true, remap = false },
+  { "<leader>c", group = "Copilot Chat", nowait = true, remap = false },
+  { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "Open CopilotChat", nowait = true, remap = false },
+  { "<leader>cr", "<cmd>CopilotChatReset<cr>", desc = "Reset CopilotChat", nowait = true, remap = false },
   {
-    "<leader>at",
-    "<cmd>CodeCompanionChat Toggle<cr>",
-    desc = "Toggle CodeCompanion Chat",
+    "<leader>ct",
+    "<cmd>CopilotChatToggle<cr>",
+    desc = "Toggle CopilotChat",
     nowait = true,
     remap = false,
   },
-  { "<leader>ai", "<cmd>CodeCompanionInline<cr>", desc = "CodeCompanion Inline", nowait = true, remap = false },
+  { "<leader>ci", "<cmd>CopilotChatInline<cr>", desc = "CopilotChat Inline", nowait = true, remap = false },
+  { "<leader>cp", "<cmd>CopilotChatPrompts<cr>", desc = "CopilotChat Prompts", nowait = true, remap = false },
+  { "<leader>cm", "<cmd>CopilotChatModels<cr>", desc = "CopilotChat Models", nowait = true, remap = false },
   { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", nowait = true, remap = false },
   { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text", nowait = true, remap = false },
   { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers", nowait = true, remap = false },
