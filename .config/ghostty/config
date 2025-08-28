@@ -2,3 +2,6 @@ theme = catppuccin-mocha
 font-family = "CaskaydiaCove Nerd Font"
 macos-option-as-alt = false
 background-opacity = 0.95
+window-padding-x = 8
+window-padding-y = 6
+cursor-style = block

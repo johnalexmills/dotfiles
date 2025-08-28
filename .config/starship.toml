@@ -16,7 +16,7 @@ $kotlin\
 $haskell\
 $python\
 $docker_context\
-$time\
+
 $line_break$character"""
 
 [os]
@@ -93,11 +93,11 @@ symbol = " "
 symbol = " "
 
 [cmd_duration]
-min_time = 500
+min_time = 1000
 disabled = false
 
 [time]
-disabled = false
+disabled = true
 time_format = "%R" # Hour:Minute Format
 
 [line_break]

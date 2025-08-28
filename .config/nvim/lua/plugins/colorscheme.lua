@@ -26,7 +26,7 @@ return {
         fidget = true,
         lualine = true,
         mason = true,
-        indent_blankline = { enabled = true },
+        mini = true,
         native_lsp = {
           enabled = true,
           virtual_text = {

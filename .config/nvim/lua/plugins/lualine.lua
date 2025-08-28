@@ -1,7 +1,7 @@
 -- Set lualine as statusline
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  event = "BufEnter",
   config = function()
     local mode = {
       "mode",

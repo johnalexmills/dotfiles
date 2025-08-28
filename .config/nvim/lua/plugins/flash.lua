@@ -1,0 +1,81 @@
+return {
+  "folke/flash.nvim",
+  event = "VeryLazy",
+  opts = {
+    search = {
+      multi_window = true,
+      forward = true,
+      wrap = true,
+    },
+    jump = {
+      jumplist = true,
+      pos = "start",
+      history = false,
+      register = false,
+      nohlsearch = false,
+    },
+    label = {
+      uppercase = true,
+      exclude = "",
+      current = true,
+      after = true,
+      before = false,
+      style = "overlay",
+    },
+    highlight = {
+      backdrop = true,
+      matches = true,
+      priority = 5000,
+      groups = {
+        match = "FlashMatch",
+        current = "FlashCurrent",
+        backdrop = "FlashBackdrop",
+        label = "FlashLabel",
+      },
+    },
+    modes = {
+      search = {
+        enabled = true,
+        highlight = { backdrop = false },
+        jump = { history = true, register = true, nohlsearch = true },
+        search = {
+          mode = "search",
+          max_length = false,
+        },
+      },
+      char = {
+        enabled = true,
+        config = function(opts)
+          opts.autohide = vim.fn.mode(true):find("no")
+        end,
+        keys = { "f", "F", "t", "T", ";" },
+        char_actions = function()
+          return {
+            [";"] = "next",
+            [","] = "prev",
+          }
+        end,
+        search = { wrap = false },
+        highlight = { backdrop = true },
+        jump = { register = false },
+      },
+      treesitter = {
+        labels = "abcdefghijklmnopqrstuvwxyz",
+        jump = { pos = "range" },
+        search = { incremental = false },
+        label = { before = true, after = true, style = "inline" },
+        highlight = {
+          backdrop = false,
+          matches = false,
+        },
+      },
+    },
+  },
+  keys = {
+    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  },
+}
