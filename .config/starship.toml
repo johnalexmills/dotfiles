@@ -2,7 +2,7 @@
 
 format = """
 [╭─](bold fg:white)\
-$os\
+$shell\
 $directory\
 $git_branch\
 $git_status\

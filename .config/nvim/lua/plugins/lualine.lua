@@ -66,7 +66,7 @@ return {
         --        
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
-        disabled_filetypes = { "alpha", "codecompanion" },
+        disabled_filetypes = { "alpha", "copilot-chat" },
         always_divide_middle = true,
       },
       sections = {
