@@ -12,7 +12,6 @@ source completions.nu
 # Starship prompt
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
-use ~/.cache/starship/init.nu
 
 # Zoxide integration (smart cd)
 if (which zoxide | is-not-empty) {
