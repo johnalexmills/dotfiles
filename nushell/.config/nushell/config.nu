@@ -7,6 +7,7 @@ $env.config = ($env.config | upsert show_banner false)
 # Source aliases and completions
 source aliases.nu
 source completions.nu
+source catppuccin_mocha.nu
 
 # Third-party integrations
 # Starship prompt
