@@ -1,0 +1,13 @@
+# Global dotfiles ignores
+
+# Runtime/cache files that shouldn't be tracked
+~/.zoxide.nu
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*~
