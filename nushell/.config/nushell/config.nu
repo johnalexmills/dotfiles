@@ -14,9 +14,4 @@ mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
 # Zoxide integration (smart cd)
-if (which zoxide | is-not-empty) {
-    # Note: You'll need to run `zoxide init nushell | save ~/.cache/zoxide/init.nu` first
-    if ($"($nu.home-path)/.cache/zoxide/init.nu" | path exists) {
-        source ~/.cache/zoxide/init.nu
-    }
-}
+source ~/.zoxide.nu
