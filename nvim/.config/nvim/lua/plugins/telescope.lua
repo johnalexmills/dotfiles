@@ -10,7 +10,7 @@ return {
       pickers = {
         find_files = {
           hidden = true,
-          find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+          find_command = { "fd", "--type", "f", "--hidden", "--follow", "--exclude", ".git" },
         },
         live_grep = {
           only_sort_text = true,
