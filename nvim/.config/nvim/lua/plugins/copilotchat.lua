@@ -16,7 +16,7 @@ return {
     },
     opts = {
       debug = false,
-      model = "gpt-4o",
+      model = "claude-sonnet-4",
       temperature = 0.1,
       headers = {
         user = " You: ",
@@ -46,19 +46,5 @@ return {
         })
       end, { nargs = "*", range = true })
     end,
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
-  {
-    "AndreM222/copilot-lualine",
   },
 }
