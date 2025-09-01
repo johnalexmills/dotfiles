@@ -95,11 +95,7 @@ vim.opt.formatoptions:remove { "c", "r", "o" } -- This is a sequence of letters 
 
 -- Enhanced diagnostics
 vim.diagnostic.config({
-  virtual_text = {
-    prefix = "●",
-    source = "if_many",
-    spacing = 2,
-  },
+  virtual_text = false,
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "✘",
