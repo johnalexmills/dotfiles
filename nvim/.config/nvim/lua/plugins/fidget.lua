@@ -25,16 +25,6 @@ return {
         group_separator = "---",
         group_separator_hl = "Comment",
       },
-      configs = {
-        default = vim.tbl_extend("force", require("fidget.notification").default_config, {
-          name = "Fidget",
-          icon = "🔔",
-          ttl = 10, -- Keep notifications longer
-          render = function(notif)
-            return string.format("[%s] %s", notif.name or "LSP", notif.message)
-          end,
-        }),
-      },
     },
   },
 }
