@@ -4,6 +4,9 @@
 # Hide startup banner
 $env.config = ($env.config | upsert show_banner false)
 
+# set default editor to neovim btw
+$env.config.buffer_editor = "nvim"
+
 # Source aliases and completions
 source aliases.nu
 source completions.nu
