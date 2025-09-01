@@ -65,6 +65,26 @@ local mappings = {
 
   { "-", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
 
+  -- Tree view commands  
+  { "<leader>T", group = "Tree View", nowait = true, remap = false },
+  { "<leader>Tt", function()
+      local output = vim.fn.systemlist("tree")
+      local buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+      vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
+      vim.api.nvim_buf_set_option(buf, 'filetype', 'text')
+      vim.api.nvim_win_set_buf(0, buf)
+    end, desc = "Show File Tree", nowait = true, remap = false },
+  { "<leader>Ta", function()
+      local output = vim.fn.systemlist("tree -a -I '.git'")
+      local buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+      vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
+      vim.api.nvim_buf_set_option(buf, 'filetype', 'text')
+      vim.api.nvim_win_set_buf(0, buf)
+    end, desc = "Show Tree (Hidden)", nowait = true, remap = false },
+  { "<leader>Td", "<cmd>terminal fd --type d --max-depth 3<cr>", desc = "Show Directories", nowait = true, remap = false },
+
   { "<leader>g", group = "Git", nowait = true, remap = false },
   { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit", nowait = true, remap = false },
   { "<leader>h", group = "Harpoon", nowait = true, remap = false },
