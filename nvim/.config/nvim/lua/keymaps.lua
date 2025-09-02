@@ -127,6 +127,7 @@ local mappings = {
   { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
   { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", nowait = true, remap = false },
   { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
+  { "<leader>ld", function() require("tiny-inline-diagnostic").toggle() end, desc = "Toggle Inline Diagnostics", nowait = true, remap = false },
   {
     "<leader>/",
     function()
