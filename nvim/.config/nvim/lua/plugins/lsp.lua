@@ -54,6 +54,24 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason-lspconfig.nvim", "saghen/blink.cmp" },
+    keys = {
+      { "<leader>l", group = "LSP" },
+      { "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document Diagnostics" },
+      { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer" },
+      { "<leader>lL", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
+      { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+      { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
+      { "<leader>lf", "<cmd>lua require'conform'.format()<cr>", desc = "Format" },
+      { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
+      { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
+      { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
+      { "<leader>ll", "<cmd>lua require('lint').try_lint()<cr>", desc = "Lint" },
+      { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
+      { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
+      { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
+      { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
+      { "<leader>ld", function() require("tiny-inline-diagnostic").toggle() end, desc = "Toggle Inline Diagnostics" },
+    },
     config = function()
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 

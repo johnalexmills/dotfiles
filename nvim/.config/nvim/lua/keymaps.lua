@@ -40,94 +40,59 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
--- CopilotChat visual mode keymap
-keymap("v", "<leader>cc", "<cmd>CopilotChatVisual<cr>", { desc = "CopilotChat Visual", noremap = true, silent = true })
-
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
+  -- Plugin groups (for which-key display)
   { "<leader>c", group = "Copilot Chat", nowait = true, remap = false },
-  { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "Open CopilotChat", nowait = true, remap = false },
-  { "<leader>cr", "<cmd>CopilotChatReset<cr>", desc = "Reset CopilotChat", nowait = true, remap = false },
-  {
-    "<leader>ct",
-    "<cmd>CopilotChatToggle<cr>",
-    desc = "Toggle CopilotChat",
-    nowait = true,
-    remap = false,
-  },
-  { "<leader>ci", "<cmd>CopilotChatInline<cr>", desc = "CopilotChat Inline", nowait = true, remap = false },
-  { "<leader>cp", "<cmd>CopilotChatPrompts<cr>", desc = "CopilotChat Prompts", nowait = true, remap = false },
-  { "<leader>cm", "<cmd>CopilotChatModels<cr>", desc = "CopilotChat Models", nowait = true, remap = false },
-  { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files", nowait = true, remap = false },
-  { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text", nowait = true, remap = false },
-  { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers", nowait = true, remap = false },
-
-  { "-", "<CMD>Oil<CR>", desc = "Explorer", nowait = true, remap = false },
-
-  -- Tree view commands  
-  { "<leader>T", group = "Tree View", nowait = true, remap = false },
-  { "<leader>Tt", function()
-      local output = vim.fn.systemlist("tree")
-      local buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
-      vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
-      vim.api.nvim_buf_set_option(buf, 'filetype', 'text')
-      vim.api.nvim_win_set_buf(0, buf)
-    end, desc = "Show File Tree", nowait = true, remap = false },
-  { "<leader>Ta", function()
-      local output = vim.fn.systemlist("tree -a -I '.git'")
-      local buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
-      vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
-      vim.api.nvim_buf_set_option(buf, 'filetype', 'text')
-      vim.api.nvim_win_set_buf(0, buf)
-    end, desc = "Show Tree (Hidden)", nowait = true, remap = false },
-  { "<leader>Td", "<cmd>terminal fd --type d --max-depth 3<cr>", desc = "Show Directories", nowait = true, remap = false },
-
+  { "<leader>f", desc = "Find Files", nowait = true, remap = false },
+  { "<leader>F", desc = "Find Text", nowait = true, remap = false },
+  { "<leader>b", desc = "Buffers", nowait = true, remap = false },
   { "<leader>g", group = "Git", nowait = true, remap = false },
-  { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit", nowait = true, remap = false },
-  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   { "<leader>l", group = "LSP", nowait = true, remap = false },
+  { "<leader>s", group = "Search", nowait = true, remap = false },
+  { "<leader>t", group = "Terminal/Trouble", nowait = true, remap = false },
+  { "<leader>d", group = "Diff", nowait = true, remap = false },
+
+  -- Tree view commands
+  { "<leader>T", group = "Tree View", nowait = true, remap = false },
   {
-    "<leader>lD",
-    "<cmd>Telescope diagnostics bufnr=0<cr>",
-    desc = "Document Diagnostics",
-    nowait = true,
-    remap = false,
-  },
-  { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer", nowait = true, remap = false },
-  { "<leader>lL", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action", nowait = true, remap = false },
-  {
-    "<leader>lS",
-    "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-    desc = "Workspace Symbols",
-    nowait = true,
-    remap = false,
-  },
-  { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", nowait = true, remap = false },
-  { "<leader>lf", "<cmd>lua require'conform'.format()<cr>", desc = "Format", nowait = true, remap = false },
-  { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info", nowait = true, remap = false },
-  {
-    "<leader>lj",
-    "<cmd>lua vim.diagnostic.goto_next()<CR>",
-    desc = "Next Diagnostic",
+    "<leader>Tt",
+    function()
+      local output = vim.fn.systemlist "tree"
+      local buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+      vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+      vim.api.nvim_buf_set_option(buf, "filetype", "text")
+      vim.api.nvim_win_set_buf(0, buf)
+    end,
+    desc = "Show File Tree",
     nowait = true,
     remap = false,
   },
   {
-    "<leader>lk",
-    "<cmd>lua vim.diagnostic.goto_prev()<cr>",
-    desc = "Prev Diagnostic",
+    "<leader>Ta",
+    function()
+      local output = vim.fn.systemlist "tree -a -I '.git'"
+      local buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+      vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+      vim.api.nvim_buf_set_option(buf, "filetype", "text")
+      vim.api.nvim_win_set_buf(0, buf)
+    end,
+    desc = "Show Tree (Hidden)",
     nowait = true,
     remap = false,
   },
-  { "<leader>ll", "<cmd>lua require('lint').try_lint()<cr>", desc = "Lint", nowait = true, remap = false },
-  { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix", nowait = true, remap = false },
-  { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
-  { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", nowait = true, remap = false },
-  { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
-  { "<leader>ld", function() require("tiny-inline-diagnostic").toggle() end, desc = "Toggle Inline Diagnostics", nowait = true, remap = false },
+  {
+    "<leader>Td",
+    "<cmd>terminal fd --type d --max-depth 3<cr>",
+    desc = "Show Directories",
+    nowait = true,
+    remap = false,
+  },
+
+  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   {
     "<leader>/",
     function()
@@ -142,7 +107,7 @@ local mappings = {
     remap = false,
   },
   {
-    "<leader>rn",
+    "<leader>r",
     function()
       vim.opt.relativenumber = not vim.opt.relativenumber:get() and true or false
     end,
@@ -151,75 +116,7 @@ local mappings = {
     remap = false,
   },
   { "<leader>q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
-  { "<leader>s", group = "Search", nowait = true, remap = false },
-  { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands", nowait = true, remap = false },
-  { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages", nowait = true, remap = false },
-  { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers", nowait = true, remap = false },
-  { "<leader>sb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch", nowait = true, remap = false },
-  { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme", nowait = true, remap = false },
-  { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help", nowait = true, remap = false },
-  { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps", nowait = true, remap = false },
-  { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files", nowait = true, remap = false },
-
-  -- File browser removed - use Oil with '-' key instead
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
-
-  { "<leader>t", group = "Terminal/Trouble", nowait = true, remap = false },
-  -- Terminal keymaps
-  { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal", nowait = true, remap = false },
-  {
-    "<leader>tv",
-    "<cmd>ToggleTerm direction=vertical size=80<cr>",
-    desc = "Vertical Terminal",
-    nowait = true,
-    remap = false,
-  },
-  {
-    "<leader>th",
-    "<cmd>ToggleTerm direction=horizontal size=15<cr>",
-    desc = "Horizontal Terminal",
-    nowait = true,
-    remap = false,
-  },
-  -- Trouble keymaps
-  {
-    "<leader>tt",
-    "<cmd>Trouble diagnostics toggle<cr>",
-    desc = "Toggle Trouble Diagnostics",
-    nowait = true,
-    remap = false,
-  },
-  {
-    "<leader>ts",
-    "<cmd>Trouble symbols toggle focus=false<cr>",
-    desc = "Toggle Trouble Symbols",
-    nowait = true,
-    remap = false,
-  },
-  {
-    "<leader>tq",
-    "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-    desc = "Toggle Trouble Buffer Diagnostics",
-    nowait = true,
-    remap = false,
-  },
-  {
-    "<leader>tL",
-    "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-    desc = "LSP Definitions / references",
-    nowait = true,
-    remap = false,
-  },
-  { "<leader>tl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List", nowait = true, remap = false },
-  { "<leader>tQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List", nowait = true, remap = false },
-  
-  -- Diff keymaps
-  { "<leader>d", group = "Diff", nowait = true, remap = false },
-  { "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "Open Diff View", nowait = true, remap = false },
-  { "<leader>dc", "<cmd>DiffviewClose<cr>", desc = "Close Diff View", nowait = true, remap = false },
-  { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "File History", nowait = true, remap = false },
-  { "<leader>df", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle File Panel", nowait = true, remap = false },
-  { "<leader>dr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh Diff", nowait = true, remap = false },
 }
 return mappings

@@ -1,6 +1,14 @@
 return {
   "akinsho/toggleterm.nvim",
   event = "VeryLazy",
+  keys = {
+    { "<leader>t", group = "Terminal/Trouble" },
+    { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal" },
+    { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Vertical Terminal" },
+    { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal" },
+    { "<leader>g", group = "Git" },
+    { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit" },
+  },
   opts = {
     size = function(term)
       if term.direction == "horizontal" then

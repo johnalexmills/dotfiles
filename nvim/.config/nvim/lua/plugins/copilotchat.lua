@@ -14,6 +14,16 @@ return {
         ft = { "markdown", "copilot-chat" },
       },
     },
+    keys = {
+      { "<leader>c", group = "Copilot Chat" },
+      { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "Open CopilotChat" },
+      { "<leader>cc", "<cmd>CopilotChatVisual<cr>", desc = "CopilotChat Visual", mode = "v" },
+      { "<leader>cr", "<cmd>CopilotChatReset<cr>", desc = "Reset CopilotChat" },
+      { "<leader>ct", "<cmd>CopilotChatToggle<cr>", desc = "Toggle CopilotChat" },
+      { "<leader>ci", "<cmd>CopilotChatInline<cr>", desc = "CopilotChat Inline" },
+      { "<leader>cp", "<cmd>CopilotChatPrompts<cr>", desc = "CopilotChat Prompts" },
+      { "<leader>cm", "<cmd>CopilotChatModels<cr>", desc = "CopilotChat Models" },
+    },
     opts = {
       debug = false,
       model = "claude-sonnet-4",

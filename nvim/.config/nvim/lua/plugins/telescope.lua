@@ -2,6 +2,20 @@ return {
   "nvim-telescope/telescope.nvim",
   event = "VeryLazy",
   dependencies = { "nvim-lua/plenary.nvim" },
+  keys = {
+    { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+    { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text" },
+    { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>s", group = "Search" },
+    { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+    { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+    { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
+    { "<leader>sb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+    { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
+    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
+    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+  },
   -- Note: ripgrep must be installed on your system for live_grep to work
   config = function()
     local actions = require "telescope.actions"
