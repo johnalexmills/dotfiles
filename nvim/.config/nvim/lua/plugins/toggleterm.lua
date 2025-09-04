@@ -8,6 +8,7 @@ return {
     { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal" },
     { "<leader>g", group = "Git" },
     { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit" },
+    { "<leader>tc", "<cmd>lua _opencode_toggle()<CR>", desc = "OpenCode" },
   },
   opts = {
     size = function(term)
@@ -56,6 +57,23 @@ return {
 
     function _lazygit_toggle()
       lazygit:toggle()
+    end
+
+    local opencode = Terminal:new {
+      cmd = "opencode",
+      direction = "vertical",
+      size = math.floor(vim.o.columns * 0.45),
+      on_open = function(term)
+        vim.cmd "startinsert!"
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      end,
+      on_close = function(term)
+        vim.cmd "startinsert!"
+      end,
+    }
+
+    function _opencode_toggle()
+      opencode:toggle()
     end
   end,
 }
