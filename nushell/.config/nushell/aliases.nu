@@ -64,6 +64,7 @@ if (which procs | is-not-empty) {
 # Editor aliases
 alias v = nvim
 alias vim = nvim
+alias oc = ^env NODE_TLS_REJECT_UNAUTHORIZED=0 opencode
 
 # Interactive file editing with fzf (converted from bash)
 def --env ivn [] {
