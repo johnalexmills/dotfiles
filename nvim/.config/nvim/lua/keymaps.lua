@@ -50,7 +50,8 @@ local mappings = {
   { "<leader>g", group = "Git", nowait = true, remap = false },
   { "<leader>l", group = "LSP", nowait = true, remap = false },
   { "<leader>s", group = "Search", nowait = true, remap = false },
-  { "<leader>t", group = "Terminal/Trouble", nowait = true, remap = false },
+  { "<leader>t", group = "Terminal", nowait = true, remap = false },
+  { "<leader>n", group = "Noice", nowait = true, remap = false },
   { "<leader>d", group = "Diff", nowait = true, remap = false },
 
   -- Tree view commands
