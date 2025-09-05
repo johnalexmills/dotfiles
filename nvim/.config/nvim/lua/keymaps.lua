@@ -44,7 +44,6 @@ keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 local mappings = {
   -- Plugin groups (for which-key display)
-  { "<leader>c", group = "Copilot Chat", nowait = true, remap = false },
   { "<leader>f", desc = "Find Files", nowait = true, remap = false },
   { "<leader>F", desc = "Find Text", nowait = true, remap = false },
   { "<leader>b", desc = "Buffers", nowait = true, remap = false },
