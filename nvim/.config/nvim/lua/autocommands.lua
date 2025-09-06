@@ -37,9 +37,10 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
+-- Link mini.cursorword highlight to LSP reference
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
-    vim.cmd "hi link illuminatedWord LspReferenceText"
+    vim.cmd "hi link MiniCursorword LspReferenceText"
   end,
 })
 
@@ -48,10 +49,16 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   callback = function()
     local line_count = vim.api.nvim_buf_line_count(0)
     if line_count >= 5000 then
-      require("illuminate").pause_buf()
+      local ok, cursorword = pcall(require, "mini.cursorword")
+      if ok then
+        cursorword.setup({ delay = 0 }) -- Disable for this buffer
+        vim.b.minicursorword_disable = true
+      end
       -- Disable other heavy features for large files
       vim.opt_local.foldmethod = "manual"
       vim.opt_local.syntax = "off"
+      vim.opt_local.swapfile = false
+      vim.opt_local.undofile = false
     end
   end,
 })
@@ -150,5 +157,45 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
     local file = vim.uv.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+-- Return to last cursor position
+vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "Return to last cursor position",
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+-- Check if file changed externally
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  desc = "Check if file changed externally",
+  callback = function()
+    if vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- Auto-save when losing focus
+vim.api.nvim_create_autocmd("FocusLost", {
+  desc = "Auto-save on focus lost",
+  callback = function()
+    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" then
+      vim.cmd("silent! wall")
+    end
+  end,
+})
+
+-- Close certain windows with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "dap-float" },
+  callback = function()
+    vim.keymap.set("n", "q", "<cmd>close!<cr>", { buffer = true })
   end,
 })
