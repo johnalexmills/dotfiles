@@ -146,11 +146,29 @@ return {
           -- Buffer local mappings.
           local opts = { buffer = ev.buf }
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
+          
+          -- Document highlight
+          if client and client.server_capabilities.documentHighlightProvider then
+            vim.api.nvim_create_augroup("lsp_document_highlight", {})
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = ev.buf,
+              group = "lsp_document_highlight",
+              callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd("CursorMoved", {
+              buffer = ev.buf,
+              group = "lsp_document_highlight", 
+              callback = vim.lsp.buf.clear_references,
+            })
+          end
         end,
       })
     end,

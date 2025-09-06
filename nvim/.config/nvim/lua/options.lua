@@ -72,7 +72,16 @@ local options = {
   foldnestmax = 4,
   guifont = "CaskaydiaCove Nerd Font:h17:i",
   errorbells = false, -- no error bells
-  -- guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175",
+  lazyredraw = false, -- don't redraw while executing macros (modern nvim handles this better)
+  redrawtime = 1500, -- time in milliseconds for redrawing the display
+  ttyfast = true, -- indicates a fast terminal connection
+  -- Add better diff options
+  diffopt = "internal,filler,closeoff,hiddenoff,algorithm:minimal",
+  -- Better completion experience
+  wildmode = "longest:full,full",
+  wildignore = "*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,*.so,*.dll,*.swp,.DS_Store,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bmp,*.tar,*.zip,*.tgz",
+  -- Session options for better session management
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
 }
 vim.opt.shortmess:append "c"
 for k, v in pairs(options) do

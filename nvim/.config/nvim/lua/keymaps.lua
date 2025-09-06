@@ -27,9 +27,13 @@ keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
 keymap("n", "<Tab>", ":bnext<CR>", opts)
 keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
 
--- Better paste
-keymap("v", "p", "P", opts)
-keymap("x", "<leader>p", '"_dP', opts)
+-- Better paste (Primeagen's "greatest remap ever")
+-- Paste without losing clipboard content
+keymap("x", "<leader>p", [["_dP]], opts)
+keymap("v", "p", [["_dP]], opts)
+
+-- Delete to black hole register (doesn't overwrite clipboard)
+keymap({"n", "v"}, "<leader>D", [["_d]], opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -39,6 +43,23 @@ keymap("v", ">", ">gv", opts)
 -- Move blocks with indent
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Better line joining
+keymap("n", "J", "mzJ`z", opts)
+
+-- Keep cursor centered during navigation
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
+
+-- Quick fix navigation
+keymap("n", "<C-k>", "<cmd>cnext<CR>zz", opts)
+keymap("n", "<C-j>", "<cmd>cprev<CR>zz", opts)
+
+-- Location list navigation
+keymap("n", "<leader>k", "<cmd>lnext<CR>zz", opts)
+keymap("n", "<leader>j", "<cmd>lprev<CR>zz", opts)
 
 -- Comment handled by mini.comment plugin (gcc, gc)
 
