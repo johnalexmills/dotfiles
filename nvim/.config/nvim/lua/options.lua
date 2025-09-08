@@ -129,12 +129,12 @@ vim.diagnostic.config({
 -- checks OS and sets terminal accordingly. Needed for Windows since gitbash is used.
 if vim.fn.has "win32" ~= 0 then
   vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-  vim.o.shell = "nu.exe"
+  -- Use Git Bash for all shell operations
+  vim.o.shell = "bash.exe"
   vim.o.shellcmdflag = "-c"
   vim.o.shellredir = ">%s 2>&1"
   vim.o.shellquote = ""
   vim.o.shellxescape = ""
-  -- vim.o.noshelltemp = true
   vim.o.shellxquote = ""
   vim.o.shellpipe = "2>&1| tee"
   vim.env.TMP = "/tmp"

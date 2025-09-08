@@ -33,7 +33,7 @@ keymap("x", "<leader>p", [["_dP]], opts)
 keymap("v", "p", [["_dP]], opts)
 
 -- Delete to black hole register (doesn't overwrite clipboard)
-keymap({"n", "v"}, "<leader>D", [["_d]], opts)
+keymap({ "n", "v" }, "<leader>D", [["_d]], opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -80,7 +80,19 @@ local mappings = {
   {
     "<leader>Tt",
     function()
-      local output = vim.fn.systemlist "tree"
+      local cmd = "tree"
+      if vim.fn.has "win32" == 1 then
+        cmd = "tree"
+      end
+
+      local output = vim.fn.systemlist(cmd)
+      -- Remove carriage return characters on Windows
+      if vim.fn.has("win32") == 1 then
+        for i, line in ipairs(output) do
+          output[i] = line:gsub("\r", "")
+        end
+      end
+      
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
       vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
@@ -94,7 +106,19 @@ local mappings = {
   {
     "<leader>Ta",
     function()
-      local output = vim.fn.systemlist "tree -a -I '.git'"
+      local cmd = "tree -a -I '.git'"
+      if vim.fn.has "win32" == 1 then
+        cmd = "tree -a -I .git"
+      end
+
+      local output = vim.fn.systemlist(cmd)
+      -- Remove carriage return characters on Windows
+      if vim.fn.has("win32") == 1 then
+        for i, line in ipairs(output) do
+          output[i] = line:gsub("\r", "")
+        end
+      end
+      
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
       vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
@@ -109,6 +133,58 @@ local mappings = {
     "<leader>Td",
     "<cmd>terminal fd --type d --max-depth 3<cr>",
     desc = "Show Directories",
+    nowait = true,
+    remap = false,
+  },
+  {
+    "<leader>Tx",
+    function()
+      local debug_info = {
+        "=== DEBUG INFORMATION ===",
+        "OS: " .. (vim.fn.has "win32" == 1 and "Windows" or "Unix"),
+        "Working directory: " .. vim.fn.getcwd(),
+        "Shell: " .. vim.o.shell,
+        "",
+        "=== EXECUTABLE TESTS ===",
+        "tree executable: " .. (vim.fn.executable "tree" == 1 and "YES" or "NO"),
+        "bash executable: " .. (vim.fn.executable "bash" == 1 and "YES" or "NO"),
+        "cmd executable: " .. (vim.fn.executable "cmd" == 1 and "YES" or "NO"),
+        "",
+        "=== TESTING COMMANDS ===",
+      }
+
+      -- Test different commands
+      local commands = {
+        "tree",
+        "bash -c tree",
+        "cmd /c tree",
+        "cmd /c dir",
+        "where tree",
+        "bash -c 'which tree'",
+      }
+
+      for _, cmd in ipairs(commands) do
+        local output = vim.fn.systemlist(cmd)
+        local exit_code = vim.v.shell_error
+        table.insert(debug_info, "")
+        table.insert(debug_info, "Command: " .. cmd)
+        table.insert(debug_info, "Exit code: " .. exit_code)
+        table.insert(debug_info, "Output lines: " .. #output)
+        if #output > 0 then
+          table.insert(debug_info, "First line: " .. (output[1] or ""))
+          if #output > 1 then
+            table.insert(debug_info, "Second line: " .. (output[2] or ""))
+          end
+        end
+      end
+
+      local buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, debug_info)
+      vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+      vim.api.nvim_buf_set_option(buf, "filetype", "text")
+      vim.api.nvim_win_set_buf(0, buf)
+    end,
+    desc = "Debug Tree Commands",
     nowait = true,
     remap = false,
   },
