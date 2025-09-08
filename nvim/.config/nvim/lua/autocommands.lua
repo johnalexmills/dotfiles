@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     if line_count >= 5000 then
       local ok, cursorword = pcall(require, "mini.cursorword")
       if ok then
-        cursorword.setup({ delay = 0 }) -- Disable for this buffer
+        cursorword.setup { delay = 0 } -- Disable for this buffer
         vim.b.minicursorword_disable = true
       end
       -- Disable other heavy features for large files
@@ -177,7 +177,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   desc = "Check if file changed externally",
   callback = function()
     if vim.fn.mode() ~= "c" then
-      vim.cmd("checktime")
+      vim.cmd "checktime"
     end
   end,
 })
@@ -186,8 +186,8 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
 vim.api.nvim_create_autocmd("FocusLost", {
   desc = "Auto-save on focus lost",
   callback = function()
-    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" then
-      vim.cmd("silent! wall")
+    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand "%" ~= "" then
+      vim.cmd "silent! wall"
     end
   end,
 })

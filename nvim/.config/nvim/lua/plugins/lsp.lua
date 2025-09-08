@@ -70,7 +70,13 @@ return {
       { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
       { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
       { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
-      { "<leader>ld", function() require("tiny-inline-diagnostic").toggle() end, desc = "Toggle Inline Diagnostics" },
+      {
+        "<leader>ld",
+        function()
+          require("tiny-inline-diagnostic").toggle()
+        end,
+        desc = "Toggle Inline Diagnostics",
+      },
     },
     config = function()
       local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -154,7 +160,7 @@ return {
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
-          
+
           -- Document highlight
           if client and client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_augroup("lsp_document_highlight", {})
@@ -165,7 +171,7 @@ return {
             })
             vim.api.nvim_create_autocmd("CursorMoved", {
               buffer = ev.buf,
-              group = "lsp_document_highlight", 
+              group = "lsp_document_highlight",
               callback = vim.lsp.buf.clear_references,
             })
           end

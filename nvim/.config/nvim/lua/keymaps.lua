@@ -87,12 +87,12 @@ local mappings = {
 
       local output = vim.fn.systemlist(cmd)
       -- Remove carriage return characters on Windows
-      if vim.fn.has("win32") == 1 then
+      if vim.fn.has "win32" == 1 then
         for i, line in ipairs(output) do
           output[i] = line:gsub("\r", "")
         end
       end
-      
+
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
       vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
@@ -113,12 +113,12 @@ local mappings = {
 
       local output = vim.fn.systemlist(cmd)
       -- Remove carriage return characters on Windows
-      if vim.fn.has("win32") == 1 then
+      if vim.fn.has "win32" == 1 then
         for i, line in ipairs(output) do
           output[i] = line:gsub("\r", "")
         end
       end
-      
+
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
       vim.api.nvim_buf_set_option(buf, "buftype", "nofile")

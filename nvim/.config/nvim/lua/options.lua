@@ -103,7 +103,7 @@ end
 vim.opt.formatoptions:remove { "c", "r", "o" } -- This is a sequence of letters which describes how automatic formatting is to be done
 
 -- Enhanced diagnostics
-vim.diagnostic.config({
+vim.diagnostic.config {
   virtual_text = false,
   signs = {
     text = {
@@ -124,7 +124,7 @@ vim.diagnostic.config({
     header = "",
     prefix = "",
   },
-})
+}
 
 -- checks OS and sets terminal accordingly. Needed for Windows since gitbash is used.
 if vim.fn.has "win32" ~= 0 then
