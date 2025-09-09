@@ -21,7 +21,7 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = {
         "alpha",
-        "copilot-chat",
+
         "dashboard",
         "help",
         "lazy",

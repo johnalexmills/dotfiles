@@ -53,9 +53,9 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
 
--- Quick fix navigation
-keymap("n", "<C-k>", "<cmd>cnext<CR>zz", opts)
-keymap("n", "<C-j>", "<cmd>cprev<CR>zz", opts)
+-- Quick fix navigation (using different keys to avoid conflict with window nav)
+keymap("n", "<leader>cn", "<cmd>cnext<CR>zz", opts)
+keymap("n", "<leader>cp", "<cmd>cprev<CR>zz", opts)
 
 -- Location list navigation
 keymap("n", "<leader>k", "<cmd>lnext<CR>zz", opts)
