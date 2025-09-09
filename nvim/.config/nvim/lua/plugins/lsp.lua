@@ -18,7 +18,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "williamboman/mason-lspconfig.nvim", "saghen/blink.cmp" },
+    dependencies = { "saghen/blink.cmp" },
     keys = {
       { "<leader>l", group = "LSP" },
       { "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document Diagnostics" },
@@ -30,18 +30,12 @@ return {
       { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
       { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
       { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
-      { "<leader>ll", "<cmd>lua require('lint').try_lint()<cr>", desc = "Lint" },
+
       { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
       { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
       { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
       { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
-      {
-        "<leader>ld",
-        function()
-          require("tiny-inline-diagnostic").toggle()
-        end,
-        desc = "Toggle Inline Diagnostics",
-      },
+
     },
     config = function()
       local capabilities = require("blink.cmp").get_lsp_capabilities()
