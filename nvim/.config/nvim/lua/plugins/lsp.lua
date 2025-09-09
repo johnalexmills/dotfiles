@@ -18,7 +18,10 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "saghen/blink.cmp" },
+    dependencies = { 
+      "saghen/blink.cmp",
+      "rachartier/tiny-inline-diagnostic.nvim"
+    },
     keys = {
       { "<leader>l", group = "LSP" },
       { "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document Diagnostics" },
@@ -40,6 +43,54 @@ return {
       { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definitions" },
     },
     config = function()
+      -- Configure tiny-inline-diagnostic
+      vim.diagnostic.config {
+        virtual_text = false,
+      }
+      require("tiny-inline-diagnostic").setup {
+        preset = "modern",
+        hi = {
+          error = "DiagnosticError",
+          warn = "DiagnosticWarn",
+          info = "DiagnosticInfo",
+          hint = "DiagnosticHint",
+          arrow = "NonText",
+          background = "CursorLine",
+          mixing_color = "Normal",
+        },
+        options = {
+          show_source = {
+            enabled = true,
+            if_many = true,
+          },
+          throttle = 20,
+          softwrap = 15,
+          multilines = {
+            enabled = true,
+          },
+          show_all_diags_on_cursorline = false,
+          enable_on_insert = false,
+          enable_on_select = false,
+          overflow = {
+            mode = "wrap",
+            padding = 0,
+          },
+          break_line = {
+            enabled = false,
+            after = 30,
+          },
+          virt_texts = {
+            priority = 2048,
+          },
+          severity = {
+            vim.diagnostic.severity.ERROR,
+            vim.diagnostic.severity.WARN,
+            vim.diagnostic.severity.INFO,
+            vim.diagnostic.severity.HINT,
+          },
+        },
+      }
+
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       -- Configure LSP servers using Neovim 0.11+ native config
