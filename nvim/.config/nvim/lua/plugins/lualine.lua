@@ -74,7 +74,6 @@ return {
         lualine_b = { "branch" },
         lualine_c = { filename },
         lualine_x = {
-          "copilot",
           lsp_info,
           diagnostics,
           diff,
