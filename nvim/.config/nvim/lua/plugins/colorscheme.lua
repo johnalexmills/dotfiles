@@ -23,7 +23,7 @@ return {
         telescope = { enabled = true },
         illuminate = { enabled = true, lsp = false },
         alpha = true,
-        fidget = true,
+
         lualine = true,
         mason = true,
         mini = true,
