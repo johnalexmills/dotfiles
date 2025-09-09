@@ -8,8 +8,8 @@ return {
   opts = {
     keymap = {
       preset = "default",
-      ["<C-k>"] = { "select_prev", "fallback" },
-      ["<C-j>"] = { "select_next", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-n>"] = { "select_next", "fallback" },
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
@@ -36,6 +36,13 @@ return {
           name = "Snippets",
           module = "blink.cmp.sources.snippets",
           score_offset = -1,
+          opts = {
+            friendly_snippets = true,
+            search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+            global_snippets = { "all" },
+            extended_filetypes = {},
+            ignored_filetypes = {},
+          },
         },
         lsp = {
           name = "LSP",
@@ -54,6 +61,7 @@ return {
         auto_brackets = {
           enabled = true,
         },
+        create_undo_point = true,
       },
       menu = {
         border = "rounded",

@@ -143,8 +143,47 @@ return {
       -- Enable all configured LSP servers
       vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript" }
 
-      -- Enable inlay hints globally
-      vim.lsp.inlay_hint.enable(true)
+      -- Enable inlay hints globally (Neovim 0.10+)
+      if vim.lsp.inlay_hint then
+        vim.lsp.inlay_hint.enable(true)
+      end
+
+      -- Enhanced diagnostic configuration (modern features)
+      vim.diagnostic.config {
+        virtual_text = false,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "✘",
+            [vim.diagnostic.severity.WARN] = "▲", 
+            [vim.diagnostic.severity.HINT] = "⚑",
+            [vim.diagnostic.severity.INFO] = "»",
+          },
+          numhl = {
+            [vim.diagnostic.severity.ERROR] = "DiagnosticError",
+            [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+            [vim.diagnostic.severity.HINT] = "DiagnosticHint", 
+            [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+          },
+        },
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+        float = {
+          focusable = false,
+          style = "minimal",
+          border = "rounded",
+          source = "always",
+          header = "",
+          prefix = "",
+          format = function(diagnostic)
+            return string.format("%s (%s) [%s]", 
+              diagnostic.message, 
+              diagnostic.source or "unknown",
+              diagnostic.code or "no-code"
+            )
+          end,
+        },
+      }
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer

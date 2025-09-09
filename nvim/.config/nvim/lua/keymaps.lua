@@ -23,10 +23,6 @@ keymap("n", "<A-j>", ":resize +2<CR>", opts)
 keymap("n", "<A-k>", ":resize -2<CR>", opts)
 keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
 
--- Navigate buffers
-keymap("n", "<Tab>", ":bnext<CR>", opts)
-keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
-
 -- Better paste (Primeagen's "greatest remap ever")
 -- Paste without losing clipboard content
 keymap("x", "<leader>p", [["_dP]], opts)
@@ -56,40 +52,30 @@ keymap("n", "N", "Nzzzv", opts)
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
-  -- Plugin groups (for which-key display)
-  { "<leader>f", desc = "Find Files", nowait = true, remap = false },
-  { "<leader>F", desc = "Find Text", nowait = true, remap = false },
-  { "<leader>b", desc = "Buffers", nowait = true, remap = false },
-
   -- Git group
   { "<leader>g", group = "Git", nowait = true, remap = false },
 
   -- LSP group
   { "<leader>l", group = "LSP", nowait = true, remap = false },
 
-  -- Search group
-  { "<leader>s", group = "Search", nowait = true, remap = false },
-
   -- Telescope group
   { "<leader>t", group = "Telescope", nowait = true, remap = false },
   { "<leader>tv", group = "Vim", nowait = true, remap = false },
 
-  -- Terminal group
-  { "<leader>T", group = "Terminal", nowait = true, remap = false },
-  { "<leader>Tt", group = "Tree View", nowait = true, remap = false },
-
   -- Other groups
   { "<leader>d", group = "Diff", nowait = true, remap = false },
   { "<leader>h", group = "Harpoon", nowait = true, remap = false },
-  { "<leader>q", group = "Quickfix", nowait = true, remap = false },
 
+  -- Terminal group
+  { "<leader>T", group = "Terminal", nowait = true, remap = false },
+  { "<leader>Tt", group = "Tree View", nowait = true, remap = false },
   -- Tree view commands
   {
     "<leader>Ttt",
     function()
-      local cmd = "tree"
+      local cmd = "tree -I '.git|.terraform|.terragrunt-cache'"
       if vim.fn.has "win32" == 1 then
-        cmd = "tree"
+        cmd = "tree -I .git,.terraform,.terragrunt-cache"
       end
 
       local output = vim.fn.systemlist(cmd)
@@ -113,9 +99,9 @@ local mappings = {
   {
     "<leader>Tta",
     function()
-      local cmd = "tree -a -I '.git'"
+      local cmd = "tree -a -I '.git|.terraform|.terragrunt-cache'"
       if vim.fn.has "win32" == 1 then
-        cmd = "tree -a -I .git"
+        cmd = "tree -a -I .git,.terraform,.terragrunt-cache"
       end
 
       local output = vim.fn.systemlist(cmd)
@@ -219,9 +205,6 @@ local mappings = {
     nowait = true,
     remap = false,
   },
-  { "<leader>Q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
-  { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
-  { "<leader>D", [["_d]], desc = "Delete (No Clipboard)", nowait = true, remap = false },
 }
 return mappings

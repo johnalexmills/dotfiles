@@ -3,52 +3,26 @@ return {
   cmd = { "Telescope" },
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
-    -- Quick access keys
-    { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-    { "<leader>F", "<cmd>Telescope live_grep<cr>", desc = "Find Text" },
-    { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-
-    -- Telescope group
+    -- Telescope group (organized)
     { "<leader>t", group = "Telescope" },
-    { "<leader>tv", group = "Vim" },
-
-    -- File and text search
     { "<leader>tf", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
     { "<leader>tg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
     { "<leader>ts", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
-    { "<leader>tr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
     { "<leader>tb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>th", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
+    { "<leader>tK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Keymaps" },
+    { "<leader>tc", "<cmd>Telescope commands<cr>", desc = "Commands" },
+    { "<leader>tm", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+    { "<leader>tr", "<cmd>Telescope registers<cr>", desc = "Registers" },
+    { "<leader>tC", "<cmd>Telescope colorscheme<cr>", desc = "Colorschemes" },
+    { "<leader>to", "<cmd>Telescope vim_options<cr>", desc = "Vim Options" },
 
-    -- Git integration (moved to <leader>g)
+    -- Git integration
     { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
     { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
     { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git Commits" },
     { "<leader>gC", "<cmd>Telescope git_bcommits<cr>", desc = "Buffer Commits" },
     { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Git Status" },
-    { "<leader>gS", "<cmd>Telescope git_stash<cr>", desc = "Git Stash" },
-
-    -- Vim internals
-    { "<leader>tvh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
-    { "<leader>tvk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-    { "<leader>tvc", "<cmd>Telescope commands<cr>", desc = "Commands" },
-    { "<leader>tvm", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-    { "<leader>tvr", "<cmd>Telescope registers<cr>", desc = "Registers" },
-    { "<leader>tvs", "<cmd>Telescope colorscheme<cr>", desc = "Colorschemes" },
-    { "<leader>tvo", "<cmd>Telescope vim_options<cr>", desc = "Vim Options" },
-    { "<leader>tvj", "<cmd>Telescope jumplist<cr>", desc = "Jump List" },
-    { "<leader>tvq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix List" },
-    { "<leader>tvl", "<cmd>Telescope loclist<cr>", desc = "Location List" },
-
-    -- Search group (keeping backward compatibility)
-    { "<leader>s", group = "Search" },
-    { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-    { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-    { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
-    { "<leader>sb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
-    { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
-    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
   },
   -- Note: ripgrep must be installed on your system for live_grep to work
   config = function()
@@ -118,8 +92,8 @@ return {
         mappings = {
           i = {
             ["<esc>"] = actions.close,
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-n>"] = actions.move_selection_next,
+            ["<C-p>"] = actions.move_selection_previous,
           },
         },
       },

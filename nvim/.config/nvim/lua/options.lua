@@ -4,7 +4,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
--- Disable unused providers
+-- Disable unused providers (keep python3 for potential plugins)
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python_provider = 0
@@ -52,7 +52,7 @@ local options = {
   colorcolumn = "80", -- limit line length
   timeoutlen = 500, -- time to wait for a mapped sequence to complete (better UX)
   linebreak = true,
-  updatetime = 100, -- faster completion (4000ms default)
+  updatetime = 250, -- balanced performance vs responsiveness (4000ms default)
   writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
   expandtab = true, -- convert tabs to spaces
   shiftwidth = 4, -- the number of spaces inserted for each indentation
@@ -68,11 +68,11 @@ local options = {
   foldexpr = "nvim_treesitter#foldexpr()",
   foldtext = "",
   foldlevelstart = 99,
-  ttimeoutlen = 10, -- faster key sequence timeout
+  ttimeoutlen = 50, -- more stable key sequence timeout
   foldnestmax = 4,
   guifont = "CaskaydiaCove Nerd Font:h17:i",
   errorbells = false, -- no error bells
-  lazyredraw = true, -- don't redraw while executing macros for better performance
+  lazyredraw = false, -- can cause issues with some plugins
   redrawtime = 1500, -- time in milliseconds for redrawing the display
   ttyfast = true, -- indicates a fast terminal connection
   -- Add better diff options
