@@ -1,6 +1,5 @@
 return {
   "akinsho/toggleterm.nvim",
-  event = "VeryLazy",
   keys = {
     { "<leader>t", group = "Terminal/Trouble" },
     { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal" },

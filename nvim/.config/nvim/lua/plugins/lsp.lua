@@ -1,7 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("mason").setup {
         ui = {
@@ -17,7 +17,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = { "williamboman/mason-lspconfig.nvim", "saghen/blink.cmp" },
     keys = {
       { "<leader>l", group = "LSP" },

@@ -1,6 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
-  event = "VeryLazy",
+  cmd = { "Telescope" },
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },

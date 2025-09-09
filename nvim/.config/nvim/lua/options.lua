@@ -52,7 +52,7 @@ local options = {
   colorcolumn = "80", -- limit line length
   timeoutlen = 500, -- time to wait for a mapped sequence to complete (better UX)
   linebreak = true,
-  updatetime = 250, -- faster completion (4000ms default)
+  updatetime = 100, -- faster completion (4000ms default)
   writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
   expandtab = true, -- convert tabs to spaces
   shiftwidth = 4, -- the number of spaces inserted for each indentation
@@ -72,7 +72,7 @@ local options = {
   foldnestmax = 4,
   guifont = "CaskaydiaCove Nerd Font:h17:i",
   errorbells = false, -- no error bells
-  lazyredraw = false, -- don't redraw while executing macros (modern nvim handles this better)
+  lazyredraw = true, -- don't redraw while executing macros for better performance
   redrawtime = 1500, -- time in milliseconds for redrawing the display
   ttyfast = true, -- indicates a fast terminal connection
   -- Add better diff options
