@@ -30,8 +30,6 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
-
-
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "Remove trailing whitespace",
@@ -85,5 +83,3 @@ vim.api.nvim_create_autocmd("FocusLost", {
     end
   end,
 })
-
-

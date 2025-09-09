@@ -1,10 +1,10 @@
 return {
   "akinsho/toggleterm.nvim",
   keys = {
-    { "<leader>t", group = "Terminal/Trouble" },
-    { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal" },
-    { "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Vertical Terminal" },
-    { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal" },
+    { "<leader>T", group = "Terminal" },
+    { "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal" },
+    { "<leader>Tv", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Vertical Terminal" },
+    { "<leader>Th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal" },
     { "<leader>g", group = "Git" },
     { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit" },
   },

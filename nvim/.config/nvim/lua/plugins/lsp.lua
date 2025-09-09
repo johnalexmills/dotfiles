@@ -35,7 +35,9 @@ return {
       { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
       { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
       { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
-
+      { "<leader>lR", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+      { "<leader>lm", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
+      { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definitions" },
     },
     config = function()
       local capabilities = require("blink.cmp").get_lsp_capabilities()

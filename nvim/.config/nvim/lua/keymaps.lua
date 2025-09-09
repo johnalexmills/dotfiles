@@ -53,14 +53,6 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
 
--- Quick fix navigation (using different keys to avoid conflict with window nav)
-keymap("n", "<leader>cn", "<cmd>cnext<CR>zz", opts)
-keymap("n", "<leader>cp", "<cmd>cprev<CR>zz", opts)
-
--- Location list navigation
-keymap("n", "<leader>k", "<cmd>lnext<CR>zz", opts)
-keymap("n", "<leader>j", "<cmd>lprev<CR>zz", opts)
-
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
@@ -68,17 +60,32 @@ local mappings = {
   { "<leader>f", desc = "Find Files", nowait = true, remap = false },
   { "<leader>F", desc = "Find Text", nowait = true, remap = false },
   { "<leader>b", desc = "Buffers", nowait = true, remap = false },
+
+  -- Git group
   { "<leader>g", group = "Git", nowait = true, remap = false },
+
+  -- LSP group
   { "<leader>l", group = "LSP", nowait = true, remap = false },
+
+  -- Search group
   { "<leader>s", group = "Search", nowait = true, remap = false },
-  { "<leader>t", group = "Terminal", nowait = true, remap = false },
-  { "<leader>n", group = "Noice", nowait = true, remap = false },
+
+  -- Telescope group
+  { "<leader>t", group = "Telescope", nowait = true, remap = false },
+  { "<leader>tv", group = "Vim", nowait = true, remap = false },
+
+  -- Terminal group
+  { "<leader>T", group = "Terminal", nowait = true, remap = false },
+  { "<leader>Tt", group = "Tree View", nowait = true, remap = false },
+
+  -- Other groups
   { "<leader>d", group = "Diff", nowait = true, remap = false },
+  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
+  { "<leader>q", group = "Quickfix", nowait = true, remap = false },
 
   -- Tree view commands
-  { "<leader>T", group = "Tree View", nowait = true, remap = false },
   {
-    "<leader>Tt",
+    "<leader>Ttt",
     function()
       local cmd = "tree"
       if vim.fn.has "win32" == 1 then
@@ -104,7 +111,7 @@ local mappings = {
     remap = false,
   },
   {
-    "<leader>Ta",
+    "<leader>Tta",
     function()
       local cmd = "tree -a -I '.git'"
       if vim.fn.has "win32" == 1 then
@@ -130,14 +137,14 @@ local mappings = {
     remap = false,
   },
   {
-    "<leader>Td",
+    "<leader>Ttd",
     "<cmd>terminal fd --type d --max-depth 3<cr>",
     desc = "Show Directories",
     nowait = true,
     remap = false,
   },
   {
-    "<leader>Tx",
+    "<leader>Ttx",
     function()
       local debug_info = {
         "=== DEBUG INFORMATION ===",
@@ -212,8 +219,9 @@ local mappings = {
     nowait = true,
     remap = false,
   },
-  { "<leader>q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
+  { "<leader>Q", "<cmd>q!<CR>", desc = "Quit", nowait = true, remap = false },
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
+  { "<leader>D", [["_d]], desc = "Delete (No Clipboard)", nowait = true, remap = false },
 }
 return mappings
