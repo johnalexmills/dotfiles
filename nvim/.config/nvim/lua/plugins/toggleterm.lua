@@ -3,7 +3,7 @@ return {
   keys = {
     { "<leader>t", group = "Terminal/Trouble" },
     { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal" },
-    { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Vertical Terminal" },
+    { "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Vertical Terminal" },
     { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal Terminal" },
     { "<leader>g", group = "Git" },
     { "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", desc = "LazyGit" },
@@ -13,7 +13,7 @@ return {
       if term.direction == "horizontal" then
         return 15
       elseif term.direction == "vertical" then
-        return vim.o.columns * 0.5
+        return vim.o.columns * 0.4
       end
       return 20
     end,
