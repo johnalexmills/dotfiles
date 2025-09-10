@@ -2,6 +2,9 @@ return {
   {
     "williamboman/mason.nvim",
     event = { "BufReadPost", "BufNewFile" },
+    cond = function()
+      return vim.bo.filetype ~= "oil"
+    end,
     config = function()
       require("mason").setup {
         ui = {
@@ -18,6 +21,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
+    cond = function()
+      return vim.bo.filetype ~= "oil"
+    end,
     dependencies = { 
       "saghen/blink.cmp",
       "rachartier/tiny-inline-diagnostic.nvim"

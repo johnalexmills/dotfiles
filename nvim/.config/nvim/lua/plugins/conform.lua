@@ -1,6 +1,9 @@
 return {
   "stevearc/conform.nvim",
   event = { "BufReadPost", "BufNewFile" },
+  cond = function()
+    return vim.bo.filetype ~= "oil"
+  end,
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },

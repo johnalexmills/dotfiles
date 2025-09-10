@@ -1,6 +1,9 @@
 return {
   "saghen/blink.cmp",
   event = "InsertEnter",
+  cond = function()
+    return vim.bo.filetype ~= "oil"
+  end,
   version = "*",
   dependencies = {
     "rafamadriz/friendly-snippets",
