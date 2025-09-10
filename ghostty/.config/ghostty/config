@@ -1,5 +1,5 @@
-theme = catppuccin-frappe
+theme = catppuccin-macchiato
 font-family = "CaskaydiaCove Nerd Font"
 macos-option-as-alt = false
-background-opacity = 0.80
+background-opacity = 1.00
 cursor-style = block

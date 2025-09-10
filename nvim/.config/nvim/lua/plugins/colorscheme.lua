@@ -5,7 +5,7 @@ return {
   name = "catppuccin",
   config = function()
     require("catppuccin").setup {
-      flavour = "frappe",
+      flavour = "macchiato",
       transparent_background = true,
       term_colors = true,
       compile_path = vim.fn.stdpath "cache" .. "/catppuccin",
