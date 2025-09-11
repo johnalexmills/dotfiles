@@ -1,6 +1,6 @@
 return {
   "RRethy/vim-illuminate",
-  event = "LspAttach",
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     delay = 100,
     filetypes_denylist = {
