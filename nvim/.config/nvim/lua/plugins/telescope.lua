@@ -89,6 +89,8 @@ return {
           "%.swp$",
         },
 
+        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+        
         mappings = {
           i = {
             ["<esc>"] = actions.close,
