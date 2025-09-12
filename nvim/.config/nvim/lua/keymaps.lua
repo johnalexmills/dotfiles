@@ -77,9 +77,9 @@ local mappings = {
   {
     "<leader>Ttt",
     function()
-      local cmd = "tree -I '.git|.terraform|.terragrunt-cache'"
+      local cmd = 'tree -I ".git|.terraform|.terragrunt-cache|node_modules"'
       if vim.fn.has "win32" == 1 then
-        cmd = "tree -I .git,.terraform,.terragrunt-cache"
+        cmd = "tree -I .git,.terraform,.terragrunt-cache,node_modules"
       end
 
       local output = vim.fn.systemlist(cmd)
@@ -103,9 +103,9 @@ local mappings = {
   {
     "<leader>Tta",
     function()
-      local cmd = "tree -a -I '.git|.terraform|.terragrunt-cache'"
+      local cmd = 'tree -a -I ".git|.terraform|.terragrunt-cache|node_modules"'
       if vim.fn.has "win32" == 1 then
-        cmd = "tree -a -I .git,.terraform,.terragrunt-cache"
+        cmd = "tree -a -I .git,.terraform,.terragrunt-cache,node_modules"
       end
 
       local output = vim.fn.systemlist(cmd)

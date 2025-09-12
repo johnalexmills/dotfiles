@@ -87,6 +87,10 @@ return {
           "%.pyc$",
           "%.tmp$",
           "%.swp$",
+          "%.terragrunt%-cache/",
+          "%.terraform/",
+          "%.terraform%.lock%.hcl$",
+          "terragrunt%.hcl$",
         },
 
         borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
