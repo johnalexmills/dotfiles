@@ -3,7 +3,8 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = "Oil",
   keys = {
-    { "-", "<CMD>Oil<CR>", desc = "Explorer" },
+    { "-", "<CMD>Oil --float<CR>", desc = "Explorer (Float)" },
+    { "<leader>-", "<CMD>Oil<CR>", desc = "Explorer (Buffer)" },
   },
   config = function()
     require("oil").setup {
@@ -18,8 +19,12 @@ return {
       },
       float = {
         padding = 2,
-        max_width = 90,
-        max_height = 0,
+        max_width = 0.9,
+        max_height = 0.9,
+        border = "rounded",
+        win_options = {
+          winblend = 0,
+        },
       },
       win_options = {
         wrap = true,
