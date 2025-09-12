@@ -17,14 +17,21 @@ return {
           return name == ".." or name == ".git"
         end,
       },
+      columns = {
+        "icon",
+      },
       float = {
         padding = 2,
         max_width = 0.9,
         max_height = 0.9,
-        border = "none",
+        border = { " ", " ", " ", " ", " ", " ", " ", " " },
         win_options = {
           winblend = 0,
         },
+        override = function(conf)
+          conf.title = vim.fn.fnamemodify(require("oil").get_current_dir(), ":~")
+          return conf
+        end,
       },
       win_options = {
         wrap = true,
