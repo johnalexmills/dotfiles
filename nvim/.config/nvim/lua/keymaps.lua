@@ -211,7 +211,7 @@ local mappings = {
   },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
   { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
-  
+
   -- Todo Comments group
   { "<leader>td", group = "Todo Comments", nowait = true, remap = false },
   { "<leader>tdt", "<cmd>TodoTelescope<CR>", desc = "Search Todos", nowait = true, remap = false },

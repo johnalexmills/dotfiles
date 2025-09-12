@@ -94,7 +94,7 @@ return {
         },
 
         borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
-        
+
         mappings = {
           i = {
             ["<esc>"] = actions.close,
