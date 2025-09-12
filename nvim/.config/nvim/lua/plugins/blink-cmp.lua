@@ -41,7 +41,7 @@ return {
           score_offset = -1,
           opts = {
             friendly_snippets = true,
-            search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+            search_paths = { vim.fn.stdpath "config" .. "/snippets" },
             global_snippets = { "all" },
             extended_filetypes = {},
             ignored_filetypes = {},

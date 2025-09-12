@@ -24,9 +24,9 @@ return {
     cond = function()
       return vim.bo.filetype ~= "oil"
     end,
-    dependencies = { 
+    dependencies = {
       "saghen/blink.cmp",
-      "rachartier/tiny-inline-diagnostic.nvim"
+      "rachartier/tiny-inline-diagnostic.nvim",
     },
     keys = {
       { "<leader>l", group = "LSP" },
@@ -161,14 +161,14 @@ return {
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = "✘",
-            [vim.diagnostic.severity.WARN] = "▲", 
+            [vim.diagnostic.severity.WARN] = "▲",
             [vim.diagnostic.severity.HINT] = "⚑",
             [vim.diagnostic.severity.INFO] = "»",
           },
           numhl = {
             [vim.diagnostic.severity.ERROR] = "DiagnosticError",
             [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
-            [vim.diagnostic.severity.HINT] = "DiagnosticHint", 
+            [vim.diagnostic.severity.HINT] = "DiagnosticHint",
             [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
           },
         },
@@ -183,8 +183,9 @@ return {
           header = "",
           prefix = "",
           format = function(diagnostic)
-            return string.format("%s (%s) [%s]", 
-              diagnostic.message, 
+            return string.format(
+              "%s (%s) [%s]",
+              diagnostic.message,
               diagnostic.source or "unknown",
               diagnostic.code or "no-code"
             )
