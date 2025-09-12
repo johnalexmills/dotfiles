@@ -17,6 +17,10 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Buffer navigation with Tab
+keymap("n", "<Tab>", ":bnext<CR>", opts)
+keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
+
 -- Resize with Alt+hjkl
 keymap("n", "<A-h>", ":vertical resize -2<CR>", opts)
 keymap("n", "<A-j>", ":resize +2<CR>", opts)
@@ -206,5 +210,12 @@ local mappings = {
     remap = false,
   },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
+  { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
+  
+  -- Todo Comments group
+  { "<leader>td", group = "Todo Comments", nowait = true, remap = false },
+  { "<leader>tdt", "<cmd>TodoTelescope<CR>", desc = "Search Todos", nowait = true, remap = false },
+  { "<leader>tdl", "<cmd>TodoLocList<CR>", desc = "Todo Location List", nowait = true, remap = false },
+  { "<leader>tdq", "<cmd>TodoQuickFix<CR>", desc = "Todo QuickFix", nowait = true, remap = false },
 }
 return mappings
