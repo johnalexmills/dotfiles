@@ -92,9 +92,6 @@ return {
           "%.terraform%.lock%.hcl$",
           "terragrunt%.hcl$",
         },
-
-        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
-
         mappings = {
           i = {
             ["<esc>"] = actions.close,
