@@ -21,6 +21,13 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<Tab>", ":bnext<CR>", opts)
 keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
 
+-- Buffer management
+keymap("n", "<leader>ba", ":%bd|e#<CR>", { desc = "Close all but current", noremap = true, silent = true })
+keymap("n", "<leader>bo", ":%bd|e#|bd#<CR>", { desc = "Close others", noremap = true, silent = true })
+
+-- Window management
+keymap("n", "<leader>w", "<C-w>", { desc = "Window commands", noremap = true, silent = true })
+
 -- Resize with Alt+hjkl
 keymap("n", "<A-h>", ":vertical resize -2<CR>", opts)
 keymap("n", "<A-j>", ":resize +2<CR>", opts)
@@ -56,6 +63,9 @@ keymap("n", "N", "Nzzzv", opts)
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
+  -- Buffer group
+  { "<leader>b", group = "Buffer", nowait = true, remap = false },
+
   -- Git group
   { "<leader>g", group = "Git", nowait = true, remap = false },
 
@@ -69,6 +79,8 @@ local mappings = {
   -- Other groups
   { "<leader>d", group = "Diff", nowait = true, remap = false },
   { "<leader>h", group = "Harpoon", nowait = true, remap = false },
+  { "<leader>m", group = "Markdown", nowait = true, remap = false },
+  { "<leader>w", group = "Window", nowait = true, remap = false },
 
   -- Terminal group
   { "<leader>T", group = "Terminal", nowait = true, remap = false },
