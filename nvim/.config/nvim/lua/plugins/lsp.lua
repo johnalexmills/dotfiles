@@ -1,7 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
     config = function()
       require("mason").setup {
         ui = {
@@ -17,7 +17,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "saghen/blink.cmp",
       "rachartier/tiny-inline-diagnostic.nvim",
