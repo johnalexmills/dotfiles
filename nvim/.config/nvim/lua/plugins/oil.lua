@@ -4,7 +4,6 @@ return {
   cmd = "Oil",
   keys = {
     { "-", "<CMD>Oil --float<CR>", desc = "Explorer (Float)" },
-    { "<leader>-", "<CMD>Oil<CR>", desc = "Explorer (Buffer)" },
   },
   config = function()
     require("oil").setup {
