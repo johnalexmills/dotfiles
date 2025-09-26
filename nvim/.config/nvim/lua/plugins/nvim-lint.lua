@@ -23,7 +23,7 @@ return {
       tf = { "tflint" },
 
       -- Documentation
-      markdown = { "markdownlint", "vale" },
+      markdown = { "markdownlint" },
       tex = { "chktex" },
 
       -- Data Languages
