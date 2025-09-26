@@ -2,10 +2,9 @@ return {
   "MeanderingProgrammer/render-markdown.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
   ft = { "markdown" },
-  keys = {
-    { "<leader>mr", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle Markdown Render", ft = "markdown" },
-  },
+
   opts = {
+    enabled = true,
     heading = {
       enabled = true,
       sign = true,
