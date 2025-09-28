@@ -44,6 +44,7 @@ local options = {
   showtabline = 0, -- always show tabline for buffers
   smartcase = true, -- smart case
   smartindent = true, -- make indenting smarter again
+  autoindent = true, -- copy indent from current line when starting a new line
   splitbelow = true, -- force all horizontal splits to go below current window
   splitright = true, -- force all vertical splits to go to the right of current window
   swapfile = false, -- creates a swapfile
