@@ -24,7 +24,7 @@ return {
         ensure_installed = {
           -- LSP servers
           "pyright",
-          "lua_ls", 
+          "lua_ls",
           "bashls",
           "terraformls",
         },
@@ -43,29 +43,29 @@ return {
           -- LSP servers (also handled by mason-lspconfig)
           "pyright",
           "lua-language-server",
-          "bash-language-server", 
+          "bash-language-server",
           "terraform-ls",
 
           -- Formatters
-          "stylua",        -- lua
-          "black",         -- python
-          "isort",         -- python
-          "ruff",          -- python (also linter)
-          "prettier",      -- json, yaml, markdown
-          "taplo",         -- toml
+          "stylua", -- lua
+          "black", -- python
+          "isort", -- python
+          "ruff", -- python (also linter)
+          "prettier", -- json, yaml, markdown
+          "taplo", -- toml
 
           -- Linters
-          "luacheck",      -- lua
-          "mypy",          -- python
-          "shellcheck",    -- bash/sh
-          "yamllint",      -- yaml
-          "jsonlint",      -- json
+          "luacheck", -- lua
+          "mypy", -- python
+          "shellcheck", -- bash/sh
+          "yamllint", -- yaml
+          "jsonlint", -- json
           "markdownlint-cli", -- markdown
-          "tflint",        -- terraform
+          "tflint", -- terraform
 
           -- Additional tools that might be useful
-          "hadolint",      -- dockerfile
-          "sqlfluff",      -- sql
+          "hadolint", -- dockerfile
+          "sqlfluff", -- sql
         },
         auto_update = false,
         run_on_start = true,

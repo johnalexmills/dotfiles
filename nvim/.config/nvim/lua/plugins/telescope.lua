@@ -1,7 +1,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   cmd = { "Telescope" },
-  dependencies = { 
+  dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   },
@@ -104,8 +104,8 @@ return {
         },
       },
     }
-    
+
     -- Load fzf extension for faster fuzzy finding
-    telescope.load_extension("fzf")
+    telescope.load_extension "fzf"
   end,
 }

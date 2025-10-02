@@ -118,4 +118,3 @@ return {
     end, { desc = "Trigger linting for all open buffers" })
   end,
 }
-
