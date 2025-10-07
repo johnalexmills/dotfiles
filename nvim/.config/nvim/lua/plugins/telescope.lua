@@ -22,7 +22,7 @@ return {
 
     -- Git integration
     { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
-    { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
+    { "<leader>gB", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
     { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git Commits" },
     { "<leader>gC", "<cmd>Telescope git_bcommits<cr>", desc = "Buffer Commits" },
     { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Git Status" },

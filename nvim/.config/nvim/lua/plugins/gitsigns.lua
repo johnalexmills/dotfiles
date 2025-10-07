@@ -8,4 +8,7 @@ return {
       delay = 300,
     },
   },
+  keys = {
+    { "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle git blame line" },
+  },
 }
