@@ -1,11 +1,11 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = "VeryLazy",
+  event = { "BufReadPre", "BufNewFile" },
   opts = {
-    signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-    current_line_blame = true, -- Disable by default for performance
+    signcolumn = true,
+    current_line_blame = false,
     current_line_blame_opts = {
-      delay = 300, -- Add delay if enabled manually
+      delay = 300,
     },
   },
 }

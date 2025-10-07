@@ -1,6 +1,6 @@
 return {
   "RRethy/vim-illuminate",
-  event = "VeryLazy",
+  event = { "BufReadPost", "BufNewFile" },
   opts = {
     delay = 100,
     filetypes_denylist = {
