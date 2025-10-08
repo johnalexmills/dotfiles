@@ -100,6 +100,13 @@ return {
       { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Definitions" },
       { "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
       { "<leader>lm", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
+      {
+        "<leader>ld",
+        function()
+          require("tiny-inline-diagnostic").toggle()
+        end,
+        desc = "Toggle Inline Diagnostics",
+      },
     },
     config = function()
       -- Configure tiny-inline-diagnostic
