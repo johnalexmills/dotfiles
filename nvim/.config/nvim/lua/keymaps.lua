@@ -74,7 +74,6 @@ local mappings = {
 
   -- Other groups
   { "<leader>d", group = "Diff", nowait = true, remap = false },
-  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   { "<leader>m", group = "Markdown", nowait = true, remap = false },
   { "<leader>w", group = "Window", nowait = true, remap = false },
 
@@ -194,7 +193,6 @@ local mappings = {
     remap = false,
   },
 
-  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   {
     "<leader>/",
     function()
