@@ -132,7 +132,7 @@ return {
           throttle = 20,
           softwrap = 15,
           multilines = {
-            enabled = true,
+            enabled = false,
           },
           show_all_diags_on_cursorline = false,
           enable_on_insert = false,
@@ -156,6 +156,7 @@ return {
           },
         },
       }
+      require("tiny-inline-diagnostic").disable()
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
