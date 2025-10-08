@@ -98,9 +98,9 @@ local mappings = {
       end
 
       local buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
-      vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-      vim.api.nvim_buf_set_option(buf, "filetype", "text")
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, debug_info)
+      vim.bo[buf].buftype = "nofile"
+      vim.bo[buf].filetype = "text"
       vim.api.nvim_win_set_buf(0, buf)
     end,
     desc = "Show File Tree",
@@ -125,8 +125,8 @@ local mappings = {
 
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
-      vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-      vim.api.nvim_buf_set_option(buf, "filetype", "text")
+      vim.bo[buf].buftype = "nofile"
+      vim.bo[buf].filetype = "text"
       vim.api.nvim_win_set_buf(0, buf)
     end,
     desc = "Show Tree (Hidden)",
@@ -183,9 +183,9 @@ local mappings = {
       end
 
       local buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, debug_info)
-      vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-      vim.api.nvim_buf_set_option(buf, "filetype", "text")
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+      vim.bo[buf].buftype = "nofile"
+      vim.bo[buf].filetype = "text"
       vim.api.nvim_win_set_buf(0, buf)
     end,
     desc = "Debug Tree Commands",

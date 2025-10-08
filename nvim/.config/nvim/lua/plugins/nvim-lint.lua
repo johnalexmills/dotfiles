@@ -87,7 +87,7 @@ return {
       callback = function()
         -- Only lint if the buffer is not too large (performance)
         local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(0))
+        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(0))
         if ok and stats and stats.size > max_filesize then
           return
         end
@@ -109,7 +109,7 @@ return {
     vim.keymap.set("n", "<leader>lL", function()
       -- Lint all open buffers
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, "buflisted") then
+        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
           vim.api.nvim_buf_call(buf, function()
             lint.try_lint()
           end)
