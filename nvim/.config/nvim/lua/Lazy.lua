@@ -18,4 +18,21 @@ require("lazy").setup("plugins", {
   ui = { border = "rounded" },
   change_detection = { enabled = true, notify = false },
   debug = false,
+  performance = {
+    cache = {
+      enabled = true,
+    },
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 })
