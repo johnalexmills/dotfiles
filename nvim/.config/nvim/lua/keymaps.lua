@@ -70,12 +70,6 @@ local mappings = {
 
   -- Telescope group
   { "<leader>t", group = "Telescope", nowait = true, remap = false },
-  { "<leader>tv", group = "Vim", nowait = true, remap = false },
-
-  -- Other groups
-  { "<leader>d", group = "Diff", nowait = true, remap = false },
-  { "<leader>m", group = "Markdown", nowait = true, remap = false },
-  { "<leader>w", group = "Window", nowait = true, remap = false },
 
   -- Terminal group
   { "<leader>T", group = "Terminal", nowait = true, remap = false },
@@ -98,7 +92,7 @@ local mappings = {
       end
 
       local buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, debug_info)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
       vim.bo[buf].buftype = "nofile"
       vim.bo[buf].filetype = "text"
       vim.api.nvim_win_set_buf(0, buf)
@@ -217,11 +211,5 @@ local mappings = {
   },
   { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
   { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
-
-  -- Todo Comments group
-  { "<leader>td", group = "Todo Comments", nowait = true, remap = false },
-  { "<leader>tdt", "<cmd>TodoTelescope<CR>", desc = "Search Todos", nowait = true, remap = false },
-  { "<leader>tdl", "<cmd>TodoLocList<CR>", desc = "Todo Location List", nowait = true, remap = false },
-  { "<leader>tdq", "<cmd>TodoQuickFix<CR>", desc = "Todo QuickFix", nowait = true, remap = false },
 }
 return mappings

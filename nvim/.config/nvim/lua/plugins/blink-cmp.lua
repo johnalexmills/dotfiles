@@ -17,8 +17,8 @@ return {
       ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
-      ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
-      ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+      ["<Tab>"] = { "snippet_forward", "fallback" },
+      ["<S-Tab>"] = { "snippet_backward", "fallback" },
     },
     appearance = {
       use_nvim_cmp_as_default = true,
