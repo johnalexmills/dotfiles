@@ -282,15 +282,15 @@ return {
 
           -- Document highlight
           if client and client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_augroup("lsp_document_highlight", {})
+            local highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = ev.buf,
-              group = "lsp_document_highlight",
+              group = highlight_group,
               callback = vim.lsp.buf.document_highlight,
             })
             vim.api.nvim_create_autocmd("CursorMoved", {
               buffer = ev.buf,
-              group = "lsp_document_highlight",
+              group = highlight_group,
               callback = vim.lsp.buf.clear_references,
             })
           end
