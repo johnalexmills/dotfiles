@@ -34,6 +34,13 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "Remove trailing whitespace",
   callback = function()
+    -- Skip for large files (performance)
+    local max_filesize = 100 * 1024 -- 100 KB
+    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(0))
+    if ok and stats and stats.size > max_filesize then
+      return
+    end
+
     local save_cursor = vim.fn.getpos "."
     vim.cmd [[%s/\s\+$//e]]
     vim.fn.setpos(".", save_cursor)

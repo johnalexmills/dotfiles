@@ -60,7 +60,7 @@ return {
           "shellcheck", -- bash/sh
           "yamllint", -- yaml
           "jsonlint", -- json
-          "markdownlint-cli", -- markdown
+          "markdownlint", -- markdown (changed from markdownlint-cli)
           "tflint", -- terraform
 
           -- Additional tools that might be useful
@@ -68,7 +68,7 @@ return {
           "sqlfluff", -- sql
         },
         auto_update = false,
-        run_on_start = true,
+        run_on_start = false, -- Disabled for better startup performance
       }
     end,
   },
