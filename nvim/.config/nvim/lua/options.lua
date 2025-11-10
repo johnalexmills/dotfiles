@@ -25,118 +25,165 @@ vim.g.loaded_rrhelper = 1
 vim.g.loaded_spellfile_plugin = 1
 
 local options = {
-  backup = false, -- creates a backup file
-  exrc = true, -- enable .exrc files
-  nu = true, -- enable line numbers
-  undofile = true, -- enable persistent undo
-  clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-  cmdheight = 1, -- more space in the neovim command line for displaying messages
-  completeopt = { "menuone", "noselect" }, -- mostly just for cmp
-  conceallevel = 0, -- so that `` is visible in markdown files
-  fileencoding = "utf-8", -- the encoding written to a file
-  hlsearch = true, -- highlight all matches on previous search pattern
-  incsearch = true, -- show search matches incrementally
-  wrapscan = true, -- searches wrap around the end of the file
-  ignorecase = true, -- ignore case in search patterns
-  mouse = "a", -- allow the mouse to be used in neovim
-  pumheight = 10, -- pop up menu height
-  showmode = false, -- we don't need to see things like -- INSERT -- anymore
-  showtabline = 0, -- always show tabline for buffers
-  smartcase = true, -- smart case
-  smartindent = true, -- make indenting smarter again
-  autoindent = true, -- copy indent from current line when starting a new line
-  splitbelow = true, -- force all horizontal splits to go below current window
-  splitright = true, -- force all vertical splits to go to the right of current window
-  swapfile = false, -- creates a swapfile
-  termguicolors = true, -- set term gui colors (most terminals support this)
-  scrolloff = 10, -- is one of my fav
-  colorcolumn = "80", -- limit line length
-  timeoutlen = 500, -- time to wait for a mapped sequence to complete (better UX)
-  linebreak = true,
-  updatetime = 250, -- balanced performance vs responsiveness (4000ms default)
-  writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-  expandtab = true, -- convert tabs to spaces
-  shiftwidth = 4, -- the number of spaces inserted for each indentation
-  tabstop = 4, -- insert 2 spaces for a tab
-  cursorline = false, -- Disabled for better performance
-  number = true, -- set numbered lines
-  relativenumber = false, -- set relative numbered lines
-  numberwidth = 4, -- set number column width to 2 {default 4}
-  signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
-  wrap = false, -- display lines as one long line
-  sidescrolloff = 8,
-  foldmethod = "indent", -- Changed from "expr" for better performance
-  foldexpr = "",
-  foldtext = "",
-  foldlevelstart = 99,
-  ttimeoutlen = 50, -- more stable key sequence timeout
-  foldnestmax = 4,
-  guifont = "CaskaydiaCove Nerd Font:h17:i",
-  errorbells = false, -- no error bells
-  lazyredraw = false, -- can cause issues with some plugins
-  redrawtime = 1500, -- time in milliseconds for redrawing the display
-  ttyfast = true, -- indicates a fast terminal connection
-  -- Add better diff options
-  diffopt = "internal,filler,closeoff,hiddenoff,algorithm:minimal",
-  -- Better completion experience
-  wildmode = "longest:full,full",
-  wildignore = "*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,*.so,*.dll,*.swp,.DS_Store,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bmp,*.tar,*.zip,*.tgz",
-  -- Session options for better session management
-  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
+  -- File Backups and History
+  backup = false,                          -- Don't create backup files before overwriting
+  undofile = true,                         -- Save undo history to a file for persistence across sessions
+  swapfile = false,                        -- Don't create swap files (backup in case of crash)
+  writebackup = false,                     -- Don't create backup before overwriting a file
+
+  -- Project-Specific Configuration
+  exrc = true,                             -- Enable reading .nvimrc/.exrc in project directories
+
+  -- Line Numbers
+  nu = true,                               -- Show absolute line numbers
+  number = true,                           -- Show line numbers (alternative syntax)
+  relativenumber = false,                  -- Don't show relative line numbers
+  numberwidth = 4,                         -- Width of the line number column
+
+  -- System Integration
+  clipboard = "unnamedplus",               -- Use system clipboard for yank/paste operations
+  mouse = "a",                             -- Enable mouse support in all modes
+
+  -- Command Line and UI
+  cmdheight = 1,                           -- Height of the command line area
+  showmode = false,                        -- Don't show mode (e.g., -- INSERT --) since it's in statusline
+  showtabline = 0,                         -- Never show the tabline (bufferline plugin handles this)
+  pumheight = 10,                          -- Maximum number of items in popup menu (completion)
+
+  -- Completion Settings
+  completeopt = { "menuone", "noselect" }, -- Show menu even for single match, don't auto-select
+
+  -- Encoding
+  fileencoding = "utf-8",                  -- File encoding for writing files
+
+  -- Search Settings
+  hlsearch = true,                         -- Highlight all search matches
+  incsearch = true,                        -- Show matches while typing search pattern
+  wrapscan = true,                         -- Search wraps around end of file
+  ignorecase = true,                       -- Ignore case in search patterns
+  smartcase = true,                        -- Override ignorecase if search contains uppercase
+
+  -- Indentation
+  smartindent = true,                      -- Smart autoindenting for C-like languages
+  autoindent = true,                       -- Copy indent from current line to new line
+  expandtab = true,                        -- Convert tabs to spaces
+  shiftwidth = 4,                          -- Number of spaces for each indentation level
+  tabstop = 4,                             -- Number of spaces that a tab counts for
+
+  -- Window Splitting
+  splitbelow = true,                       -- Horizontal splits open below current window
+  splitright = true,                       -- Vertical splits open to the right of current window
+
+  -- Colors and Display
+  termguicolors = true,                    -- Enable 24-bit RGB colors in the terminal
+  conceallevel = 0,                        -- Don't hide any characters (e.g., `` in markdown)
+  cursorline = false,                      -- Don't highlight the current line (disabled for performance)
+  colorcolumn = "80",                      -- Show a vertical line at column 80
+
+  -- Scrolling
+  scrolloff = 10,                          -- Keep 10 lines visible above/below cursor when scrolling
+  sidescrolloff = 8,                       -- Keep 8 columns visible left/right of cursor when scrolling
+
+  -- Text Wrapping
+  wrap = false,                            -- Don't wrap long lines visually
+  linebreak = true,                        -- If wrap is enabled, break at word boundaries
+
+  -- Timing
+  timeoutlen = 500,                        -- Time in ms to wait for mapped sequence to complete
+  ttimeoutlen = 50,                        -- Time in ms to wait for key code sequence to complete
+  updatetime = 250,                        -- Time in ms before swap file is written (also affects CursorHold)
+
+  -- Folding
+  foldmethod = "indent",                   -- Create folds based on indentation
+  foldexpr = "",                           -- Expression for fold calculation (empty since using indent)
+  foldtext = "",                           -- Custom fold display text (empty = use default)
+  foldlevelstart = 99,                     -- Start with all folds open
+  foldnestmax = 4,                         -- Maximum nesting of folds
+
+  -- GUI Settings
+  guifont = "CaskaydiaCove Nerd Font:h17:i", -- Font for GUI versions of neovim
+
+  -- Performance and Redrawing
+  errorbells = false,                      -- No beeping on errors
+  lazyredraw = false,                      -- Redraw screen during macros (can cause plugin issues if true)
+  redrawtime = 1500,                       -- Time in ms for redrawing the display
+  ttyfast = true,                          -- Indicates a fast terminal connection for smoother redrawing
+
+  -- Sign Column
+  signcolumn = "yes",                      -- Always show sign column (for LSP, git signs, etc.)
+
+  -- Diff Mode
+  diffopt = "internal,filler,closeoff,hiddenoff,algorithm:minimal", -- Better diff display options
+
+  -- Wildmenu (Command-line Completion)
+  wildmode = "longest:full,full",          -- Complete longest common string, then show full matches
+  wildignore = "*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,*.so,*.dll,*.swp,.DS_Store,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bmp,*.tar,*.zip,*.tgz", -- Files to ignore in completion
+
+  -- Session Management
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- What to save in sessions
 }
+-- Append 'c' to shortmess (don't show completion messages like "match 1 of 2")
 vim.opt.shortmess:append "c"
+
+-- Apply all options from the table above
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+-- Rich mode configuration (if ConfigMode is set to "rich")
 if ConfigMode == "rich" then
-  vim.opt.termguicolors = true
-  vim.o.background = "dark"
-  vim.opt.clipboard = "unnamedplus"
+  vim.opt.termguicolors = true           -- Enable true color support
+  vim.o.background = "dark"              -- Use dark background for colorschemes
+  vim.opt.clipboard = "unnamedplus"      -- Ensure system clipboard is enabled
 end
 
+-- Allow specified keys to move to the previous/next line when at start/end of line
 vim.cmd "set whichwrap+=<,>,[,],h,l"
+
+-- Treat hyphenated words as a single word object (e.g., for word motions)
 vim.cmd [[set iskeyword+=-]]
 
+-- Set shell to cmd.exe on Windows (detected by backslash in package.config)
 if package.config:sub(1, 1) == "\\" then
   vim.cmd ":set shell=cmd.exe"
 end
-vim.opt.formatoptions:remove { "c", "r", "o" } -- This is a sequence of letters which describes how automatic formatting is to be done
 
--- Enhanced diagnostics
+-- Remove auto-commenting on new lines (c=comments, r=insert mode Enter, o=normal mode o/O)
+vim.opt.formatoptions:remove { "c", "r", "o" }
+
+-- LSP Diagnostics Configuration
 vim.diagnostic.config {
-  virtual_text = false,
-  signs = {
+  virtual_text = false,                    -- Don't show diagnostic text inline (reduces clutter)
+  signs = {                                -- Custom icons for diagnostic signs in the sign column
     text = {
-      [vim.diagnostic.severity.ERROR] = "✘",
-      [vim.diagnostic.severity.WARN] = "▲",
-      [vim.diagnostic.severity.HINT] = "⚑",
-      [vim.diagnostic.severity.INFO] = "»",
+      [vim.diagnostic.severity.ERROR] = "✘",  -- Error icon
+      [vim.diagnostic.severity.WARN] = "▲",   -- Warning icon
+      [vim.diagnostic.severity.HINT] = "⚑",   -- Hint icon
+      [vim.diagnostic.severity.INFO] = "»",   -- Info icon
     },
   },
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = "minimal",
-    border = "rounded",
-    source = "always",
-    header = "",
-    prefix = "",
+  underline = true,                        -- Underline diagnostic regions
+  severity_sort = true,                    -- Sort diagnostics by severity
+  float = {                                -- Floating window settings for diagnostic popups
+    focusable = false,                     -- Can't focus the floating window
+    style = "minimal",                     -- Minimal style (no line numbers, etc.)
+    border = "rounded",                    -- Rounded border
+    source = "always",                     -- Always show the source of the diagnostic
+    header = "",                           -- No header text
+    prefix = "",                           -- No prefix before diagnostic message
   },
 }
 
--- checks OS and sets terminal accordingly. Needed for Windows since gitbash is used.
+-- Windows-specific configuration (use Git Bash instead of cmd.exe)
 if vim.fn.has "win32" ~= 0 then
-  vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-  -- Use Git Bash for all shell operations
-  vim.o.shell = "bash.exe"
-  vim.o.shellcmdflag = "-c"
-  vim.o.shellredir = ">%s 2>&1"
-  vim.o.shellquote = ""
-  vim.o.shellxescape = ""
-  vim.o.shellxquote = ""
-  vim.o.shellpipe = "2>&1| tee"
-  vim.env.TMP = "/tmp"
+  vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"  -- Disable Node.js TLS cert verification
+  -- Configure shell to use Git Bash for all shell operations
+  vim.o.shell = "bash.exe"                    -- Use bash.exe as the shell
+  vim.o.shellcmdflag = "-c"                   -- Flag to execute a command
+  vim.o.shellredir = ">%s 2>&1"               -- Redirect stdout and stderr
+  vim.o.shellquote = ""                       -- No quoting of the command
+  vim.o.shellxescape = ""                     -- No special escaping
+  vim.o.shellxquote = ""                      -- No extra quoting
+  vim.o.shellpipe = "2>&1| tee"               -- Pipe command with tee
+  vim.env.TMP = "/tmp"                        -- Set temp directory to Unix-style path
 end
