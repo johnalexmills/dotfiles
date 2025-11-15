@@ -79,21 +79,82 @@ return {
           "--glob=!.git/",
         },
         file_ignore_patterns = {
+          -- Version control
           "^%.git/",
           "%.git$",
+          "%.gitignore$",
+          
+          -- Dependencies
           "node_modules/",
-          "%.DS_Store$",
-          "%.cache/",
           "%.npm/",
+          "vendor/",
+          "%.bundle/",
+          
+          -- Python
           "%.venv/",
+          "venv/",
+          "env/",
           "__pycache__/",
           "%.pyc$",
-          "%.tmp$",
-          "%.swp$",
+          "%.pyo$",
+          "%.egg%-info/",
+          "dist/",
+          "build/",
+          "%.pytest_cache/",
+          "%.tox/",
+          
+          -- Terraform
           "%.terragrunt%-cache/",
           "%.terraform/",
           "%.terraform%.lock%.hcl$",
           "terragrunt%.hcl$",
+          
+          -- Build artifacts
+          "target/",
+          "out/",
+          "bin/",
+          "obj/",
+          
+          -- Lock files
+          "package%-lock%.json$",
+          "yarn%.lock$",
+          "pnpm%-lock%.yaml$",
+          "Cargo%.lock$",
+          "Gemfile%.lock$",
+          "composer%.lock$",
+          "poetry%.lock$",
+          
+          -- Cache and temp files
+          "%.cache/",
+          "%.tmp$",
+          "%.temp$",
+          "%.swp$",
+          "%.swo$",
+          "%.bak$",
+          "~$",
+          
+          -- OS files
+          "%.DS_Store$",
+          "Thumbs%.db$",
+          "desktop%.ini$",
+          
+          -- IDE
+          "%.idea/",
+          "%.vscode/",
+          "%.vs/",
+          
+          -- Logs
+          "%.log$",
+          "logs/",
+          
+          -- Coverage
+          "coverage/",
+          "%.coverage$",
+          "htmlcov/",
+          
+          -- Misc
+          "%.min%.js$",
+          "%.min%.css$",
         },
         mappings = {
           i = {
