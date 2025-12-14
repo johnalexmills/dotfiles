@@ -12,7 +12,11 @@ return {
     end
 
     configs.setup {
-      ensure_installed = { "lua", "python", "bash", "markdown", "json", "terraform" },
+      ensure_installed = {
+        "lua", "python", "bash", "markdown", "json", "terraform",
+        "vim", "vimdoc", "query",  -- Helpful for Neovim development
+        "regex", "comment",  -- Universal parsers
+      },
       auto_install = true,
       sync_install = false,
       highlight = {

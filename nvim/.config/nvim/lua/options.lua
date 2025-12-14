@@ -35,8 +35,7 @@ local options = {
   exrc = true,                             -- Enable reading .nvimrc/.exrc in project directories
 
   -- Line Numbers
-  nu = true,                               -- Show absolute line numbers
-  number = true,                           -- Show line numbers (alternative syntax)
+  number = true,                           -- Show absolute line numbers
   relativenumber = false,                  -- Don't show relative line numbers
   numberwidth = 4,                         -- Width of the line number column
 
@@ -51,7 +50,7 @@ local options = {
   pumheight = 10,                          -- Maximum number of items in popup menu (completion)
 
   -- Completion Settings
-  completeopt = { "menuone", "noselect" }, -- Show menu even for single match, don't auto-select
+  completeopt = { "menu", "menuone", "noselect" }, -- Show menu even for single match, don't auto-select
 
   -- Encoding
   fileencoding = "utf-8",                  -- File encoding for writing files
@@ -59,6 +58,7 @@ local options = {
   -- Search Settings
   hlsearch = true,                         -- Highlight all search matches
   incsearch = true,                        -- Show matches while typing search pattern
+  inccommand = "split",                    -- Show live preview of :s command in split window (Neovim 0.9+)
   wrapscan = true,                         -- Search wraps around end of file
   ignorecase = true,                       -- Ignore case in search patterns
   smartcase = true,                        -- Override ignorecase if search contains uppercase
@@ -73,6 +73,7 @@ local options = {
   -- Window Splitting
   splitbelow = true,                       -- Horizontal splits open below current window
   splitright = true,                       -- Vertical splits open to the right of current window
+  splitkeep = "screen",                    -- Keep screen position when splitting (Neovim 0.9+)
 
   -- Colors and Display
   termguicolors = true,                    -- Enable 24-bit RGB colors in the terminal
@@ -83,10 +84,12 @@ local options = {
   -- Scrolling
   scrolloff = 10,                          -- Keep 10 lines visible above/below cursor when scrolling
   sidescrolloff = 8,                       -- Keep 8 columns visible left/right of cursor when scrolling
+  jumpoptions = "stack",                   -- Make jumplist behave like a stack (Neovim 0.11+)
 
   -- Text Wrapping
   wrap = false,                            -- Don't wrap long lines visually
   linebreak = true,                        -- If wrap is enabled, break at word boundaries
+  smoothscroll = true,                     -- Smoother scrolling for wrapped lines (Neovim 0.10+)
 
   -- Timing
   timeoutlen = 500,                        -- Time in ms to wait for mapped sequence to complete
@@ -95,8 +98,6 @@ local options = {
 
   -- Folding
   foldmethod = "indent",                   -- Create folds based on indentation
-  foldexpr = "",                           -- Expression for fold calculation (empty since using indent)
-  foldtext = "",                           -- Custom fold display text (empty = use default)
   foldlevelstart = 99,                     -- Start with all folds open
   foldnestmax = 4,                         -- Maximum nesting of folds
 
@@ -107,7 +108,6 @@ local options = {
   errorbells = false,                      -- No beeping on errors
   lazyredraw = false,                      -- Redraw screen during macros (can cause plugin issues if true)
   redrawtime = 1500,                       -- Time in ms for redrawing the display
-  ttyfast = true,                          -- Indicates a fast terminal connection for smoother redrawing
 
   -- Sign Column
   signcolumn = "yes",                      -- Always show sign column (for LSP, git signs, etc.)
@@ -138,15 +138,10 @@ if ConfigMode == "rich" then
 end
 
 -- Allow specified keys to move to the previous/next line when at start/end of line
-vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.opt.whichwrap:append "<>[]hl"
 
 -- Treat hyphenated words as a single word object (e.g., for word motions)
-vim.cmd [[set iskeyword+=-]]
-
--- Set shell to cmd.exe on Windows (detected by backslash in package.config)
-if package.config:sub(1, 1) == "\\" then
-  vim.cmd ":set shell=cmd.exe"
-end
+vim.opt.iskeyword:append "-"
 
 -- Remove auto-commenting on new lines (c=comments, r=insert mode Enter, o=normal mode o/O)
 vim.opt.formatoptions:remove { "c", "r", "o" }
@@ -174,7 +169,7 @@ vim.diagnostic.config {
   },
 }
 
--- Windows-specific configuration (use Git Bash instead of cmd.exe)
+-- Windows-specific configuration (use Git Bash)
 if vim.fn.has "win32" ~= 0 then
   vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"  -- Disable Node.js TLS cert verification
   -- Configure shell to use Git Bash for all shell operations
