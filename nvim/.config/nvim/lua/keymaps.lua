@@ -209,7 +209,7 @@ local mappings = {
     nowait = true,
     remap = false,
   },
-  { "<leader>x", "<cmd>Bdelete!<CR>", desc = "Close Buffer", nowait = true, remap = false },
+  { "<leader>x", function() Snacks.bufdelete() end, desc = "Close Buffer", nowait = true, remap = false },
   { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
 }
 return mappings

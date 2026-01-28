@@ -15,7 +15,7 @@ return {
       "lir",
       "Outline",
       "spectre_panel",
-      "toggleterm",
+      "snacks_terminal",
       "DressingSelect",
       "TelescopePrompt",
     },
