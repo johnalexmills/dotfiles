@@ -4,16 +4,9 @@ return {
   event = "VeryLazy",
   keys = {
     {
-      "<leader>T",
-      function()
-        Snacks.terminal(nil, { win = { position = "float" } })
-      end,
-      desc = "Float Terminal",
-    },
-    {
       "<C-\\>",
       function()
-        Snacks.terminal()
+        Snacks.terminal(nil, { win = { position = "float" } })
       end,
       desc = "Toggle Terminal",
       mode = { "n", "t" },
