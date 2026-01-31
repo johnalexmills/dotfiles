@@ -83,13 +83,13 @@ return {
           "^%.git/",
           "%.git$",
           "%.gitignore$",
-          
+
           -- Dependencies
           "node_modules/",
           "%.npm/",
           "vendor/",
           "%.bundle/",
-          
+
           -- Python
           "%.venv/",
           "venv/",
@@ -102,19 +102,19 @@ return {
           "build/",
           "%.pytest_cache/",
           "%.tox/",
-          
+
           -- Terraform
           "%.terragrunt%-cache/",
           "%.terraform/",
           "%.terraform%.lock%.hcl$",
           "terragrunt%.hcl$",
-          
+
           -- Build artifacts
           "target/",
           "out/",
           "bin/",
           "obj/",
-          
+
           -- Lock files
           "package%-lock%.json$",
           "yarn%.lock$",
@@ -123,7 +123,7 @@ return {
           "Gemfile%.lock$",
           "composer%.lock$",
           "poetry%.lock$",
-          
+
           -- Cache and temp files
           "%.cache/",
           "%.tmp$",
@@ -132,26 +132,26 @@ return {
           "%.swo$",
           "%.bak$",
           "~$",
-          
+
           -- OS files
           "%.DS_Store$",
           "Thumbs%.db$",
           "desktop%.ini$",
-          
+
           -- IDE
           "%.idea/",
           "%.vscode/",
           "%.vs/",
-          
+
           -- Logs
           "%.log$",
           "logs/",
-          
+
           -- Coverage
           "coverage/",
           "%.coverage$",
           "htmlcov/",
-          
+
           -- Misc
           "%.min%.js$",
           "%.min%.css$",

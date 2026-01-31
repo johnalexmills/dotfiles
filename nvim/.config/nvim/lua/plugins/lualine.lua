@@ -35,7 +35,7 @@ return {
       function()
         local msg = "No Active Lsp"
         local buf_ft = vim.bo[0].filetype
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        local clients = vim.lsp.get_clients { bufnr = 0 }
         if next(clients) == nil then
           return msg
         end
