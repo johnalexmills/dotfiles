@@ -21,7 +21,6 @@ return {
         treesitter = true,
         which_key = true,
         telescope = { enabled = true },
-        illuminate = { enabled = true, lsp = false },
         alpha = true,
 
         lualine = true,
