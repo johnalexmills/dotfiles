@@ -21,6 +21,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- Start in insert mode for git commits
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    vim.cmd "startinsert!"
+  end,
+})
+
 -- Automatically resize splits when terminal is resized
 -- Ensures all window splits are equal size after resizing the terminal
 vim.api.nvim_create_autocmd({ "VimResized" }, {

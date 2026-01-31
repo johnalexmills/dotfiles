@@ -30,6 +30,7 @@ local options = {
   undofile = true,                         -- Save undo history to a file for persistence across sessions
   swapfile = false,                        -- Don't create swap files (backup in case of crash)
   writebackup = false,                     -- Don't create backup before overwriting a file
+  confirm = true,                          -- Prompt to save instead of failing on :q with unsaved changes
 
   -- Project-Specific Configuration
   exrc = true,                             -- Enable reading .nvimrc/.exrc in project directories
@@ -78,7 +79,8 @@ local options = {
   -- Colors and Display
   termguicolors = true,                    -- Enable 24-bit RGB colors in the terminal
   conceallevel = 0,                        -- Don't hide any characters (e.g., `` in markdown)
-  cursorline = false,                      -- Don't highlight the current line (disabled for performance)
+  cursorline = true,                       -- Highlight the current line
+  cursorlineopt = "number",                -- Only highlight the line number, not the whole line
   colorcolumn = "80",                      -- Show a vertical line at column 80
 
   -- Scrolling
@@ -89,6 +91,7 @@ local options = {
   -- Text Wrapping
   wrap = false,                            -- Don't wrap long lines visually
   linebreak = true,                        -- If wrap is enabled, break at word boundaries
+  breakindent = true,                      -- Wrapped lines maintain visual indent
   smoothscroll = true,                     -- Smoother scrolling for wrapped lines (Neovim 0.10+)
 
   -- Timing
@@ -96,10 +99,14 @@ local options = {
   ttimeoutlen = 50,                        -- Time in ms to wait for key code sequence to complete
   updatetime = 250,                        -- Time in ms before swap file is written (also affects CursorHold)
 
-  -- Folding
-  foldmethod = "indent",                   -- Create folds based on indentation
+  -- Folding (using treesitter for syntax-aware folds)
+  foldmethod = "expr",                     -- Use expression for folding
+  foldexpr = "v:lua.vim.treesitter.foldexpr()", -- Treesitter-based folding
   foldlevelstart = 99,                     -- Start with all folds open
   foldnestmax = 4,                         -- Maximum nesting of folds
+
+  -- Editing
+  virtualedit = "block",                   -- Allow cursor past end of line in visual block mode
 
   -- GUI Settings
   guifont = "CaskaydiaCove Nerd Font:h17:i", -- Font for GUI versions of neovim
