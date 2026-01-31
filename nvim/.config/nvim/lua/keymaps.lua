@@ -72,11 +72,10 @@ local mappings = {
   { "<leader>t", group = "Telescope", nowait = true, remap = false },
 
   -- Terminal group
-  { "<leader>T", group = "Terminal", nowait = true, remap = false },
-  { "<leader>Tt", group = "Tree View", nowait = true, remap = false },
+  { "<leader>T", group = "Tree View", nowait = true, remap = false },
   -- Tree view commands
   {
-    "<leader>Ttt",
+    "<leader>Tt",
     function()
       local cmd = 'tree -I ".git|.terraform|.terragrunt-cache|node_modules"'
       if vim.fn.has "win32" == 1 then
@@ -102,7 +101,7 @@ local mappings = {
     remap = false,
   },
   {
-    "<leader>Tta",
+    "<leader>Ta",
     function()
       local cmd = 'tree -a -I ".git|.terraform|.terragrunt-cache|node_modules"'
       if vim.fn.has "win32" == 1 then
@@ -128,14 +127,14 @@ local mappings = {
     remap = false,
   },
   {
-    "<leader>Ttd",
+    "<leader>Td",
     "<cmd>terminal fd --type d --max-depth 3<cr>",
     desc = "Show Directories",
     nowait = true,
     remap = false,
   },
   {
-    "<leader>Ttx",
+    "<leader>Tx",
     function()
       local debug_info = {
         "=== DEBUG INFORMATION ===",
