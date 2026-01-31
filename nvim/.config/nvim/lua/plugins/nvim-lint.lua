@@ -42,6 +42,7 @@ return {
     lint.linters.luacheck.args = {
       "--globals",
       "vim",
+      "Snacks",
       "--formatter",
       "plain",
       "--codes",
