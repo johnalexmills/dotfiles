@@ -3,9 +3,6 @@ local keymap = vim.keymap.set
 -- Silent keymap option
 local opts = { noremap = true, silent = true }
 
---Source nvim config changes
-vim.keymap.set("n", "<leader>so", ":update<CR> :source<CR>")
-
 --Remap space as leader key
 keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "
@@ -59,6 +56,16 @@ keymap("n", "N", "Nzzzv", opts)
 -- Comment handled by mini.comment plugin (gcc, gc)
 
 local mappings = {
+  -- File group
+  { "<leader>f", group = "File", nowait = true, remap = false },
+  {
+    "<leader>fn",
+    "<cmd>enew<cr>",
+    desc = "New File",
+    nowait = true,
+    remap = false,
+  },
+
   -- Buffer group
   { "<leader>b", group = "Buffer", nowait = true, remap = false },
 

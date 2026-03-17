@@ -79,7 +79,7 @@ return {
         },
       },
       ghost_text = {
-        enabled = false,
+        enabled = true,
       },
       list = {
         max_items = 50, -- Limit items for performance

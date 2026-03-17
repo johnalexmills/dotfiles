@@ -16,7 +16,7 @@ local options = {
 
   -- Line Numbers
   number = true,                           -- Show absolute line numbers
-  relativenumber = false,                  -- Don't show relative line numbers
+  relativenumber = true,                   -- Show relative line numbers
   numberwidth = 4,                         -- Width of the line number column
 
   -- System Integration
@@ -60,7 +60,7 @@ local options = {
   conceallevel = 0,                        -- Don't hide any characters (e.g., `` in markdown)
   cursorline = true,                       -- Highlight the current line
   cursorlineopt = "number",                -- Only highlight the line number, not the whole line
-  colorcolumn = "80",                      -- Show a vertical line at column 80
+  colorcolumn = "",                         -- Managed per-filetype via autocommands
 
   -- Scrolling
   scrolloff = 10,                          -- Keep 10 lines visible above/below cursor when scrolling
@@ -126,11 +126,9 @@ end
 -- Allow specified keys to move to the previous/next line when at start/end of line
 vim.opt.whichwrap:append "<>[]hl"
 
--- Treat hyphenated words as a single word object (e.g., for word motions)
-vim.opt.iskeyword:append "-"
-
--- Remove auto-commenting on new lines (c=comments, r=insert mode Enter, o=normal mode o/O)
-vim.opt.formatoptions:remove { "c", "r", "o" }
+-- Remove auto-commenting on new lines in insert mode (r=Enter, c=comments)
+-- Note: "o" (normal mode o/O) is kept globally and removed per-filetype for code files only
+vim.opt.formatoptions:remove { "c", "r" }
 
 -- LSP Diagnostics Configuration
 vim.diagnostic.config {

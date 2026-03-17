@@ -113,3 +113,75 @@ vim.api.nvim_create_autocmd("FocusLost", {
     end
   end,
 })
+
+-- Per-filetype colorcolumn
+-- Prose/text formats get no ruler; code files get language-appropriate limits
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Set colorcolumn per filetype",
+  callback = function()
+    local ft = vim.bo.filetype
+    local col = ({
+      -- Prose — no column ruler
+      markdown  = "",
+      text      = "",
+      tex       = "",
+      rst       = "",
+      asciidoc  = "",
+      org       = "",
+      gitcommit = "72",   -- git commit subject line convention
+      -- Web / config — 100 cols
+      html      = "100",
+      css       = "100",
+      scss      = "100",
+      json      = "100",
+      yaml      = "100",
+      toml      = "100",
+      -- Systems / scripting — 100 cols
+      lua       = "100",
+      bash      = "100",
+      sh        = "100",
+      fish      = "100",
+      vim       = "100",
+      -- Python — PEP 8 recommends 79, Black uses 88
+      python    = "88",
+      -- Terraform / HCL — 100 cols
+      terraform = "100",
+      hcl       = "100",
+      -- SQL — 100 cols
+      sql       = "100",
+      -- GDScript — 100 cols
+      gdscript  = "100",
+    })[ft]
+    -- Default for unlisted filetypes
+    if col == nil then col = "100" end
+    vim.opt_local.colorcolumn = col
+  end,
+})
+
+-- Per-filetype: remove "o" from formatoptions for code files
+-- This stops o/O from auto-inserting a comment leader in code buffers.
+-- Text/prose filetypes keep "o" so new lines stay inside comment blocks naturally.
+local code_filetypes = {
+  "lua", "python", "bash", "sh", "fish", "vim",
+  "html", "css", "scss", "json", "yaml", "toml",
+  "terraform", "hcl", "sql", "gdscript",
+  "javascript", "typescript", "tsx", "jsx",
+  "c", "cpp", "rust", "go", "java", "ruby",
+}
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = code_filetypes,
+  desc = "Remove 'o' from formatoptions for code filetypes",
+  callback = function()
+    vim.opt_local.formatoptions:remove "o"
+  end,
+})
+
+-- Per-filetype: treat hyphen as part of a keyword only for web filetypes
+-- Prevents hyphen-as-keyword from breaking word motions in other languages
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "html", "css", "scss", "javascript", "typescript", "tsx", "jsx" },
+  desc = "Treat hyphen as keyword character for web filetypes",
+  callback = function()
+    vim.opt_local.iskeyword:append "-"
+  end,
+})

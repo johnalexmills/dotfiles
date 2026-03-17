@@ -17,6 +17,7 @@ return {
         "python",
         "bash",
         "markdown",
+        "markdown_inline",
         "json",
         "terraform",
         "vim",
@@ -24,6 +25,13 @@ return {
         "query", -- Helpful for Neovim development
         "regex",
         "comment", -- Universal parsers
+        "html",
+        "css",
+        "toml",
+        "yaml",
+        "dockerfile",
+        "sql",
+        "gdscript",
       },
       auto_install = true,
       sync_install = false,

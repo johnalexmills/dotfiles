@@ -32,6 +32,12 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = true },
     terminal = { enabled = true },
-    indent = { enabled = true },
+    indent = {
+      enabled = true,
+      -- scope hl defined in colorscheme.lua using Catppuccin Mocha lavender
+      scope = {
+        hl = "SnacksIndentScope",
+      },
+    },
   },
 }

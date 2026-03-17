@@ -49,5 +49,10 @@ return {
       },
     }
     vim.cmd.colorscheme "catppuccin"
+
+    -- Snacks indent guide highlight groups — Catppuccin Mocha palette
+    -- Indent guides use surface1 (subtle); scope uses lavender (accent)
+    local mocha = require("catppuccin.palettes").get_palette "mocha"
+    vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = mocha.lavender, nocombine = true })
   end,
 }

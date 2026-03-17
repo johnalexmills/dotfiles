@@ -156,7 +156,7 @@ return {
           },
         },
       }
-      require("tiny-inline-diagnostic").disable()
+      require("tiny-inline-diagnostic").enable()
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
