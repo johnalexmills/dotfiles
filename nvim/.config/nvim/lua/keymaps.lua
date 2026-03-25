@@ -58,6 +58,9 @@ keymap("n", "N", "Nzzzv", opts)
 local mappings = {
   -- File group
   { "<leader>f", group = "File", nowait = true, remap = false },
+
+  -- Harpoon group
+  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
   {
     "<leader>fn",
     "<cmd>enew<cr>",
