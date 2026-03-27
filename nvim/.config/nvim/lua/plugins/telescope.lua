@@ -78,6 +78,7 @@ return {
           "--smart-case",
           "--hidden",
           "--glob=!.git/",
+          "--glob=!.mypy_cache/",
         },
         file_ignore_patterns = {
           -- Version control
@@ -102,6 +103,7 @@ return {
           "dist/",
           "build/",
           "%.pytest_cache/",
+          "%.mypy_cache/",
           "%.tox/",
 
           -- Terraform
