@@ -19,6 +19,7 @@ return {
     { "<leader>tr", "<cmd>Telescope registers<cr>", desc = "Registers" },
     { "<leader>tC", "<cmd>Telescope colorscheme<cr>", desc = "Colorschemes" },
     { "<leader>to", "<cmd>Telescope vim_options<cr>", desc = "Vim Options" },
+    { "<leader>td", desc = "Diff with file" },
 
     -- Git integration
     { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
@@ -159,8 +160,8 @@ return {
         mappings = {
           i = {
             ["<esc>"] = actions.close,
-            ["<C-n>"] = actions.move_selection_next,
-            ["<C-p>"] = actions.move_selection_previous,
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
           },
         },
       },
@@ -168,5 +169,24 @@ return {
 
     -- Load fzf extension for faster fuzzy finding
     telescope.load_extension "fzf"
+
+    -- Diff current buffer against a file picked with Telescope
+    vim.keymap.set("n", "<leader>td", function()
+      local current_file = vim.fn.expand "%:p"
+      require("telescope.builtin").find_files {
+        attach_mappings = function(_, map)
+          local function open_diff(prompt_bufnr)
+            local entry = require("telescope.actions.state").get_selected_entry()
+            require("telescope.actions").close(prompt_bufnr)
+            if entry and entry.path ~= current_file then
+              vim.cmd("vertical diffsplit " .. vim.fn.fnameescape(entry.path))
+            end
+          end
+          map("i", "<CR>", open_diff)
+          map("n", "<CR>", open_diff)
+          return true
+        end,
+      }
+    end, { desc = "Diff with file" })
   end,
 }
