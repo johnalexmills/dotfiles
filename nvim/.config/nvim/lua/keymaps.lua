@@ -79,10 +79,10 @@ local mappings = {
   { "<leader>l", group = "LSP", nowait = true, remap = false },
 
   -- Trouble group
-  { "<leader>x", group = "Trouble", nowait = true, remap = false },
+  { "<leader>t", group = "Trouble", nowait = true, remap = false },
 
-  -- Telescope group
-  { "<leader>t", group = "Telescope", nowait = true, remap = false },
+  -- Search group
+  { "<leader>s", group = "Search", nowait = true, remap = false },
 
   -- Terminal group
   { "<leader>T", group = "Tree View", nowait = true, remap = false },

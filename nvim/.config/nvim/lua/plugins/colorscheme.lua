@@ -20,7 +20,6 @@ return {
         gitsigns = true,
         treesitter = true,
         which_key = true,
-        telescope = { enabled = true },
         snacks = true,
 
         lualine = true,

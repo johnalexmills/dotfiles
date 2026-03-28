@@ -17,7 +17,6 @@ return {
       end,
       desc = "Previous todo comment",
     },
-    { "<leader>tT", "<cmd>TodoTelescope<cr>", desc = "Todo Comments" },
   },
   opts = {},
 }
