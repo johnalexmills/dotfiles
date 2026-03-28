@@ -95,6 +95,9 @@ local options = {
   lazyredraw = true,                      -- Avoid unnecessary redraws during macros for better performance
   redrawtime = 1500,                       -- Time in ms for redrawing the display
 
+  -- Fill Characters
+  fillchars = { eob = " " },              -- Hide ~ on empty lines after end of buffer
+
   -- Sign Column
   signcolumn = "yes",                      -- Always show sign column (for LSP, git signs, etc.)
 
