@@ -21,7 +21,7 @@ return {
         treesitter = true,
         which_key = true,
         telescope = { enabled = true },
-        alpha = true,
+        snacks = true,
 
         lualine = true,
         mason = true,
