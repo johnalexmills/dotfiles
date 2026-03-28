@@ -21,13 +21,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("mason-lspconfig").setup {
-        ensure_installed = {
-          -- LSP servers
-          "pyright",
-          "lua_ls",
-          "bashls",
-          "terraformls",
-        },
         automatic_installation = true,
       }
     end,
@@ -48,9 +41,7 @@ return {
 
           -- Formatters
           "stylua", -- lua
-          "black", -- python
-          "isort", -- python
-          "ruff", -- python (also linter)
+          "ruff", -- python (formatter & linter)
           "prettier", -- json, yaml, markdown
           "taplo", -- toml
 
@@ -109,10 +100,6 @@ return {
       },
     },
     config = function()
-      -- Configure tiny-inline-diagnostic
-      vim.diagnostic.config {
-        virtual_text = false,
-      }
       require("tiny-inline-diagnostic").setup {
         preset = "modern",
         hi = {
@@ -275,7 +262,7 @@ return {
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 })
           end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })

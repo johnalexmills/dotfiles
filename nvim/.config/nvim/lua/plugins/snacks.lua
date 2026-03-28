@@ -1,6 +1,7 @@
 return {
   "folke/snacks.nvim",
-  event = "VeryLazy",
+  lazy = false,
+  priority = 900,
   keys = {
     {
       "<C-\\>",
@@ -18,11 +19,25 @@ return {
       desc = "LazyGit",
     },
     {
-      "<leader>x",
+      "<leader>c",
       function()
         Snacks.bufdelete()
       end,
       desc = "Close Buffer",
+    },
+    {
+      "<leader>fr",
+      function()
+        Snacks.rename.rename_file()
+      end,
+      desc = "Rename File",
+    },
+    {
+      "<leader>z",
+      function()
+        Snacks.zen()
+      end,
+      desc = "Toggle Zen Mode",
     },
   },
   opts = {
@@ -32,6 +47,8 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = true },
     terminal = { enabled = true },
+    rename = { enabled = true },
+    zen = { enabled = true },
     indent = {
       enabled = true,
       -- scope hl defined in colorscheme.lua using Catppuccin Mocha lavender

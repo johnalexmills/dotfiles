@@ -78,6 +78,9 @@ local mappings = {
   -- LSP group
   { "<leader>l", group = "LSP", nowait = true, remap = false },
 
+  -- Trouble group
+  { "<leader>x", group = "Trouble", nowait = true, remap = false },
+
   -- Telescope group
   { "<leader>t", group = "Telescope", nowait = true, remap = false },
 

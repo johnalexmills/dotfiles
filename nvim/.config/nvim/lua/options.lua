@@ -92,7 +92,7 @@ local options = {
 
   -- Performance and Redrawing
   errorbells = false,                      -- No beeping on errors
-  lazyredraw = false,                      -- Redraw screen during macros (can cause plugin issues if true)
+  lazyredraw = true,                      -- Avoid unnecessary redraws during macros for better performance
   redrawtime = 1500,                       -- Time in ms for redrawing the display
 
   -- Sign Column
@@ -129,29 +129,6 @@ vim.opt.whichwrap:append "<>[]hl"
 -- Remove auto-commenting on new lines in insert mode (r=Enter, c=comments)
 -- Note: "o" (normal mode o/O) is kept globally and removed per-filetype for code files only
 vim.opt.formatoptions:remove { "c", "r" }
-
--- LSP Diagnostics Configuration
-vim.diagnostic.config {
-  virtual_text = false,                    -- Don't show diagnostic text inline (reduces clutter)
-  signs = {                                -- Custom icons for diagnostic signs in the sign column
-    text = {
-      [vim.diagnostic.severity.ERROR] = "✘",  -- Error icon
-      [vim.diagnostic.severity.WARN] = "▲",   -- Warning icon
-      [vim.diagnostic.severity.HINT] = "⚑",   -- Hint icon
-      [vim.diagnostic.severity.INFO] = "»",   -- Info icon
-    },
-  },
-  underline = true,                        -- Underline diagnostic regions
-  severity_sort = true,                    -- Sort diagnostics by severity
-  float = {                                -- Floating window settings for diagnostic popups
-    focusable = false,                     -- Can't focus the floating window
-    style = "minimal",                     -- Minimal style (no line numbers, etc.)
-    border = "rounded",                    -- Rounded border
-    source = "always",                     -- Always show the source of the diagnostic
-    header = "",                           -- No header text
-    prefix = "",                           -- No prefix before diagnostic message
-  },
-}
 
 -- Windows-specific configuration (use Git Bash)
 if vim.fn.has "win32" ~= 0 then

@@ -12,7 +12,7 @@ A modern Neovim configuration with LSP support, advanced editing features, and b
 | Toggle terminal | `Ctrl+\` |
 | Find files | `<leader>tf` |
 | Live grep | `<leader>tg` |
-| Close buffer | `<leader>x` |
+| Close buffer | `<leader>bd` |
 | LazyGit | `<leader>gg` |
 
 ## Usage Guide
@@ -31,7 +31,6 @@ The terminal uses a floating window for quick access.
 
 **In terminal mode:**
 - `Ctrl+\` to close the terminal
-- Use normal terminal commands
 
 ### File Explorer (Oil)
 
@@ -66,6 +65,7 @@ Telescope is the fuzzy finder for searching everything.
 | `<leader>tr` | Search registers |
 | `<leader>tC` | Browse colorschemes |
 | `<leader>to` | Search vim options |
+| `<leader>tT` | Search todo comments |
 
 **In Telescope:**
 - `Ctrl+j/k` or arrows to navigate
@@ -81,7 +81,7 @@ Buffers are shown as tabs at the top of the screen.
 |------------|--------|
 | `Tab` | Next buffer |
 | `Shift+Tab` | Previous buffer |
-| `<leader>x` | Close current buffer |
+| `<leader>bd` | Close current buffer |
 | `<leader>bo` | Close all other buffers |
 
 ### Window Navigation
@@ -105,6 +105,13 @@ Move between split windows easily.
 |------------|--------|
 | `<leader>gg` | Open LazyGit |
 | `<leader>gb` | Toggle git blame on line |
+| `<leader>gp` | Preview hunk |
+| `<leader>gS` | Stage hunk |
+| `<leader>gu` | Undo stage hunk |
+| `<leader>gr` | Reset hunk |
+| `<leader>gd` | Diff this |
+| `]c` | Next git hunk |
+| `[c` | Previous git hunk |
 | `<leader>gf` | Find git files |
 | `<leader>gB` | Browse branches |
 | `<leader>gc` | Browse commits |
@@ -113,7 +120,7 @@ Move between split windows easily.
 
 ### LSP (Code Intelligence)
 
-LSP provides code completion, go-to-definition, and diagnostics.
+LSP provides code completion, go-to-definition, and diagnostics. Files are automatically formatted on save via conform.nvim (500ms timeout, falls back to LSP).
 
 | Keybinding | Action |
 |------------|--------|
@@ -122,7 +129,7 @@ LSP provides code completion, go-to-definition, and diagnostics.
 | `gr` | Find references |
 | `gi` | Go to implementation |
 | `K` | Hover (show docs/type info) |
-| `Ctrl+k` | Signature help |
+| `Ctrl+s` | Signature help |
 | `<leader>la` | Code actions |
 | `<leader>lr` | Rename symbol |
 | `<leader>lf` | Format document |
@@ -141,6 +148,29 @@ LSP provides code completion, go-to-definition, and diagnostics.
 | `<leader>ll` | Trigger linting |
 | `<leader>li` | LSP info |
 | `<leader>lI` | Open Mason installer |
+
+### Trouble (Diagnostics Panel)
+
+Trouble provides an enhanced quickfix/loclist UI for diagnostics, symbols, and references.
+
+| Keybinding | Action |
+|------------|--------|
+| `<leader>xx` | Toggle workspace diagnostics |
+| `<leader>xX` | Toggle buffer diagnostics |
+| `<leader>xs` | Toggle symbols |
+| `<leader>xl` | Toggle LSP definitions/references |
+| `<leader>xL` | Toggle location list |
+| `<leader>xQ` | Toggle quickfix list |
+
+### Todo Comments
+
+Highlights and indexes `TODO`, `FIXME`, `HACK`, `NOTE`, etc. in your code.
+
+| Keybinding | Action |
+|------------|--------|
+| `]t` | Next todo comment |
+| `[t` | Previous todo comment |
+| `<leader>tT` | Search all todo comments (Telescope) |
 
 ### Editing
 
@@ -174,7 +204,8 @@ LSP provides code completion, go-to-definition, and diagnostics.
 |------------|--------|
 | `<leader>/` | Toggle search highlight |
 | `<leader>r` | Toggle relative line numbers |
-| `<leader>so` | Source (reload) config |
+| `<leader>z` | Toggle zen mode |
+| `<leader>cR` | Rename file |
 
 ### Which-Key
 
@@ -183,7 +214,8 @@ Press `<leader>` and wait to see available keybindings organized by category:
 - `g` - Git operations
 - `l` - LSP operations
 - `t` - Telescope (search)
-- `T` - Terminal
+- `T` - Tree view
+- `x` - Trouble (diagnostics)
 
 ## Features
 
@@ -196,23 +228,25 @@ Press `<leader>` and wait to see available keybindings organized by category:
 
 ### UI
 - **Catppuccin Mocha** - Color scheme
-- **Lualine** - Statusline with LSP status and diagnostics
+- **Lualine** - Statusline with LSP status, diagnostics, and relative file path
 - **Bufferline** - Buffer tabs
-- **Alpha** - Dashboard on startup
+- **Snacks.nvim Dashboard** - Dashboard on startup with quick actions
 - **Which-key** - Key binding hints
 
 ### Editing
 - **Blink-cmp** - Auto-completion (LSP, snippets, buffer, path)
-- **Conform** - Code formatting (stylua, black, prettier, etc.)
+- **Conform** - Code formatting with format-on-save (stylua, ruff, prettier, etc.)
 - **Nvim-lint** - Linting (ruff, shellcheck, yamllint, etc.)
-- **Gitsigns** - Git signs and blame
+- **Gitsigns** - Git signs, blame, hunk staging/preview/navigation
 - **Mini.comment** - Commenting with `gcc`
 - **Mini.surround** - Surround text manipulation
 - **Mini.pairs** - Auto-pairing brackets
 - **Undotree** - Undo history visualization
+- **Todo-comments** - Highlight and search TODO/FIXME/HACK/NOTE comments
+- **Trouble** - Enhanced diagnostics panel and quickfix replacement
 
-### Terminal
-- **Snacks.nvim** - Floating terminal and utilities
+### Utilities
+- **Snacks.nvim** - Floating terminal, buffer delete, indent guides, zen mode, file rename, notifications
 
 ### Markdown
 - **Render-markdown** - Live markdown rendering
@@ -233,7 +267,7 @@ Press `<leader>` and wait to see available keybindings organized by category:
 
 ## Requirements
 
-- Neovim >= 0.9.0
+- Neovim >= 0.10.0
 - Git
 - A Nerd Font (for icons)
 - ripgrep (for live grep)
@@ -259,7 +293,7 @@ Press `<leader>` and wait to see available keybindings organized by category:
 
 **Formatters:**
 - Lua: stylua
-- Python: black, isort, ruff
+- Python: ruff (format & fix)
 - JSON/YAML/Markdown: prettier
 - TOML: taplo
 - Terraform: terraform_fmt
