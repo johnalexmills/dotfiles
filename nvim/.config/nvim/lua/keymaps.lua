@@ -1,57 +1,55 @@
 -- Shorten function name
 local keymap = vim.keymap.set
--- Silent keymap option
-local opts = { noremap = true, silent = true }
 
 --Remap space as leader key
-keymap("n", "<Space>", "", opts)
+keymap("n", "<Space>", "", { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Normal --
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to left window" })
+keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true, desc = "Move to lower window" })
+keymap("n", "<C-k>", "<C-w>k", { noremap = true, silent = true, desc = "Move to upper window" })
+keymap("n", "<C-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to right window" })
 
 -- Buffer navigation with Tab
-keymap("n", "<Tab>", ":bnext<CR>", opts)
-keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
+keymap("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 
 -- Buffer management
 keymap("n", "<leader>bo", ":%bd|e#|bd#<CR>", { desc = "Close others", noremap = true, silent = true })
 
 -- Resize with Alt+hjkl
-keymap("n", "<A-h>", ":vertical resize -2<CR>", opts)
-keymap("n", "<A-j>", ":resize +2<CR>", opts)
-keymap("n", "<A-k>", ":resize -2<CR>", opts)
-keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
+keymap("n", "<A-h>", ":vertical resize -2<CR>", { noremap = true, silent = true, desc = "Shrink window width" })
+keymap("n", "<A-j>", ":resize +2<CR>", { noremap = true, silent = true, desc = "Grow window height" })
+keymap("n", "<A-k>", ":resize -2<CR>", { noremap = true, silent = true, desc = "Shrink window height" })
+keymap("n", "<A-l>", ":vertical resize +2<CR>", { noremap = true, silent = true, desc = "Grow window width" })
 
 -- Better paste (Primeagen's "greatest remap ever")
 -- Paste without losing clipboard content
-keymap("x", "<leader>p", [["_dP]], opts)
-keymap("v", "p", [["_dP]], opts)
+keymap("x", "<leader>p", [["_dP]], { noremap = true, silent = true, desc = "Paste without overwriting register" })
+keymap("v", "p", [["_dP]], { noremap = true, silent = true, desc = "Paste without overwriting register" })
 
 -- Delete to black hole register (doesn't overwrite clipboard)
-keymap({ "n", "v" }, "<leader>D", [["_d]], opts)
+keymap({ "n", "v" }, "<leader>D", [["_d]], { noremap = true, silent = true, desc = "Delete to black hole register" })
 
 -- Visual --
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv", { noremap = true, silent = true, desc = "Indent left and reselect" })
+keymap("v", ">", ">gv", { noremap = true, silent = true, desc = "Indent right and reselect" })
 
 -- Move blocks with indent
-keymap("v", "J", ":m '>+1<CR>gv=gv")
-keymap("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move block down" })
+keymap("v", "K", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move block up" })
 
 -- Better line joining
-keymap("n", "J", "mzJ`z", opts)
+keymap("n", "J", "mzJ`z", { noremap = true, silent = true, desc = "Join lines (keep cursor)" })
 
 -- Keep cursor centered during navigation
-keymap("n", "<C-d>", "<C-d>zz", opts)
-keymap("n", "<C-u>", "<C-u>zz", opts)
-keymap("n", "n", "nzzzv", opts)
-keymap("n", "N", "Nzzzv", opts)
+keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true, desc = "Scroll down (centered)" })
+keymap("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true, desc = "Scroll up (centered)" })
+keymap("n", "n", "nzzzv", { noremap = true, silent = true, desc = "Next search result (centered)" })
+keymap("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Prev search result (centered)" })
 
 -- Comment handled by mini.comment plugin (gcc, gc)
 
@@ -146,58 +144,6 @@ local mappings = {
     nowait = true,
     remap = false,
   },
-  {
-    "<leader>Tx",
-    function()
-      local debug_info = {
-        "=== DEBUG INFORMATION ===",
-        "OS: " .. (vim.fn.has "win32" == 1 and "Windows" or "Unix"),
-        "Working directory: " .. vim.fn.getcwd(),
-        "Shell: " .. vim.o.shell,
-        "",
-        "=== EXECUTABLE TESTS ===",
-        "tree executable: " .. (vim.fn.executable "tree" == 1 and "YES" or "NO"),
-        "bash executable: " .. (vim.fn.executable "bash" == 1 and "YES" or "NO"),
-        "cmd executable: " .. (vim.fn.executable "cmd" == 1 and "YES" or "NO"),
-        "",
-        "=== TESTING COMMANDS ===",
-      }
-
-      -- Test different commands
-      local commands = {
-        "tree",
-        "bash -c tree",
-        "cmd /c tree",
-        "cmd /c dir",
-        "where tree",
-        "bash -c 'which tree'",
-      }
-
-      for _, cmd in ipairs(commands) do
-        local output = vim.fn.systemlist(cmd)
-        local exit_code = vim.v.shell_error
-        table.insert(debug_info, "")
-        table.insert(debug_info, "Command: " .. cmd)
-        table.insert(debug_info, "Exit code: " .. exit_code)
-        table.insert(debug_info, "Output lines: " .. #output)
-        if #output > 0 then
-          table.insert(debug_info, "First line: " .. (output[1] or ""))
-          if #output > 1 then
-            table.insert(debug_info, "Second line: " .. (output[2] or ""))
-          end
-        end
-      end
-
-      local buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, debug_info)
-      vim.bo[buf].buftype = "nofile"
-      vim.bo[buf].filetype = "text"
-      vim.api.nvim_win_set_buf(0, buf)
-    end,
-    desc = "Debug Tree Commands",
-    nowait = true,
-    remap = false,
-  },
 
   {
     "<leader>/",
@@ -215,7 +161,7 @@ local mappings = {
   {
     "<leader>r",
     function()
-      vim.opt.relativenumber = not vim.opt.relativenumber:get() and true or false
+      vim.opt.relativenumber = not vim.opt.relativenumber:get()
     end,
     desc = "Toggle Relative Numbers",
     nowait = true,

@@ -2,7 +2,7 @@
 -- Allows "q" to close quickfix, help, man, LSP info, and spectre panels
 -- Also hides these buffers from the buffer list
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
+  pattern = { "qf", "help", "man", "lspinfo" },
   callback = function()
     vim.cmd [[
       nnoremap <silent> <buffer> q :close<CR>
@@ -158,9 +158,11 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Per-filetype: remove "o" from formatoptions for code files
--- This stops o/O from auto-inserting a comment leader in code buffers.
--- Text/prose filetypes keep "o" so new lines stay inside comment blocks naturally.
+-- Per-filetype: remove "o", "c", "r" from formatoptions for code files
+-- "o" stops o/O from auto-inserting a comment leader
+-- "c" stops auto-wrapping comments using textwidth
+-- "r" stops auto-inserting comment leader after Enter
+-- Must be done in a FileType autocmd because ftplugins reset formatoptions
 local code_filetypes = {
   "lua", "python", "bash", "sh", "fish", "vim",
   "html", "css", "scss", "json", "yaml", "toml",
@@ -170,9 +172,9 @@ local code_filetypes = {
 }
 vim.api.nvim_create_autocmd("FileType", {
   pattern = code_filetypes,
-  desc = "Remove 'o' from formatoptions for code filetypes",
+  desc = "Remove 'o', 'c', 'r' from formatoptions for code filetypes",
   callback = function()
-    vim.opt_local.formatoptions:remove "o"
+    vim.opt_local.formatoptions:remove { "o", "c", "r" }
   end,
 })
 

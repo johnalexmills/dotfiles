@@ -19,9 +19,6 @@ require("lazy").setup("plugins", {
   change_detection = { enabled = true, notify = false },
   debug = false,
   performance = {
-    cache = {
-      enabled = true,
-    },
     rtp = {
       disabled_plugins = {
         "gzip",

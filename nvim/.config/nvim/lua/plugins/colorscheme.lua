@@ -16,7 +16,7 @@ return {
         types = { "italic" },
       },
       integrations = {
-        cmp = true,
+        blink_cmp = true,
         gitsigns = true,
         treesitter = true,
         which_key = true,

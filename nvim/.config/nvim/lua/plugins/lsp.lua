@@ -38,12 +38,14 @@ return {
           "lua-language-server",
           "bash-language-server",
           "terraform-ls",
+          "yaml-language-server",
 
           -- Formatters
           "stylua", -- lua
           "ruff", -- python (formatter & linter)
           "prettier", -- json, yaml, markdown
           "taplo", -- toml
+          "hclfmt", -- hcl (terragrunt)
 
           -- Linters
           "luacheck", -- lua
@@ -51,10 +53,14 @@ return {
           "shellcheck", -- bash/sh
           "yamllint", -- yaml
           "jsonlint", -- json
-          "markdownlint", -- markdown (changed from markdownlint-cli)
+          "markdownlint", -- markdown
           "tflint", -- terraform
 
-          -- Additional tools that might be useful
+          -- Multi-purpose (linter + formatter)
+          "gdtoolkit", -- gdscript (gdlint + gdformat)
+          "rubocop", -- ruby (linter + formatter)
+
+          -- Additional tools
           "hadolint", -- dockerfile
           "sqlfluff", -- sql
         },
@@ -72,16 +78,14 @@ return {
       "rachartier/tiny-inline-diagnostic.nvim",
     },
     keys = {
-      { "<leader>l", group = "LSP" },
       { "<leader>lD", function() Snacks.picker.diagnostics_buffer() end, desc = "Document Diagnostics" },
       { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer" },
-      { "<leader>lL", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
+      { "<leader>lC", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
       { "<leader>lS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace Symbols" },
       { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
-      { "<leader>lf", "<cmd>lua require'conform'.format()<cr>", desc = "Format" },
-      { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
-      { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
-      { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
+      { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", desc = "Info" },
+      { "<leader>lj", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next Diagnostic" },
+      { "<leader>lk", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Prev Diagnostic" },
 
       { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
       { "<leader>lR", function() Snacks.picker.lsp_references() end, desc = "References" },
@@ -194,13 +198,24 @@ return {
         root_markers = { "project.godot", ".git" },
       }
 
+      vim.lsp.config.yamlls = {
+        capabilities = capabilities,
+        filetypes = { "yaml", "yaml.docker-compose" },
+        root_markers = { ".git" },
+        settings = {
+          yaml = {
+            schemaStore = { enable = true },
+            validate = true,
+            format = { enable = false }, -- handled by prettier via conform
+          },
+        },
+      }
+
       -- Enable all configured LSP servers
-      vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript" }
+      vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript", "yamlls" }
 
       -- Enable inlay hints globally (Neovim 0.10+)
-      if vim.lsp.inlay_hint then
-        vim.lsp.inlay_hint.enable(true)
-      end
+      vim.lsp.inlay_hint.enable(true)
 
       -- Enhanced diagnostic configuration (modern features)
       vim.diagnostic.config {
@@ -246,14 +261,6 @@ return {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
-
-          -- Enable completion triggered by <c-x><c-o>
-          vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-          -- Enable semantic tokens if supported
-          if client and client.server_capabilities.semanticTokensProvider then
-            vim.lsp.semantic_tokens.start(ev.buf, client.id)
-          end
 
           -- Buffer local mappings.
           local opts = { buffer = ev.buf }

@@ -17,35 +17,23 @@ local options = {
   -- Line Numbers
   number = true,                           -- Show absolute line numbers
   relativenumber = true,                   -- Show relative line numbers
-  numberwidth = 4,                         -- Width of the line number column
 
   -- System Integration
   clipboard = "unnamedplus",               -- Use system clipboard for yank/paste operations
   mouse = "a",                             -- Enable mouse support in all modes
 
   -- Command Line and UI
-  cmdheight = 1,                           -- Height of the command line area
   showmode = false,                        -- Don't show mode (e.g., -- INSERT --) since it's in statusline
   showtabline = 0,                         -- Never show the tabline (bufferline plugin handles this)
   pumheight = 10,                          -- Maximum number of items in popup menu (completion)
 
-  -- Completion Settings
-  completeopt = { "menu", "menuone", "noselect" }, -- Show menu even for single match, don't auto-select
-
-  -- Encoding
-  fileencoding = "utf-8",                  -- File encoding for writing files
-
   -- Search Settings
-  hlsearch = true,                         -- Highlight all search matches
-  incsearch = true,                        -- Show matches while typing search pattern
   inccommand = "split",                    -- Show live preview of :s command in split window (Neovim 0.9+)
-  wrapscan = true,                         -- Search wraps around end of file
   ignorecase = true,                       -- Ignore case in search patterns
   smartcase = true,                        -- Override ignorecase if search contains uppercase
 
   -- Indentation
   smartindent = true,                      -- Smart autoindenting for C-like languages
-  autoindent = true,                       -- Copy indent from current line to new line
   expandtab = true,                        -- Convert tabs to spaces
   shiftwidth = 4,                          -- Number of spaces for each indentation level
   tabstop = 4,                             -- Number of spaces that a tab counts for
@@ -91,8 +79,6 @@ local options = {
   guifont = "CaskaydiaCove Nerd Font:h17:i", -- Font for GUI versions of neovim
 
   -- Performance and Redrawing
-  errorbells = false,                      -- No beeping on errors
-  lazyredraw = true,                      -- Avoid unnecessary redraws during macros for better performance
   redrawtime = 1500,                       -- Time in ms for redrawing the display
 
   -- Fill Characters
@@ -111,27 +97,17 @@ local options = {
   -- Session Management
   sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- What to save in sessions
 }
--- Append 'c' to shortmess (don't show completion messages like "match 1 of 2")
-vim.opt.shortmess:append "c"
 
 -- Apply all options from the table above
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
--- Rich mode configuration (if ConfigMode is set to "rich")
-if ConfigMode == "rich" then
-  vim.opt.termguicolors = true           -- Enable true color support
-  vim.o.background = "dark"              -- Use dark background for colorschemes
-  vim.opt.clipboard = "unnamedplus"      -- Ensure system clipboard is enabled
-end
-
 -- Allow specified keys to move to the previous/next line when at start/end of line
 vim.opt.whichwrap:append "<>[]hl"
 
--- Remove auto-commenting on new lines in insert mode (r=Enter, c=comments)
--- Note: "o" (normal mode o/O) is kept globally and removed per-filetype for code files only
-vim.opt.formatoptions:remove { "c", "r" }
+-- Note: formatoptions "c" and "r" removal is handled in autocommands.lua
+-- (must be done in a FileType autocmd because ftplugins reset formatoptions)
 
 -- Windows-specific configuration (use Git Bash)
 if vim.fn.has "win32" ~= 0 then

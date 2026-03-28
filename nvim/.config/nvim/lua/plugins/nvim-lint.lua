@@ -18,24 +18,21 @@ return {
       -- Configuration Languages
       yaml = { "yamllint" },
       json = { "jsonlint" },
-      toml = { "taplo" },
       terraform = { "tflint" },
       tf = { "tflint" },
 
       -- Documentation
       markdown = { "markdownlint" },
-      tex = { "chktex" },
 
       -- Data Languages
       sql = { "sqlfluff" },
 
       -- Game Development
-      gdscript = { "gdtoolkit" },
+      gdscript = { "gdlint" },
 
       -- Other Languages
-      vim = { "vint" },
-      dockerfile = { "hadolint" },
       ruby = { "rubocop" },
+      dockerfile = { "hadolint" },
     }
 
     -- Customize specific linters
