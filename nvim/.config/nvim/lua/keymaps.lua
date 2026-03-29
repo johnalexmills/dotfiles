@@ -27,7 +27,6 @@ keymap("n", "<A-l>", ":vertical resize +2<CR>", { noremap = true, silent = true,
 
 -- Better paste (Primeagen's "greatest remap ever")
 -- Paste without losing clipboard content
-keymap("x", "<leader>p", [["_dP]], { noremap = true, silent = true, desc = "Paste without overwriting register" })
 keymap("v", "p", [["_dP]], { noremap = true, silent = true, desc = "Paste without overwriting register" })
 
 -- Delete to black hole register (doesn't overwrite clipboard)
@@ -45,13 +44,16 @@ keymap("v", "K", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Mo
 -- Better line joining
 keymap("n", "J", "mzJ`z", { noremap = true, silent = true, desc = "Join lines (keep cursor)" })
 
+-- Clear search highlight with Escape
+keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true, silent = true, desc = "Clear search highlight" })
+
 -- Keep cursor centered during navigation
 keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true, desc = "Scroll down (centered)" })
 keymap("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true, desc = "Scroll up (centered)" })
 keymap("n", "n", "nzzzv", { noremap = true, silent = true, desc = "Next search result (centered)" })
 keymap("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Prev search result (centered)" })
 
--- Comment handled by mini.comment plugin (gcc, gc)
+-- Commenting handled by Neovim 0.10+ native gc/gcc
 
 local mappings = {
   -- File group

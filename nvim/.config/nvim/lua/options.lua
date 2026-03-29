@@ -44,7 +44,6 @@ local options = {
   splitkeep = "screen",                    -- Keep screen position when splitting (Neovim 0.9+)
 
   -- Colors and Display
-  termguicolors = true,                    -- Enable 24-bit RGB colors in the terminal
   conceallevel = 0,                        -- Don't hide any characters (e.g., `` in markdown)
   cursorline = true,                       -- Highlight the current line
   cursorlineopt = "number",                -- Only highlight the line number, not the whole line
@@ -69,6 +68,7 @@ local options = {
   -- Folding (using treesitter for syntax-aware folds)
   foldmethod = "expr",                     -- Use expression for folding
   foldexpr = "v:lua.vim.treesitter.foldexpr()", -- Treesitter-based folding
+  foldtext = "",                           -- Use virtual text for fold display (Neovim 0.10+)
   foldlevelstart = 99,                     -- Start with all folds open
   foldnestmax = 4,                         -- Maximum nesting of folds
 

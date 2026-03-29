@@ -16,24 +16,13 @@ return {
   },
 
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("mason-lspconfig").setup {
-        automatic_installation = true,
-      }
-    end,
-  },
-
-  {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     dependencies = { "williamboman/mason.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("mason-tool-installer").setup {
         ensure_installed = {
-          -- LSP servers (also handled by mason-lspconfig)
+          -- LSP servers
           "pyright",
           "lua-language-server",
           "bash-language-server",
@@ -78,23 +67,77 @@ return {
       "rachartier/tiny-inline-diagnostic.nvim",
     },
     keys = {
-      { "<leader>lD", function() Snacks.picker.diagnostics_buffer() end, desc = "Document Diagnostics" },
+      {
+        "<leader>lD",
+        function()
+          Snacks.picker.diagnostics_buffer()
+        end,
+        desc = "Document Diagnostics",
+      },
       { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer" },
       { "<leader>lC", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
-      { "<leader>lS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace Symbols" },
+      {
+        "<leader>lS",
+        function()
+          Snacks.picker.lsp_workspace_symbols()
+        end,
+        desc = "Workspace Symbols",
+      },
       { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
       { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", desc = "Info" },
-      { "<leader>lj", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next Diagnostic" },
-      { "<leader>lk", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Prev Diagnostic" },
+      {
+        "<leader>lj",
+        function()
+          vim.diagnostic.jump { count = 1 }
+        end,
+        desc = "Next Diagnostic",
+      },
+      {
+        "<leader>lk",
+        function()
+          vim.diagnostic.jump { count = -1 }
+        end,
+        desc = "Prev Diagnostic",
+      },
 
       { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
-      { "<leader>lR", function() Snacks.picker.lsp_references() end, desc = "References" },
+      {
+        "<leader>lR",
+        function()
+          Snacks.picker.lsp_references()
+        end,
+        desc = "References",
+      },
       { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
       { "<leader>lx", "<cmd>lua vim.diagnostic.reset()<cr>", desc = "Refresh Diagnostics" },
-      { "<leader>ls", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
-      { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definitions" },
-      { "<leader>lw", function() Snacks.picker.diagnostics() end, desc = "Workspace Diagnostics" },
-      { "<leader>lm", function() Snacks.picker.lsp_implementations() end, desc = "Implementations" },
+      {
+        "<leader>ls",
+        function()
+          Snacks.picker.lsp_symbols()
+        end,
+        desc = "Document Symbols",
+      },
+      {
+        "<leader>lt",
+        function()
+          Snacks.picker.lsp_type_definitions()
+        end,
+        desc = "Type Definitions",
+      },
+      {
+        "<leader>lw",
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = "Workspace Diagnostics",
+      },
+      {
+        "<leader>lm",
+        function()
+          Snacks.picker.lsp_implementations()
+        end,
+        desc = "Implementations",
+      },
       {
         "<leader>ld",
         function()
@@ -173,8 +216,7 @@ return {
         settings = {
           Lua = {
             diagnostics = {
-              -- handles the vim missing error message
-              globals = { "ConfigMode", "vim", "Snacks" },
+              globals = { "ConfigMode" },
             },
           },
         },
@@ -215,7 +257,7 @@ return {
       vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript", "yamlls" }
 
       -- Enable inlay hints globally (Neovim 0.10+)
-      vim.lsp.inlay_hint.enable(true)
+      vim.lsp.inlay_hint.enable()
 
       -- Enhanced diagnostic configuration (modern features)
       vim.diagnostic.config {
@@ -241,7 +283,7 @@ return {
           focusable = false,
           style = "minimal",
           border = "rounded",
-          source = "always",
+          source = true,
           header = "",
           prefix = "",
           format = function(diagnostic)
@@ -262,14 +304,13 @@ return {
         callback = function(ev)
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-          -- Buffer local mappings.
-          local opts = { buffer = ev.buf }
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, opts)
+          -- Buffer local mappings
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to Declaration" })
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "Hover Documentation" })
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "Go to References" })
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = ev.buf, desc = "Go to Implementation" })
+          vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 })
           end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })

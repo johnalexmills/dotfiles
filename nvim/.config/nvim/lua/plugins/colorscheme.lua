@@ -8,7 +8,6 @@ return {
       flavour = "mocha",
       transparent_background = false,
       term_colors = true,
-      compile_path = vim.fn.stdpath "cache" .. "/catppuccin",
       styles = {
         comments = { "italic" },
         conditionals = { "italic" },
@@ -21,8 +20,6 @@ return {
         treesitter = true,
         which_key = true,
         snacks = true,
-
-        lualine = true,
         mason = true,
         mini = true,
         native_lsp = {

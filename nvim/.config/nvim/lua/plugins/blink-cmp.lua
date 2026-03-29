@@ -25,34 +25,21 @@ return {
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer", "lazydev" },
       providers = {
         buffer = {
-          name = "Buffer",
-          module = "blink.cmp.sources.buffer",
           score_offset = -3,
         },
         snippets = {
-          name = "Snippets",
-          module = "blink.cmp.sources.snippets",
           score_offset = -1,
-          opts = {
-            friendly_snippets = true,
-            search_paths = { vim.fn.stdpath "config" .. "/snippets" },
-            global_snippets = { "all" },
-            extended_filetypes = {},
-            ignored_filetypes = {},
-          },
-        },
-        lsp = {
-          name = "LSP",
-          module = "blink.cmp.sources.lsp",
-          fallbacks = { "buffer" },
         },
         path = {
-          name = "Path",
-          module = "blink.cmp.sources.path",
           score_offset = 3,
+        },
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100,
         },
       },
     },
