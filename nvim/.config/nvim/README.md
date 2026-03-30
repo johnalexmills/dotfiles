@@ -185,9 +185,48 @@ Highlights and indexes `TODO`, `FIXME`, `HACK`, `NOTE`, etc. in your code.
 | `<`/`>` | Indent/unindent and stay in visual mode |
 
 **Surround (mini.surround):**
-- `sa` + motion + char - Add surround (e.g., `saiw"` surrounds word with quotes)
-- `sd` + char - Delete surround
-- `sr` + old + new - Replace surround
+
+| Keybinding | Action |
+|------------|--------|
+| `sa` + motion + char | Add surrounding (Normal mode) |
+| `sa` + char | Add surrounding (Visual mode) |
+| `sd` + char | Delete surrounding |
+| `sr` + old + new | Replace surrounding |
+| `sf` + char | Find surrounding (move cursor right) |
+| `sF` + char | Find surrounding (move cursor left) |
+| `sh` + char | Highlight surrounding |
+| `sdn` + char | Delete next surrounding |
+| `sdl` + char | Delete previous/last surrounding |
+| `srn` + old + new | Replace next surrounding |
+| `srl` + old + new | Replace previous/last surrounding |
+
+**Surrounding identifiers:**
+
+| Char | Meaning |
+|------|---------|
+| `)`, `(` | Parentheses (`(` adds inner padding spaces, `)` does not) |
+| `]`, `[` | Square brackets (`[` adds padding, `]` does not) |
+| `}`, `{` | Curly braces (`{` adds padding, `}` does not) |
+| `>`, `<` | Angle brackets (`<` adds padding, `>` does not) |
+| `"`, `'`, `` ` `` | Quotes |
+| `f` | Function call (delete finds call, add prompts for name) |
+| `t` | HTML/XML tag (prompts for tag name on add) |
+| `?` | Interactive (prompts for left and right parts) |
+
+**Examples:**
+
+| Command | Before | After |
+|---------|--------|-------|
+| `saiw)` | `hello` | `(hello)` |
+| `saiw(` | `hello` | `( hello )` |
+| `sd)` | `(hello)` | `hello` |
+| `sr)"` | `(hello)` | `"hello"` |
+| `saiWf` → enter `print` | `hello` | `print(hello)` |
+| `sd"` | `"hello"` | `hello` |
+| `sr'` `` ` `` | `'hello'` | `` `hello` `` |
+| `sa2aw)` | `hello world` | `(hello world)` |
+
+**Note:** `sd` and `sr` take a surrounding **character**, not a motion/text object. For example, use `sd)` to delete parentheses — not `sdiw)`.
 
 ### Navigation
 
