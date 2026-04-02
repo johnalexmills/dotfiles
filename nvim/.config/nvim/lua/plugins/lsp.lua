@@ -47,14 +47,13 @@ return {
 
           -- Multi-purpose (linter + formatter)
           "gdtoolkit", -- gdscript (gdlint + gdformat)
-          "rubocop", -- ruby (linter + formatter)
 
           -- Additional tools
           "hadolint", -- dockerfile
           "sqlfluff", -- sql
         },
-        auto_update = false,
-        run_on_start = false, -- Disabled for better startup performance
+        auto_update = true,
+        run_on_start = true,
       }
     end,
   },
