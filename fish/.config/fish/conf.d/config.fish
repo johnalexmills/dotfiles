@@ -4,6 +4,7 @@ starship init fish | source
 
 alias rmo='sudo pacman -Rs $(pacman -Qqtd)'
 alias ofrc='nvim ~/.config/fish/conf.d/config.fish'
+alias sfrc='source ~/.config/fish/conf.d/config.fish'
 alias cd='z'
 
 # Navigation shortcuts
@@ -33,6 +34,28 @@ alias mkdir='mkdir -p'
 
 # Neovim shortcut
 alias v='nvim'
+
+# Quick venv activation/deactivation
+function venv
+    if set -q VIRTUAL_ENV
+        deactivate
+        return
+    end
+
+    set -l dir (pwd)
+    while test "$dir" != "/"
+        # Check exact matches first, then glob for venv-* and .venv-*
+        for candidate in $dir/.venv $dir/venv $dir/.venv-* $dir/venv-*
+            if test -f "$candidate/bin/activate.fish"
+                source "$candidate/bin/activate.fish"
+                echo "Activated: $candidate"
+                return
+            end
+        end
+        set dir (dirname $dir)
+    end
+    echo "No venv found"
+end
 
 # Pacman shortcuts (since you're on Arch)
 alias pac='sudo pacman -S'
