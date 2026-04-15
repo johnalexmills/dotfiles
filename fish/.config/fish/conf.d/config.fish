@@ -35,6 +35,12 @@ alias mkdir='mkdir -p'
 # Neovim shortcut
 alias v='nvim'
 
+# Tmux shortcuts
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
+alias tl='tmux ls'
+alias tk='tmux kill-session -t'
+
 # Quick venv activation/deactivation
 function venv
     if set -q VIRTUAL_ENV
