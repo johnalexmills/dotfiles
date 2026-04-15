@@ -81,6 +81,7 @@ main() {
     run_module fish
     run_module nvim
     run_module tmux
+    run_module yazi
 
     echo
     ok "========================================"

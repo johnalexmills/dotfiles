@@ -1,0 +1,16 @@
+# keymap.toml — yazi key bindings
+# Inherits all defaults; only overrides listed here
+
+[manager]
+keymap = [
+  # Navigation
+  { on = ["<Up>"],    run = "arrow -1",     desc = "Move cursor up" },
+  { on = ["<Down>"],  run = "arrow 1",      desc = "Move cursor down" },
+  { on = ["<Left>"],  run = "leave",        desc = "Go to parent directory" },
+  { on = ["<Right>"], run = "enter",        desc = "Enter directory / open file" },
+
+  # Quit / escape
+  { on = ["q"], run = "quit",  desc = "Quit yazi" },
+  { on = ["Q"], run = "quit --no-cwd-file", desc = "Quit without changing cwd" },
+  { on = ["<Esc>"], run = "escape", desc = "Cancel / deselect" },
+]
