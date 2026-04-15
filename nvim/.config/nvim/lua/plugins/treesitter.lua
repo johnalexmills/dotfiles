@@ -2,61 +2,48 @@ return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
   build = ":TSUpdate",
-  event = { "BufReadPost", "BufNewFile" },
+  lazy = false,
   config = function()
-    local configs = require "nvim-treesitter.configs"
-
     -- Windows-specific configuration
     if vim.fn.has "win32" == 1 then
       require("nvim-treesitter.install").compilers = { "gcc" }
       require("nvim-treesitter.install").prefer_git = true
     end
 
-    configs.setup {
-      ensure_installed = {
-        "lua",
-        "python",
-        "bash",
-        "markdown",
-        "markdown_inline",
-        "json",
-        "terraform",
-        "vim",
-        "vimdoc",
-        "query", -- Helpful for Neovim development
-        "regex",
-        "comment", -- Universal parsers
-        "html",
-        "css",
-        "toml",
-        "yaml",
-        "dockerfile",
-        "sql",
-        "gdscript",
-      },
-      auto_install = true,
-      sync_install = false,
-      highlight = {
-        enable = true,
-        -- Disable slow treesitter highlight for large files
-        disable = function(lang, buf)
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
-      },
-      indent = { enable = true },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = "<C-s>",
-          node_decremental = "<M-space>",
-        },
-      },
+    -- Install parsers (main branch API)
+    require("nvim-treesitter").install {
+      "lua",
+      "python",
+      "bash",
+      "markdown",
+      "markdown_inline",
+      "json",
+      "terraform",
+      "vim",
+      "vimdoc",
+      "query",
+      "regex",
+      "comment",
+      "html",
+      "css",
+      "toml",
+      "yaml",
+      "dockerfile",
+      "sql",
+      "gdscript",
     }
+
+    -- Highlighting is handled by Neovim's built-in vim.treesitter.start()
+    -- which is called automatically via ftplugins. To disable it for large
+    -- files, use an autocommand:
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+        if ok and stats and stats.size > max_filesize then
+          vim.treesitter.stop(args.buf)
+        end
+      end,
+    })
   end,
 }
