@@ -243,12 +243,6 @@ set_default_shell() {
     local fish_path
     fish_path="$(command -v fish)"
 
-    # Ensure fish is in /etc/shells
-    if ! grep -qx "$fish_path" /etc/shells 2>/dev/null; then
-        info "Adding fish to /etc/shells..."
-        echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
-    fi
-
     info "Setting fish as default shell..."
     local os
     os="$(detect_os)"
@@ -256,7 +250,7 @@ set_default_shell() {
     if [ "$os" = "linux" ]; then
         sudo usermod -s "$fish_path" "$USER"
     else
-        sudo chsh -s "$fish_path" "$USER"
+        chsh -s "$fish_path"
     fi
 
     ok "Default shell set to fish (restart your session to take effect)"
