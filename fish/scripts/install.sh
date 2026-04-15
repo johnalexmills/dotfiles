@@ -229,33 +229,6 @@ install_fisher_plugins() {
     fi
 }
 
-# --- Set fish as default shell ---
-
-set_default_shell() {
-    local current_shell
-    current_shell="$(basename "$SHELL")"
-
-    if [ "$current_shell" = "fish" ]; then
-        ok "fish is already the default shell"
-        return
-    fi
-
-    local fish_path
-    fish_path="$(command -v fish)"
-
-    info "Setting fish as default shell..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "linux" ]; then
-        sudo usermod -s "$fish_path" "$USER"
-    else
-        chsh -s "$fish_path"
-    fi
-
-    ok "Default shell set to fish (restart your session to take effect)"
-}
-
 # --- Main ---
 
 main() {
@@ -268,7 +241,6 @@ main() {
     install_zoxide
     stow_config
     install_fisher_plugins
-    set_default_shell
 
     echo
     ok "fish setup complete!"
