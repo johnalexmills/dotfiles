@@ -132,7 +132,7 @@ stow_config() {
     dotfiles_dir="$(cd "$dotfiles_dir" && pwd)"
 
     info "Stowing tmux config..."
-    stow -d "$dotfiles_dir" -t "$HOME" tmux
+    stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} tmux
     ok "tmux config stowed"
 }
 

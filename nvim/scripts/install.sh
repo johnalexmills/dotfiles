@@ -172,7 +172,7 @@ stow_config() {
     dotfiles_dir="$(cd "$dotfiles_dir" && pwd)"
 
     info "Stowing nvim config..."
-    stow -d "$dotfiles_dir" -t "$HOME" nvim
+    stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} nvim
     ok "nvim config stowed"
 }
 
