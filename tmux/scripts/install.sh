@@ -70,7 +70,7 @@ install_tmux() {
 # --- Install TPM ---
 
 install_tpm() {
-    local tpm_dir="$HOME/.tmux/plugins/tpm"
+    local tpm_dir="$HOME/.config/tmux/plugins/tpm"
 
     if [ -d "$tpm_dir" ]; then
         ok "TPM is already installed"
@@ -139,7 +139,7 @@ stow_config() {
 # --- Install plugins ---
 
 install_plugins() {
-    local tpm_dir="$HOME/.tmux/plugins/tpm"
+    local tpm_dir="$HOME/.config/tmux/plugins/tpm"
 
     if [ ! -x "$tpm_dir/bin/install_plugins" ]; then
         warn "TPM install script not found, skipping plugin install"
