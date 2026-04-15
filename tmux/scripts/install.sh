@@ -72,6 +72,12 @@ install_tmux() {
 install_tpm() {
     local tpm_dir="$HOME/.config/tmux/plugins/tpm"
 
+    # Remove stale symlink if present (e.g. leftover from a previous stow setup)
+    if [ -L "$tpm_dir" ]; then
+        warn "Removing stale symlink at $tpm_dir"
+        rm "$tpm_dir"
+    fi
+
     if [ -d "$tpm_dir" ]; then
         ok "TPM is already installed"
         return
@@ -82,6 +88,7 @@ install_tpm() {
     fi
 
     info "Installing TPM (Tmux Plugin Manager)..."
+    mkdir -p "$(dirname "$tpm_dir")"
     git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
     ok "TPM installed"
 }
@@ -132,7 +139,12 @@ stow_config() {
     dotfiles_dir="$(cd "$dotfiles_dir" && pwd)"
 
     info "Stowing tmux config..."
-    stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} tmux
+    if [ -n "${STOW_REPLACE:-}" ]; then
+        stow -d "$dotfiles_dir" -t "$HOME" --adopt tmux
+        git -C "$dotfiles_dir" checkout -- tmux
+    else
+        stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} tmux
+    fi
     ok "tmux config stowed"
 }
 

@@ -11,3 +11,6 @@ Thumbs.db
 *.tmp
 *.swp
 *~
+
+# tmux plugins — managed by TPM at runtime, not tracked in git
+tmux/.config/tmux/plugins/

@@ -183,11 +183,21 @@ stow_config() {
     dotfiles_dir="$(cd "$dotfiles_dir" && pwd)"
 
     info "Stowing fish config..."
-    stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} fish
+    if [ -n "${STOW_REPLACE:-}" ]; then
+        stow -d "$dotfiles_dir" -t "$HOME" --adopt fish
+        git -C "$dotfiles_dir" checkout -- fish
+    else
+        stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} fish
+    fi
     ok "fish config stowed"
 
     info "Stowing starship config..."
-    stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} starship
+    if [ -n "${STOW_REPLACE:-}" ]; then
+        stow -d "$dotfiles_dir" -t "$HOME" --adopt starship
+        git -C "$dotfiles_dir" checkout -- starship
+    else
+        stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} starship
+    fi
     ok "starship config stowed"
 }
 

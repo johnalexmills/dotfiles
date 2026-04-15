@@ -10,14 +10,17 @@ err()   { printf '\033[1;31m[error]\033[0m %s\n' "$*"; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export STOW_ADOPT=""
+export STOW_REPLACE=""
 
 usage() {
-    echo "Usage: $(basename "$0") [--adopt]"
+    echo "Usage: $(basename "$0") [--adopt | --replace]"
     echo
     echo "Options:"
-    echo "  --adopt  Adopt existing files into the dotfiles repo (useful on machines"
-    echo "           that already have config files in place). WARNING: this will"
-    echo "           overwrite files in the repo with the existing versions."
+    echo "  --adopt    Adopt existing files into the dotfiles repo (useful on machines"
+    echo "             that already have config files in place). WARNING: this will"
+    echo "             overwrite files in the repo with the existing versions."
+    echo "  --replace  Remove existing configs and replace them with dotfiles versions."
+    echo "             WARNING: any existing config files will be deleted."
 }
 
 # --- Parse arguments ---
@@ -28,6 +31,10 @@ parse_args() {
             --adopt)
                 STOW_ADOPT="--adopt"
                 warn "Running with --adopt: existing files will be pulled into the repo"
+                ;;
+            --replace)
+                STOW_REPLACE="1"
+                warn "Running with --replace: existing config files will be deleted and replaced"
                 ;;
             -h|--help)
                 usage

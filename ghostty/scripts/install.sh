@@ -176,7 +176,12 @@ stow_config() {
     dotfiles_dir="$(cd "$dotfiles_dir" && pwd)"
 
     info "Stowing ghostty config..."
-    stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} ghostty
+    if [ -n "${STOW_REPLACE:-}" ]; then
+        stow -d "$dotfiles_dir" -t "$HOME" --adopt ghostty
+        git -C "$dotfiles_dir" checkout -- ghostty
+    else
+        stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} ghostty
+    fi
     ok "ghostty config stowed"
 }
 
