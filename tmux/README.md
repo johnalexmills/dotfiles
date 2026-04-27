@@ -53,8 +53,8 @@ Or set things up manually:
 
 ```bash
 sudo pacman -S tmux stow                # or: brew install tmux stow
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-cd ~/dotfiles && stow tmux
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+cd ~/dotfiles && stow -t ~ tmux
 ```
 
 Then start tmux and press `prefix + I` to install plugins.

@@ -3,11 +3,9 @@
 -- Also hides these buffers from the buffer list
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "qf", "help", "man", "lspinfo" },
-  callback = function()
-    vim.cmd [[
-      nnoremap <silent> <buffer> q :close<CR>
-      set nobuflisted
-    ]]
+  callback = function(event)
+    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = event.buf, silent = true })
+    vim.bo[event.buf].buflisted = false
   end,
 })
 

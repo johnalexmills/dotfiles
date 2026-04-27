@@ -4,12 +4,6 @@ return {
   build = ":TSUpdate",
   lazy = false,
   config = function()
-    -- Windows-specific configuration
-    if vim.fn.has "win32" == 1 then
-      require("nvim-treesitter.install").compilers = { "gcc" }
-      require("nvim-treesitter.install").prefer_git = true
-    end
-
     -- Install parsers (main branch API)
     require("nvim-treesitter").install {
       "lua",

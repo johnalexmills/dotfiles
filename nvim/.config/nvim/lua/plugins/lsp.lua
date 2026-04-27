@@ -315,7 +315,7 @@ return {
           end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
 
           -- Document highlight
-          if client and client.server_capabilities.documentHighlightProvider then
+          if client and client:supports_method("textDocument/documentHighlight") then
             local highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = ev.buf,

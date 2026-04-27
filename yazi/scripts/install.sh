@@ -87,6 +87,9 @@ install_stow() {
     os="$(detect_os)"
 
     if [ "$os" = "mac" ]; then
+        if ! command_exists brew; then
+            err "Homebrew is required on macOS. Install it from https://brew.sh"
+        fi
         brew install stow
     else
         local pkg
