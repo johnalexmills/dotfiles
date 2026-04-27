@@ -29,10 +29,16 @@ parse_args() {
     while [ $# -gt 0 ]; do
         case "$1" in
             --adopt)
+                if [ -n "$STOW_REPLACE" ]; then
+                    err "--adopt and --replace are mutually exclusive"
+                fi
                 STOW_ADOPT="--adopt"
                 warn "Running with --adopt: existing files will be pulled into the repo"
                 ;;
             --replace)
+                if [ -n "$STOW_ADOPT" ]; then
+                    err "--adopt and --replace are mutually exclusive"
+                fi
                 STOW_REPLACE="1"
                 warn "Running with --replace: existing config files will be deleted and replaced"
                 ;;
@@ -79,6 +85,7 @@ main() {
 
     run_module ghostty
     run_module fish
+    run_module starship
     run_module nvim
     run_module tmux
     run_module yazi
