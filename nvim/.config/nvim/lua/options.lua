@@ -47,7 +47,7 @@ local options = {
   conceallevel = 0,                        -- Don't hide any characters (e.g., `` in markdown)
   cursorline = true,                       -- Highlight the current line
   cursorlineopt = "number",                -- Only highlight the line number, not the whole line
-  colorcolumn = "",                         -- Managed per-filetype via autocommands
+  -- colorcolumn managed per-filetype via autocommands.lua
 
   -- Scrolling
   scrolloff = 10,                          -- Keep 10 lines visible above/below cursor when scrolling
@@ -95,7 +95,7 @@ local options = {
   wildignore = "*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,*.so,*.dll,*.swp,.DS_Store,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bmp,*.tar,*.zip,*.tgz", -- Files to ignore in completion
 
   -- Session Management
-  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- What to save in sessions
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions", -- What to save in sessions
 }
 
 -- Apply all options from the table above

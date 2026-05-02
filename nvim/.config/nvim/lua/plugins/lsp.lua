@@ -200,8 +200,15 @@ return {
         root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
       }
 
+      -- NOTE: cmd for all servers below is intentionally omitted here.
+      -- nvim-lspconfig (loaded as a dependency) populates vim.lsp.config with
+      -- default cmd, filetypes, and root_dir for each known server. Our config
+      -- is then merged on top, overriding only what we specify.
+      -- Removing nvim-lspconfig would require adding explicit cmd fields here.
+
       vim.lsp.config.lua_ls = {
         capabilities = capabilities,
+        filetypes = { "lua" },
         root_markers = {
           ".luarc.json",
           ".luarc.jsonc",
@@ -306,9 +313,6 @@ return {
           -- Buffer local mappings
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to Declaration" })
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "Hover Documentation" })
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "Go to References" })
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = ev.buf, desc = "Go to Implementation" })
           vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 })
@@ -328,6 +332,15 @@ return {
               callback = vim.lsp.buf.clear_references,
             })
           end
+        end,
+      })
+
+      -- Clean up document highlight autocmds when LSP detaches
+      vim.api.nvim_create_autocmd("LspDetach", {
+        group = vim.api.nvim_create_augroup("UserLspDetach", {}),
+        callback = function(ev)
+          vim.lsp.buf.clear_references()
+          vim.api.nvim_clear_autocmds { group = "lsp_document_highlight", buffer = ev.buf }
         end,
       })
     end,

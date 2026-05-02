@@ -25,6 +25,10 @@ return {
       "dockerfile",
       "sql",
       "gdscript",
+      "javascript",
+      "typescript",
+      "tsx",
+      "ruby",
     }
 
     -- Highlighting is handled by Neovim's built-in vim.treesitter.start()

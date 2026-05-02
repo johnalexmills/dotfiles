@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 -- Provides visual feedback when you yank (copy) text
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }  -- Highlight for 200ms using Visual highlight group
+    vim.hl.on_yank { higroup = "Visual", timeout = 200 }  -- Highlight for 200ms using Visual highlight group
   end,
 })
 

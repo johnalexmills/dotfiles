@@ -12,7 +12,6 @@ return {
       lua = { "luacheck" },
       sh = { "shellcheck" },
       bash = { "shellcheck" },
-      zsh = { "shellcheck" },
       fish = { "fish" },
 
       -- Configuration Languages
@@ -84,7 +83,7 @@ return {
     -- Auto-lint on specific events
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
       group = lint_augroup,
       callback = function()
         -- Only lint if the buffer is not too large (performance)

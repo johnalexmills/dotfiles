@@ -1,11 +1,18 @@
 # ~/.config/fish/config.fish
-zoxide init fish | source
+zoxide init fish --cmd cd | source
 starship init fish | source
 
-alias rmo='sudo pacman -Rs $(pacman -Qqtd)'
+function rmo --description "Remove orphaned packages"
+    set pkgs (pacman -Qqtd)
+    if test (count $pkgs) -gt 0
+        sudo pacman -Rs $pkgs
+    else
+        echo "No orphaned packages found"
+    end
+end
 alias ofrc='nvim ~/.config/fish/conf.d/config.fish'
 alias sfrc='source ~/.config/fish/conf.d/config.fish'
-alias cd='z'
+# cd is handled by zoxide via --cmd cd above
 
 # Navigation shortcuts
 alias ..='cd ..'

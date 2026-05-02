@@ -2,7 +2,7 @@
 # Inherits all defaults; only overrides listed here
 
 [manager]
-keymap = [
+prepend_keymap = [
   # Navigation
   { on = ["<Up>"],    run = "arrow -1",     desc = "Move cursor up" },
   { on = ["<Down>"],  run = "arrow 1",      desc = "Move cursor down" },

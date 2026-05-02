@@ -7,10 +7,10 @@ return {
     require("bufferline").setup {
       options = {
         close_command = function(n)
-          Snacks.bufdelete(n)
+          require("snacks").bufdelete(n)
         end,
         right_mouse_command = function(n)
-          Snacks.bufdelete(n)
+          require("snacks").bufdelete(n)
         end,
         diagnostics = "nvim_lsp",
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -22,12 +22,6 @@ return {
           return s
         end,
         separator_style = "slant",
-        offsets = {
-          {
-            filetype = "oil",
-            text = "Oil",
-          },
-        },
       },
     }
   end,

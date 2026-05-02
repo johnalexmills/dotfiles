@@ -21,11 +21,13 @@ return {
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
     },
     appearance = {
-      use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+      default = { "lsp", "path", "snippets", "buffer" },
+      per_filetype = {
+        lua = { "lsp", "path", "snippets", "buffer", "lazydev" },
+      },
       providers = {
         buffer = {
           score_offset = -3,

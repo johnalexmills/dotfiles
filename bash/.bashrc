@@ -11,6 +11,9 @@
 #
 ######################################################################
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 # Use vim navigation in terminal
 set -o vi
 
@@ -18,8 +21,8 @@ set -o vi
 #              Git Aliases              #
 #########################################
 alias gs='git status -sb'
-alias gco='git checkout'
-alias gcm='git checkout master'
+alias gco='git switch'
+alias gcm='git switch main'
 alias gaa='git add --all'
 alias gc='git commit -m'
 alias push='git push'
@@ -49,8 +52,6 @@ alias gm='git merge'
  alias llt='ls -la --sort=time'
  alias sbrc='source ~/.bashrc && echo "sourced new .bashrc"'
  alias obrc='nvim ~/.bashrc'
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 # Performance optimizations
 export HISTSIZE=10000
@@ -63,7 +64,12 @@ alias grep='grep --color=auto'
 
 alias lg="lazygit"
 
-alias ivn='nvim $(fzf -m --preview="bat --color=always {}")'
+function ivn() {
+  command -v fzf >/dev/null 2>&1 || { echo "ivn: fzf is not installed" >&2; return 1; }
+  local -a files
+  mapfile -t files < <(fzf -m --preview="bat --color=always {}")
+  [[ ${#files[@]} -gt 0 ]] && nvim "${files[@]}"
+}
 
 eval "$(zoxide init --cmd cd bash)"
 eval "$(starship init bash)"

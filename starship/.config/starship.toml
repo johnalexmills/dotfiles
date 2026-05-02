@@ -17,6 +17,7 @@ $kotlin\
 $haskell\
 $python\
 $docker_context\
+$cmd_duration\
 $line_break$character"""
 
 # Catppuccin Mocha palette
@@ -52,30 +53,6 @@ crust = "#11111b"
 
 [os]
 disabled = true
-
-[os.symbols]
-Windows = "󰍲 "
-Ubuntu = "󰕈 "
-SUSE = " "
-Raspbian = "󰐿 "
-Mint = "󰣭 "
-Macos = " "
-Manjaro = " "
-Linux = "󰌽 "
-Gentoo = "󰣨 "
-Fedora = "󰣛 "
-Alpine = " "
-Amazon = " "
-Android = " "
-Arch = "󰣇 "
-Artix = "󰣇 "
-CentOS = " "
-Debian = "󰣚 "
-Redhat = "󱄛 "
-RedHatEnterprise = "󱄛 "
-
-[username]
-show_always = true
 
 [directory]
 truncation_length = 3
@@ -141,10 +118,6 @@ min_time = 1000
 disabled = false
 style = "bold peach"
 
-[time]
-disabled = true
-time_format = "%R" # Hour:Minute Format
-
 [line_break]
 disabled = false
 
@@ -166,5 +139,5 @@ disabled = false
 
 [character]
 success_symbol = "[╰─⋗](lavender bold)"
-error_symbol = "[╰─](lavender bold)"
+error_symbol = "[╰─✗](red bold)"
 disabled = false

@@ -53,6 +53,29 @@ return {
       end,
       desc = "Close Buffer",
     },
+
+    -- Session management
+    {
+      "<leader>Sr",
+      function()
+        Snacks.session.select()
+      end,
+      desc = "Restore Session",
+    },
+    {
+      "<leader>Ss",
+      function()
+        Snacks.session.save()
+      end,
+      desc = "Save Session",
+    },
+    {
+      "<leader>Sd",
+      function()
+        Snacks.session.stop()
+      end,
+      desc = "Stop Session (don't save on exit)",
+    },
     {
       "<leader>fr",
       function()
@@ -226,6 +249,12 @@ return {
     terminal = { enabled = true },
     rename = { enabled = true },
     zen = { enabled = true },
+    session = {
+      enabled = true,
+      -- Auto-save when leaving Neovim, auto-restore when opening in a git repo
+      auto_save = true,
+      auto_restore = true,
+    },
     indent = {
       enabled = true,
       -- scope hl defined in colorscheme.lua using Catppuccin Mocha lavender
@@ -272,6 +301,13 @@ return {
       sections = {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
+        {
+          icon = " ",
+          title = "Sessions",
+          section = "session",
+          indent = 2,
+          padding = 1,
+        },
         { section = "startup" },
       },
     },
