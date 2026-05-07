@@ -47,6 +47,7 @@ return {
 
           -- Multi-purpose (linter + formatter)
           "gdtoolkit", -- gdscript (gdlint + gdformat)
+          "rubocop", -- ruby (formatter & linter)
 
           -- Additional tools
           "hadolint", -- dockerfile

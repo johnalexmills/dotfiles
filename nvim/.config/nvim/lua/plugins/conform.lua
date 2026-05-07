@@ -3,7 +3,13 @@ return {
   cmd = "ConformInfo",
   event = { "BufWritePre" },
   keys = {
-    { "<leader>lf", "<cmd>lua require'conform'.format()<cr>", desc = "Format" },
+    {
+      "<leader>lf",
+      function()
+        require("conform").format()
+      end,
+      desc = "Format",
+    },
   },
   config = function()
     local conform = require "conform"
