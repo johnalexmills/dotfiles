@@ -64,7 +64,7 @@ keymap("n", "<leader>/", function()
   end
 end, { noremap = true, silent = true, desc = "Toggle Search Highlight" })
 keymap("n", "<leader>r", function()
-  vim.opt.relativenumber = not vim.opt.relativenumber:get()
+  vim.opt.relativenumber = not vim.wo.relativenumber
 end, { noremap = true, silent = true, desc = "Toggle Relative Numbers" })
 
 local mappings = {
@@ -92,6 +92,9 @@ local mappings = {
 
   -- Session group
   { "<leader>S", group = "Session", nowait = true, remap = false },
+
+  -- Test group
+  { "<leader>n", group = "Neotest", nowait = true, remap = false },
 
   { "<leader>/", desc = "Toggle Search Highlight", nowait = true, remap = false },
   { "<leader>r", desc = "Toggle Relative Numbers", nowait = true, remap = false },

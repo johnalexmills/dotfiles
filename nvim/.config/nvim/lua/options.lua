@@ -88,7 +88,7 @@ local options = {
   signcolumn = "yes",                      -- Always show sign column (for LSP, git signs, etc.)
 
   -- Diff Mode
-  diffopt = "internal,filler,closeoff,hiddenoff,algorithm:minimal", -- Better diff display options
+  diffopt = "internal,filler,closeoff,hiddenoff,algorithm:minimal,linematch:60", -- Better diff display options
 
   -- Wildmenu (Command-line Completion)
   wildmode = "longest:full,full",          -- Complete longest common string, then show full matches

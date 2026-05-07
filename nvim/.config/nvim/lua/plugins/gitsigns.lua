@@ -16,6 +16,6 @@ return {
     { "<leader>gS", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage hunk" },
     { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo stage hunk" },
     { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset hunk" },
-    { "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff this" },
+    { "<leader>gi", "<cmd>Gitsigns diffthis<cr>", desc = "Diff this (inline)" },
   },
 }

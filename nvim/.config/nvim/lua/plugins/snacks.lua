@@ -245,7 +245,7 @@ return {
     notifier = { enabled = true },
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },
-    words = { enabled = false },
+    words = { enabled = true },
     terminal = { enabled = true },
     rename = { enabled = true },
     zen = { enabled = true },

@@ -314,7 +314,7 @@ return {
           -- Buffer local mappings
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to Declaration" })
-          vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
+          vim.keymap.set("n", "<leader>lg", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 })
           end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
