@@ -75,7 +75,6 @@ return {
         desc = "Document Diagnostics",
       },
       { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer" },
-      { "<leader>lC", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
       {
         "<leader>lS",
         function()
