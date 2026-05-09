@@ -2,6 +2,7 @@
 # Colemak layout: h=m, j=n, k=e, l=o
 
 # Start at login
+start-at-login = true
 after-login-command = []
 after-startup-command = []
 
