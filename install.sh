@@ -89,6 +89,7 @@ main() {
     run_module nvim
     run_module tmux
     run_module yazi
+    run_module aerospace
 
     echo
     ok "========================================"
