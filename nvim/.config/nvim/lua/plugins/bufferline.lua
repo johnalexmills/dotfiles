@@ -13,11 +13,17 @@ return {
           require("snacks").bufdelete(n)
         end,
         diagnostics = "nvim_lsp",
-        diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          local s = " "
+        diagnostics_indicator = function(_count, _level, diagnostics_dict, _context)
+          local s = ""
           for e, n in pairs(diagnostics_dict) do
             local sym = e == "error" and " " or (e == "warning" and " " or "")
+            if s ~= "" then
+              s = s .. " "
+            end
             s = s .. n .. sym
+          end
+          if s ~= "" then
+            s = " " .. s
           end
           return s
         end,

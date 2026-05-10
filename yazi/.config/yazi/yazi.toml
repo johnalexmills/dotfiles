@@ -11,3 +11,8 @@ show_symlink = true
 tab_size = 2
 max_width = 600
 max_height = 900
+
+# Theme: catppuccin-mocha is installed via `ya pkg add yazi-rs/flavors:catppuccin-mocha`
+# (handled by yazi/scripts/install.sh).
+[flavor]
+dark = "catppuccin-mocha"

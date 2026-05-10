@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Shared helper functions sourced by all module install scripts.
-# Usage: source "$(dirname "${BASH_SOURCE[0]}")/../../scripts/helpers.sh"
+# Usage: source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/scripts/helpers.sh"
 
 # --- Logging ---
 
@@ -33,6 +33,16 @@ detect_linux_pkg_manager() {
     else
         err "No supported package manager found (pacman, apt, dnf, zypper)"
     fi
+}
+
+# --- Paths ---
+
+# Resolve the dotfiles repo root from a module's scripts/install.sh.
+# Usage (from inside a module install script):
+#     DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
+dotfiles_root_from_module() {
+    local script_dir="$1"
+    (cd "$script_dir/../.." && pwd)
 }
 
 # --- Common installs ---
@@ -72,16 +82,33 @@ install_stow() {
 
 # Stow a single module from the dotfiles repo into $HOME.
 # Usage: stow_module <module_name> <dotfiles_dir>
+#
+# Behaviour is controlled by the (optional) STOW_ADOPT / STOW_REPLACE env vars,
+# normally set by the top-level install.sh based on --adopt / --replace flags.
+#
+# --replace: adopt existing files into the repo, then `git checkout` to discard
+#            them, effectively replacing on-disk files with the repo versions.
+#            Refuses to run if the module has uncommitted changes (would
+#            otherwise destroy local work).
 stow_module() {
     local name="$1"
     local dotfiles_dir="$2"
 
     info "Stowing $name config..."
     if [ -n "${STOW_REPLACE:-}" ]; then
+        # Safety check: refuse to --replace if the module has uncommitted changes,
+        # because the `git checkout` step would silently discard them.
+        if ! git -C "$dotfiles_dir" diff --quiet -- "$name" 2>/dev/null \
+            || ! git -C "$dotfiles_dir" diff --cached --quiet -- "$name" 2>/dev/null; then
+            err "$name has uncommitted changes; refusing to --replace (would discard local work). Commit or stash first."
+        fi
         stow -d "$dotfiles_dir" -t "$HOME" --adopt "$name"
         git -C "$dotfiles_dir" checkout -- "$name"
     else
-        stow -d "$dotfiles_dir" -t "$HOME" ${STOW_ADOPT:+"$STOW_ADOPT"} "$name"
+        # ${STOW_ADOPT:-} is either empty or "--adopt"; word-splitting an empty
+        # string yields no args, so this is safe without the :+ trick.
+        # shellcheck disable=SC2086
+        stow ${STOW_ADOPT:-} -d "$dotfiles_dir" -t "$HOME" "$name"
     fi
     ok "$name config stowed"
 }

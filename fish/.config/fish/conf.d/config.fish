@@ -1,15 +1,16 @@
-# ~/.config/fish/config.fish
+# ~/.config/fish/conf.d/config.fish
 zoxide init fish --cmd cd | source
 starship init fish | source
 
 function rmo --description "Remove orphaned packages"
-    set pkgs (pacman -Qqtd)
+    set -l pkgs (pacman -Qqtd 2>/dev/null)
     if test (count $pkgs) -gt 0
         sudo pacman -Rs $pkgs
     else
         echo "No orphaned packages found"
     end
 end
+
 alias ofrc='nvim ~/.config/fish/conf.d/config.fish'
 alias sfrc='source ~/.config/fish/conf.d/config.fish'
 # cd is handled by zoxide via --cmd cd above
@@ -36,8 +37,6 @@ alias gd='git diff'
 # System shortcuts
 alias cls='clear'
 alias h='history'
-alias grep='grep --color=auto'
-alias mkdir='mkdir -p'
 
 # Neovim shortcut
 alias v='nvim'
@@ -49,14 +48,15 @@ alias tl='tmux ls'
 alias tk='tmux kill-session -t'
 
 # Quick venv activation/deactivation
-function venv
+function venv --description "Activate nearest .venv/venv (walks up the directory tree)"
     if set -q VIRTUAL_ENV
         deactivate
         return
     end
 
     set -l dir (pwd)
-    while test "$dir" != "/"
+    set -l prev_dir ""
+    while test "$dir" != "$prev_dir"
         # Check exact matches first, then glob for venv-* and .venv-*
         for candidate in $dir/.venv $dir/venv $dir/.venv-* $dir/venv-*
             if test -f "$candidate/bin/activate.fish"
@@ -65,6 +65,7 @@ function venv
                 return
             end
         end
+        set prev_dir $dir
         set dir (dirname $dir)
     end
     echo "No venv found"

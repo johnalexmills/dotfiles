@@ -115,11 +115,7 @@ style = "bold sapphire"
 
 [cmd_duration]
 min_time = 1000
-disabled = false
 style = "bold peach"
-
-[line_break]
-disabled = false
 
 [shell]
 fish_indicator = '󰈺 '
@@ -135,9 +131,7 @@ nu_indicator = 'nu'
 unknown_indicator = ' '
 format = '[$indicator ]($style)'
 style = "bold teal"
-disabled = false
 
 [character]
 success_symbol = "[╰─⋗](lavender bold)"
 error_symbol = "[╰─✗](red bold)"
-disabled = false

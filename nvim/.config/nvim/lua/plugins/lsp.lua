@@ -16,6 +16,31 @@ return {
   },
 
   {
+    -- Bridges Mason package names <-> nvim-lspconfig server names (e.g.
+    -- "lua-language-server" <-> "lua_ls"). Required for some setups but
+    -- mainly used here for ensure_installed of LSP servers.
+    --
+    -- NOTE: ty (Astral's Python type checker LSP) is not yet auto-recognised
+    -- by mason-lspconfig (see https://github.com/mason-org/mason-lspconfig.nvim/issues/642).
+    -- We install ty via mason-tool-installer below and enable it manually with
+    -- vim.lsp.enable('ty').
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("mason-lspconfig").setup {
+        ensure_installed = {
+          "lua_ls",
+          "bashls",
+          "terraformls",
+          "yamlls",
+        },
+        automatic_installation = false, -- handled by mason-tool-installer
+      }
+    end,
+  },
+
+  {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     dependencies = { "williamboman/mason.nvim" },
     event = { "BufReadPre", "BufNewFile" },
@@ -23,22 +48,21 @@ return {
       require("mason-tool-installer").setup {
         ensure_installed = {
           -- LSP servers
-          "pyright",
           "lua-language-server",
           "bash-language-server",
           "terraform-ls",
           "yaml-language-server",
+          "ty", -- Python type checker LSP (Astral)
+          "ruff", -- Python linter/formatter LSP (Astral)
 
-          -- Formatters
+          -- Formatters (non-LSP)
           "stylua", -- lua
-          "ruff", -- python (formatter & linter)
           "prettier", -- json, yaml, markdown
           "taplo", -- toml
           "hclfmt", -- hcl (terragrunt)
 
-          -- Linters
+          -- Linters (non-LSP)
           "luacheck", -- lua
-          "mypy", -- python
           "shellcheck", -- bash/sh
           "yamllint", -- yaml
           "jsonlint", -- json
@@ -47,7 +71,7 @@ return {
 
           -- Multi-purpose (linter + formatter)
           "gdtoolkit", -- gdscript (gdlint + gdformat)
-          "rubocop", -- ruby (formatter & linter)
+          "rubocop", -- ruby
 
           -- Additional tools
           "hadolint", -- dockerfile
@@ -82,7 +106,7 @@ return {
         end,
         desc = "Workspace Symbols",
       },
-      { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
+      { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action" },
       { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", desc = "Info" },
       {
         "<leader>lj",
@@ -98,8 +122,7 @@ return {
         end,
         desc = "Prev Diagnostic",
       },
-
-      { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
+      { "<leader>lq", vim.diagnostic.setloclist, desc = "Quickfix" },
       {
         "<leader>lR",
         function()
@@ -107,8 +130,8 @@ return {
         end,
         desc = "References",
       },
-      { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
-      { "<leader>lx", "<cmd>lua vim.diagnostic.reset()<cr>", desc = "Refresh Diagnostics" },
+      { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
+      { "<leader>lx", vim.diagnostic.reset, desc = "Refresh Diagnostics" },
       {
         "<leader>ls",
         function()
@@ -193,20 +216,33 @@ return {
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-      -- Configure LSP servers using Neovim 0.11+ native config
-      vim.lsp.config.pyright = {
+      -- Configure LSP servers using Neovim 0.11+ native config (function form,
+      -- which merges with anything declared in lsp/<name>.lua on the runtimepath).
+      --
+      -- NOTE: cmd is intentionally omitted for most servers; nvim-lspconfig
+      -- (a dependency) populates default cmd / filetypes / root_dir for each
+      -- known server, and our config is then merged on top, overriding only
+      -- what we specify. Removing nvim-lspconfig would require adding explicit
+      -- cmd fields here.
+
+      vim.lsp.config("ty", {
         capabilities = capabilities,
         filetypes = { "python" },
-        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
-      }
+        root_markers = { "ty.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+      })
 
-      -- NOTE: cmd for all servers below is intentionally omitted here.
-      -- nvim-lspconfig (loaded as a dependency) populates vim.lsp.config with
-      -- default cmd, filetypes, and root_dir for each known server. Our config
-      -- is then merged on top, overriding only what we specify.
-      -- Removing nvim-lspconfig would require adding explicit cmd fields here.
+      vim.lsp.config("ruff", {
+        capabilities = capabilities,
+        filetypes = { "python" },
+        root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
+        init_options = {
+          settings = {
+            -- ruff settings; defaults are sensible. Add overrides here if needed.
+          },
+        },
+      })
 
-      vim.lsp.config.lua_ls = {
+      vim.lsp.config("lua_ls", {
         capabilities = capabilities,
         filetypes = { "lua" },
         root_markers = {
@@ -226,27 +262,27 @@ return {
             },
           },
         },
-      }
+      })
 
-      vim.lsp.config.bashls = {
+      vim.lsp.config("bashls", {
         capabilities = capabilities,
         filetypes = { "sh", "bash" },
         root_markers = { ".git" },
-      }
+      })
 
-      vim.lsp.config.terraformls = {
+      vim.lsp.config("terraformls", {
         capabilities = capabilities,
         filetypes = { "terraform", "tf" },
         root_markers = { ".terraform", ".git" },
-      }
+      })
 
-      vim.lsp.config.gdscript = {
+      vim.lsp.config("gdscript", {
         capabilities = capabilities,
         filetypes = { "gdscript" },
         root_markers = { "project.godot", ".git" },
-      }
+      })
 
-      vim.lsp.config.yamlls = {
+      vim.lsp.config("yamlls", {
         capabilities = capabilities,
         filetypes = { "yaml", "yaml.docker-compose" },
         root_markers = { ".git" },
@@ -257,13 +293,10 @@ return {
             format = { enable = false }, -- handled by prettier via conform
           },
         },
-      }
+      })
 
       -- Enable all configured LSP servers
-      vim.lsp.enable { "pyright", "lua_ls", "bashls", "terraformls", "gdscript", "yamlls" }
-
-      -- Enable inlay hints globally (Neovim 0.10+)
-      vim.lsp.inlay_hint.enable()
+      vim.lsp.enable { "ty", "ruff", "lua_ls", "bashls", "terraformls", "gdscript", "yamlls" }
 
       -- Enhanced diagnostic configuration (modern features)
       vim.diagnostic.config {
@@ -309,17 +342,25 @@ return {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if not client then
+            return
+          end
 
           -- Buffer local mappings
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to Declaration" })
           vim.keymap.set("n", "<leader>lg", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
-          vim.keymap.set("n", "<leader>lh", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 })
-          end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
+
+          -- Inlay hints: only enable for clients that support them, and provide a per-buffer toggle.
+          if client:supports_method("textDocument/inlayHint") then
+            vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+            vim.keymap.set("n", "<leader>lh", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf }, { bufnr = ev.buf })
+            end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
+          end
 
           -- Document highlight
-          if client and client:supports_method("textDocument/documentHighlight") then
+          if client:supports_method("textDocument/documentHighlight") then
             local highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = ev.buf,

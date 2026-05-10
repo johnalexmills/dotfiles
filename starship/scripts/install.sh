@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../../scripts/helpers.sh
 source "$SCRIPT_DIR/../../scripts/helpers.sh"
 
+DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
+
 # --- Install starship ---
 
 install_starship() {
@@ -48,7 +50,7 @@ main() {
 
     install_stow
     install_starship
-    stow_module "starship" "$(cd "$SCRIPT_DIR/../.." && pwd)"
+    stow_module "starship" "$DOTFILES_DIR"
 
     echo
     ok "starship setup complete!"

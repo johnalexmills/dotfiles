@@ -1,3 +1,8 @@
+-- Using the rewritten `main` branch of nvim-treesitter, which requires
+-- Neovim 0.11+. Highlighting is driven by Neovim's built-in `vim.treesitter.start()`
+-- (called automatically by ftplugins). The legacy `master` branch's
+-- `nvim-treesitter-textobjects` integration is not used here; if you want
+-- text-object motions, install treesitter-textobjects separately.
 return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",

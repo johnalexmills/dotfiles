@@ -1,102 +1,76 @@
--- Shorten function name
-local keymap = vim.keymap.set
+-- Core keymaps that must be available immediately at startup (not deferred to
+-- VeryLazy via which-key). which-key descriptions / groups live in
+-- plugins/which-key.lua.
+--
+-- Note: vim.keymap.set defaults to noremap = true since Neovim 0.7, so we omit it.
 
---Remap space as leader key
+local map = vim.keymap.set
+
+-- Leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Normal --
-keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to left window" })
-keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true, desc = "Move to lower window" })
-keymap("n", "<C-k>", "<C-w>k", { noremap = true, silent = true, desc = "Move to upper window" })
-keymap("n", "<C-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to right window" })
+-- Window navigation
+map("n", "<C-h>", "<C-w>h", { silent = true, desc = "Move to left window" })
+map("n", "<C-j>", "<C-w>j", { silent = true, desc = "Move to lower window" })
+map("n", "<C-k>", "<C-w>k", { silent = true, desc = "Move to upper window" })
+map("n", "<C-l>", "<C-w>l", { silent = true, desc = "Move to right window" })
 
 -- Buffer navigation with Tab
-keymap("n", "<Tab>", "<cmd>bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
-keymap("n", "<S-Tab>", "<cmd>bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+map("n", "<Tab>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
+map("n", "<S-Tab>", "<cmd>bprevious<CR>", { silent = true, desc = "Previous buffer" })
 
 -- Buffer management
-keymap("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { desc = "Close others", noremap = true, silent = true })
+map("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { silent = true, desc = "Close others" })
 
 -- Resize with Alt+hjkl
-keymap("n", "<A-h>", "<cmd>vertical resize -2<CR>", { noremap = true, silent = true, desc = "Shrink window width" })
-keymap("n", "<A-j>", "<cmd>resize +2<CR>", { noremap = true, silent = true, desc = "Grow window height" })
-keymap("n", "<A-k>", "<cmd>resize -2<CR>", { noremap = true, silent = true, desc = "Shrink window height" })
-keymap("n", "<A-l>", "<cmd>vertical resize +2<CR>", { noremap = true, silent = true, desc = "Grow window width" })
+map("n", "<A-h>", "<cmd>vertical resize -2<CR>", { silent = true, desc = "Shrink window width" })
+map("n", "<A-j>", "<cmd>resize +2<CR>", { silent = true, desc = "Grow window height" })
+map("n", "<A-k>", "<cmd>resize -2<CR>", { silent = true, desc = "Shrink window height" })
+map("n", "<A-l>", "<cmd>vertical resize +2<CR>", { silent = true, desc = "Grow window width" })
 
 -- Better paste (Primeagen's "greatest remap ever")
 -- Paste without losing clipboard content
-keymap("v", "p", [["_dP]], { noremap = true, silent = true, desc = "Paste without overwriting register" })
+map("v", "p", [["_dP]], { silent = true, desc = "Paste without overwriting register" })
 
 -- Delete to black hole register (doesn't overwrite clipboard)
-keymap({ "n", "v" }, "<leader>D", [["_d]], { noremap = true, silent = true, desc = "Delete to black hole register" })
+map({ "n", "v" }, "<leader>D", [["_d]], { silent = true, desc = "Delete to black hole register" })
 
--- Visual --
 -- Stay in indent mode
-keymap("v", "<", "<gv", { noremap = true, silent = true, desc = "Indent left and reselect" })
-keymap("v", ">", ">gv", { noremap = true, silent = true, desc = "Indent right and reselect" })
+map("v", "<", "<gv", { silent = true, desc = "Indent left and reselect" })
+map("v", ">", ">gv", { silent = true, desc = "Indent right and reselect" })
 
 -- Move blocks with indent
-keymap("v", "J", "<cmd>m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move block down" })
-keymap("v", "K", "<cmd>m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move block up" })
+map("v", "J", "<cmd>m '>+1<CR>gv=gv", { silent = true, desc = "Move block down" })
+map("v", "K", "<cmd>m '<-2<CR>gv=gv", { silent = true, desc = "Move block up" })
 
 -- Better line joining
-keymap("n", "J", "mzJ`z", { noremap = true, silent = true, desc = "Join lines (keep cursor)" })
+map("n", "J", "mzJ`z", { silent = true, desc = "Join lines (keep cursor)" })
 
 -- Clear search highlight with Escape
-keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true, silent = true, desc = "Clear search highlight" })
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
 
 -- Keep cursor centered during navigation
-keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true, desc = "Scroll down (centered)" })
-keymap("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true, desc = "Scroll up (centered)" })
-keymap("n", "n", "nzzzv", { noremap = true, silent = true, desc = "Next search result (centered)" })
-keymap("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Prev search result (centered)" })
+map("n", "<C-d>", "<C-d>zz", { silent = true, desc = "Scroll down (centered)" })
+map("n", "<C-u>", "<C-u>zz", { silent = true, desc = "Scroll up (centered)" })
+map("n", "n", "nzzzv", { silent = true, desc = "Next search result (centered)" })
+map("n", "N", "Nzzzv", { silent = true, desc = "Prev search result (centered)" })
 
 -- Commenting handled by Neovim 0.10+ native gc/gcc
 
--- Keymaps that must be available immediately (not deferred to VeryLazy via which-key)
-keymap("n", "<leader>fn", "<cmd>enew<cr>", { noremap = true, silent = true, desc = "New File" })
-keymap("n", "<leader>/", function()
+-- New file
+map("n", "<leader>fn", "<cmd>enew<cr>", { silent = true, desc = "New File" })
+
+-- Toggle search highlight
+map("n", "<leader>/", function()
   if vim.v.hlsearch == 1 then
     vim.cmd "nohlsearch"
   else
     vim.cmd "set hlsearch"
   end
-end, { noremap = true, silent = true, desc = "Toggle Search Highlight" })
-keymap("n", "<leader>r", function()
+end, { silent = true, desc = "Toggle Search Highlight" })
+
+-- Toggle relative line numbers
+map("n", "<leader>r", function()
   vim.opt.relativenumber = not vim.wo.relativenumber
-end, { noremap = true, silent = true, desc = "Toggle Relative Numbers" })
-
-local mappings = {
-  -- File group
-  { "<leader>f", group = "File", nowait = true, remap = false },
-
-  -- Harpoon group
-  { "<leader>h", group = "Harpoon", nowait = true, remap = false },
-  { "<leader>fn", desc = "New File", nowait = true, remap = false },
-
-  -- Buffer group
-  { "<leader>b", group = "Buffer", nowait = true, remap = false },
-
-  -- Git group
-  { "<leader>g", group = "Git", nowait = true, remap = false },
-
-  -- LSP group
-  { "<leader>l", group = "LSP", nowait = true, remap = false },
-
-  -- Trouble group
-  { "<leader>t", group = "Trouble", nowait = true, remap = false },
-
-  -- Search group
-  { "<leader>s", group = "Search", nowait = true, remap = false },
-
-  -- Session group
-  { "<leader>S", group = "Session", nowait = true, remap = false },
-
-  -- Test group
-  { "<leader>n", group = "Neotest", nowait = true, remap = false },
-
-  { "<leader>/", desc = "Toggle Search Highlight", nowait = true, remap = false },
-  { "<leader>r", desc = "Toggle Relative Numbers", nowait = true, remap = false },
-}
-return mappings
+end, { silent = true, desc = "Toggle Relative Numbers" })

@@ -43,25 +43,6 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
--- Automatically remove trailing whitespace before saving
--- Skips files larger than 100 KB for performance reasons
-vim.api.nvim_create_autocmd("BufWritePre", {
-  desc = "Remove trailing whitespace",
-  callback = function()
-    -- Skip for large files (performance)
-    local max_filesize = 100 * 1024 -- 100 KB
-    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(0))
-    if ok and stats and stats.size > max_filesize then
-      return
-    end
-
-    -- Save cursor position, remove trailing whitespace, then restore cursor
-    local save_cursor = vim.fn.getpos "."
-    vim.cmd [[%s/\s\+$//e]]  -- Substitute trailing whitespace with nothing (e flag = no error if not found)
-    vim.fn.setpos(".", save_cursor)
-  end,
-})
-
 -- Automatically create parent directories when saving a file
 -- If you save to a path like "foo/bar/baz.txt" and "foo/bar/" doesn't exist, it will be created
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -101,16 +82,8 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   end,
 })
 
--- Automatically save all modified buffers when losing focus
--- Only saves if the buffer has a filename, is modified, and is not readonly
-vim.api.nvim_create_autocmd("FocusLost", {
-  desc = "Auto-save on focus lost",
-  callback = function()
-    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand "%" ~= "" then
-      vim.cmd "silent! wall"  -- Write all modified buffers (silent = don't show messages)
-    end
-  end,
-})
+-- Note: auto-save on FocusLost was removed; snacks.session handles auto-save
+-- on exit (see plugins/snacks.lua), which is the single source of truth.
 
 -- Per-filetype colorcolumn
 -- Prose/text formats get no ruler; code files get language-appropriate limits

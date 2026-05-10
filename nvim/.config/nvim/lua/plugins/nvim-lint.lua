@@ -5,10 +5,10 @@ return {
     local lint = require "lint"
 
     -- Configure linters by filetype
+    -- NOTE: Python lint+format is handled by ruff LSP; type-checking by ty LSP.
     lint.linters_by_ft = {
 
       -- Scripting Languages
-      python = { "ruff", "mypy" },
       lua = { "luacheck" },
       sh = { "shellcheck" },
       bash = { "shellcheck" },
@@ -43,21 +43,6 @@ return {
       "plain",
       "--codes",
       "--ranges",
-      "-",
-    }
-
-    -- Python: Configure ruff for fast linting
-    lint.linters.ruff.args = {
-      "check",
-      "--force-exclude",
-      "--quiet",
-      "--stdin-filename",
-      function()
-        return vim.api.nvim_buf_get_name(0)
-      end,
-      "--no-fix",
-      "--output-format",
-      "json",
       "-",
     }
 
