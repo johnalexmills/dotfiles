@@ -352,7 +352,7 @@ return {
           vim.keymap.set("n", "<leader>lg", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
 
           -- Inlay hints: only enable for clients that support them, and provide a per-buffer toggle.
-          if client:supports_method("textDocument/inlayHint") then
+          if client:supports_method "textDocument/inlayHint" then
             vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
             vim.keymap.set("n", "<leader>lh", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf }, { bufnr = ev.buf })
@@ -360,7 +360,7 @@ return {
           end
 
           -- Document highlight
-          if client:supports_method("textDocument/documentHighlight") then
+          if client:supports_method "textDocument/documentHighlight" then
             local highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = ev.buf,

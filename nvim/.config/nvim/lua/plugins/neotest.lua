@@ -89,7 +89,7 @@ return {
     config = function()
       require("neotest").setup {
         adapters = {
-          require("neotest-python") {
+          require "neotest-python" {
             -- Use pytest by default; falls back to unittest if no pytest config found
             runner = "pytest",
             -- Pass pytest args (e.g. -v for verbose output)

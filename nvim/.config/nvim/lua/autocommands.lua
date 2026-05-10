@@ -14,8 +14,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit", "markdown", "text", "tex", "mail", "rst", "asciidoc", "org" },
   callback = function()
-    vim.opt_local.wrap = true        -- Enable line wrapping for readability
-    vim.opt_local.spell = true       -- Enable spell checking
+    vim.opt_local.wrap = true -- Enable line wrapping for readability
+    vim.opt_local.spell = true -- Enable spell checking
   end,
 })
 
@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Ensures all window splits are equal size after resizing the terminal
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
-    vim.cmd "tabdo wincmd ="  -- Execute "wincmd =" (equalize windows) in all tabs
+    vim.cmd "tabdo wincmd =" -- Execute "wincmd =" (equalize windows) in all tabs
   end,
 })
 
@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 -- Provides visual feedback when you yank (copy) text
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
-    vim.hl.on_yank { higroup = "Visual", timeout = 200 }  -- Highlight for 200ms using Visual highlight group
+    vim.hl.on_yank { higroup = "Visual", timeout = 200 } -- Highlight for 200ms using Visual highlight group
   end,
 })
 
@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       return
     end
     local file = vim.uv.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")  -- Create directory with "p" flag (like mkdir -p)
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p") -- Create directory with "p" flag (like mkdir -p)
   end,
 })
 
@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd("BufReadPost", {
   desc = "Return to last cursor position",
   callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')  -- Get the " mark (last position)
+    local mark = vim.api.nvim_buf_get_mark(0, '"') -- Get the " mark (last position)
     local lcount = vim.api.nvim_buf_line_count(0)
     -- Only restore if the mark is valid and within the file's line count
     if mark[1] > 0 and mark[1] <= lcount then
@@ -76,8 +76,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   desc = "Check if file changed externally",
   callback = function()
-    if vim.fn.mode() ~= "c" then  -- Don't check in command-line mode
-      pcall(vim.cmd, "checktime")  -- Check if any buffers changed on disk
+    if vim.fn.mode() ~= "c" then -- Don't check in command-line mode
+      pcall(vim.cmd, "checktime") -- Check if any buffers changed on disk
     end
   end,
 })
@@ -93,38 +93,40 @@ vim.api.nvim_create_autocmd("FileType", {
     local ft = vim.bo.filetype
     local col = ({
       -- Prose — no column ruler
-      markdown  = "",
-      text      = "",
-      tex       = "",
-      rst       = "",
-      asciidoc  = "",
-      org       = "",
-      gitcommit = "72",   -- git commit subject line convention
+      markdown = "",
+      text = "",
+      tex = "",
+      rst = "",
+      asciidoc = "",
+      org = "",
+      gitcommit = "72", -- git commit subject line convention
       -- Web / config — 100 cols
-      html      = "100",
-      css       = "100",
-      scss      = "100",
-      json      = "100",
-      yaml      = "100",
-      toml      = "100",
+      html = "100",
+      css = "100",
+      scss = "100",
+      json = "100",
+      yaml = "100",
+      toml = "100",
       -- Systems / scripting — 100 cols
-      lua       = "100",
-      bash      = "100",
-      sh        = "100",
-      fish      = "100",
-      vim       = "100",
+      lua = "100",
+      bash = "100",
+      sh = "100",
+      fish = "100",
+      vim = "100",
       -- Python — PEP 8 recommends 79, Black uses 88
-      python    = "88",
+      python = "88",
       -- Terraform / HCL — 100 cols
       terraform = "100",
-      hcl       = "100",
+      hcl = "100",
       -- SQL — 100 cols
-      sql       = "100",
+      sql = "100",
       -- GDScript — 100 cols
-      gdscript  = "100",
+      gdscript = "100",
     })[ft]
     -- Default for unlisted filetypes
-    if col == nil then col = "100" end
+    if col == nil then
+      col = "100"
+    end
     vim.opt_local.colorcolumn = col
   end,
 })
@@ -135,11 +137,32 @@ vim.api.nvim_create_autocmd("FileType", {
 -- "r" stops auto-inserting comment leader after Enter
 -- Must be done in a FileType autocmd because ftplugins reset formatoptions
 local code_filetypes = {
-  "lua", "python", "bash", "sh", "fish", "vim",
-  "html", "css", "scss", "json", "yaml", "toml",
-  "terraform", "hcl", "sql", "gdscript",
-  "javascript", "typescript", "tsx", "jsx",
-  "c", "cpp", "rust", "go", "java", "ruby",
+  "lua",
+  "python",
+  "bash",
+  "sh",
+  "fish",
+  "vim",
+  "html",
+  "css",
+  "scss",
+  "json",
+  "yaml",
+  "toml",
+  "terraform",
+  "hcl",
+  "sql",
+  "gdscript",
+  "javascript",
+  "typescript",
+  "tsx",
+  "jsx",
+  "c",
+  "cpp",
+  "rust",
+  "go",
+  "java",
+  "ruby",
 }
 vim.api.nvim_create_autocmd("FileType", {
   pattern = code_filetypes,
