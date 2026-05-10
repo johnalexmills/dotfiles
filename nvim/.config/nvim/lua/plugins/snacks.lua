@@ -177,6 +177,13 @@ return {
       end,
       desc = "Autocmds",
     },
+    {
+      "<leader>sn",
+      function()
+        Snacks.notifier.show_history()
+      end,
+      desc = "Notification History",
+    },
 
     -- Git pickers
     {

@@ -56,7 +56,7 @@ return {
     require("lualine").setup {
       options = {
         icons_enabled = true,
-        theme = "catppuccin", -- match the catppuccin colorscheme
+        theme = "catppuccin-nvim", -- match the catppuccin colorscheme (v2.0+ name)
         -- Some useful glyphs:
         -- https://www.nerdfonts.com/cheat-sheet
         --        

@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- load lazy
 require("lazy").setup("plugins", {
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "catppuccin-nvim" } },
   defaults = { lazy = true },
   ui = { border = "rounded" },
   change_detection = { enabled = true, notify = false },
