@@ -19,35 +19,35 @@ return {
       desc = "Toggle menu",
     },
     {
-      "<M-n>",
+      "<C-n>",
       function()
         require("harpoon"):list():select(1)
       end,
       desc = "Harpoon file 1",
     },
     {
-      "<M-e>",
+      "<C-e>",
       function()
         require("harpoon"):list():select(2)
       end,
       desc = "Harpoon file 2",
     },
     {
-      "<M-i>",
+      "<C-i>",
       function()
         require("harpoon"):list():select(3)
       end,
       desc = "Harpoon file 3",
     },
     {
-      "<M-o>",
+      "<C-o>",
       function()
         require("harpoon"):list():select(4)
       end,
       desc = "Harpoon file 4",
     },
     {
-      "<M-'>",
+      "<C-'>",
       function()
         require("harpoon"):list():select(5)
       end,
