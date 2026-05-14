@@ -28,15 +28,7 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("mason-lspconfig").setup {
-        ensure_installed = {
-          "lua_ls",
-          "bashls",
-          "terraformls",
-          "yamlls",
-        },
-        automatic_installation = false, -- handled by mason-tool-installer
-      }
+      require("mason-lspconfig").setup {}
     end,
   },
 

@@ -39,9 +39,9 @@ return {
     -- Highlighting is handled by Neovim's built-in vim.treesitter.start()
     -- which is called automatically via ftplugins. To disable it for large
     -- files, use an autocommand:
-    vim.api.nvim_create_autocmd("FileType", {
+    vim.api.nvim_create_autocmd("BufReadPre", {
       callback = function(args)
-        local max_filesize = 100 * 1024 -- 100 KB
+        local max_filesize = 100 * 1024
         local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
         if ok and stats and stats.size > max_filesize then
           vim.treesitter.stop(args.buf)

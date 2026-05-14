@@ -68,7 +68,6 @@ local options = {
   -- Folding (using treesitter for syntax-aware folds)
   foldmethod = "expr", -- Use expression for folding
   foldexpr = "v:lua.vim.treesitter.foldexpr()", -- Treesitter-based folding
-  foldtext = "", -- Use virtual text for fold display (Neovim 0.10+)
   foldlevelstart = 99, -- Start with all folds open
   foldnestmax = 4, -- Maximum nesting of folds
 
@@ -77,9 +76,6 @@ local options = {
 
   -- GUI Settings
   guifont = "CaskaydiaCove Nerd Font:h17:i", -- Font for GUI versions of neovim
-
-  -- Performance and Redrawing
-  redrawtime = 1500, -- Time in ms for redrawing the display
 
   -- Fill Characters
   fillchars = { eob = " " }, -- Hide ~ on empty lines after end of buffer
