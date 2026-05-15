@@ -54,28 +54,29 @@ return {
       desc = "Close Buffer",
     },
 
-    -- Session management
+    -- Session management (backed by persistence.nvim)
     {
       "<leader>Sr",
       function()
-        Snacks.session.select()
+        require("persistence").select()
       end,
       desc = "Restore Session",
     },
     {
       "<leader>Ss",
       function()
-        Snacks.session.save()
+        require("persistence").save()
       end,
       desc = "Save Session",
     },
     {
       "<leader>Sd",
       function()
-        Snacks.session.stop()
+        require("persistence").stop()
       end,
       desc = "Stop Session (don't save on exit)",
     },
+
     {
       "<leader>fr",
       function()
@@ -256,12 +257,6 @@ return {
     terminal = { enabled = true },
     rename = { enabled = true },
     zen = { enabled = true },
-    session = {
-      enabled = true,
-      -- Auto-save when leaving Neovim, auto-restore when opening in a git repo
-      auto_save = true,
-      auto_restore = true,
-    },
     indent = {
       enabled = true,
       -- scope hl defined in colorscheme.lua using Catppuccin Mocha lavender

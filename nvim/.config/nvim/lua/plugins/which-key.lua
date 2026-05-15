@@ -17,6 +17,7 @@ return {
       { "<leader>S", group = "Session", nowait = true, remap = false },
       { "<leader>n", group = "Neotest", nowait = true, remap = false },
       { "<leader>q", group = "Persistence", nowait = true, remap = false },
+
     }
   end,
 }
