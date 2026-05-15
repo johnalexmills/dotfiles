@@ -310,13 +310,6 @@ return {
       sections = {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
-        {
-          icon = " ",
-          title = "Sessions",
-          section = "session",
-          indent = 2,
-          padding = 1,
-        },
         { section = "startup" },
       },
     },

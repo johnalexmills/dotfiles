@@ -4,13 +4,24 @@ sort_by = "natural"
 sort_sensitive = false
 sort_reverse = false
 sort_dir_first = true
+sort_modified = true
 show_hidden = true
 show_symlink = true
+trash = true
 
 [preview]
 tab_size = 2
 max_width = 600
 max_height = 900
+
+[opener]
+text = [
+  { run = 'nvim "$@"', block = true, desc = "Open in Neovim" },
+]
+
+[status]
+show_perm = false
+show_owner = false
 
 # Theme: catppuccin-mocha is installed via `ya pkg add yazi-rs/flavors:catppuccin-mocha`
 # (handled by yazi/scripts/install.sh).
