@@ -13,7 +13,6 @@ return {
 
     local filename = {
       "filename",
-      file_status = true, -- displays file status (readonly status, modified status)
       path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
     }
 
@@ -26,29 +25,24 @@ return {
       sources = { "nvim_lsp" },
       sections = { "error", "warn" },
       symbols = { error = " ", warn = " ", info = " ", hint = " " },
-      colored = true,
-      update_in_insert = false,
-      always_visible = false,
       cond = hide_in_width,
     }
     local lsp_info = {
       function()
         local clients = vim.lsp.get_clients { bufnr = 0 }
-        if #clients == 0 then
-          return "No Active LSP"
-        end
         local names = {}
         for _, client in ipairs(clients) do
           table.insert(names, client.name)
         end
-        return table.concat(names, ", ")
+        return " LSP: " .. table.concat(names, ", ")
       end,
-      icon = { " LSP:" },
+      cond = function()
+        return #vim.lsp.get_clients { bufnr = 0 } > 0
+      end,
     }
 
     local diff = {
       "diff",
-      colored = true,
       symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
       cond = hide_in_width,
     }
@@ -63,7 +57,6 @@ return {
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
         disabled_filetypes = { "snacks_dashboard" },
-        always_divide_middle = true,
       },
       sections = {
         lualine_a = { mode },
@@ -73,11 +66,13 @@ return {
           lsp_info,
           diagnostics,
           diff,
-          { "encoding", colored = true, cond = hide_in_width },
-          { "filetype", colored = true, cond = hide_in_width },
         },
         lualine_y = { "location" },
-        lualine_z = { "progress" },
+        lualine_z = {
+          "progress",
+          { "encoding", cond = hide_in_width },
+          { "filetype", cond = hide_in_width },
+        },
       },
       inactive_sections = {
         lualine_a = {},
