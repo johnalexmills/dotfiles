@@ -1,0 +1,46 @@
+#!/bin/sh
+set -e
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM || true)
+if [ -z "$STAGED" ]; then
+  exit 0
+fi
+
+# ----- Checks that abort the commit -----
+
+# 1. Merge conflict markers
+if echo "$STAGED" | xargs grep -ln '^<<<<<<< \|^=======\|^>>>>>>> ' 2>/dev/null; then
+  echo "ERROR: Merge conflict markers found in files above. Aborting."
+  exit 1
+fi
+
+# 2. Secrets / credentials
+SECRET_PATTERNS='\b(BEGIN\s+(RSA|DSA|EC|OPENSSH)\s+PRIVATE\s+KEY|-----BEGIN\s+PGP)'
+if echo "$STAGED" | xargs grep -ln "$SECRET_PATTERNS" 2>/dev/null; then
+  echo "ERROR: Possible private key staged. Aborting."
+  exit 1
+fi
+
+# ----- Auto-fix hooks -----
+
+# 3. Trailing whitespace
+echo "$STAGED" | while IFS= read -r f; do
+  sed -i 's/[[:space:]]*$//' "$f"
+done
+
+# 4. Newline at end of file
+echo "$STAGED" | while IFS= read -r f; do
+  sed -i -e '$a\' "$f"
+done
+
+# 5. stylua on lua files
+LUA_FILES=$(echo "$STAGED" | grep '\.lua$' || true)
+if [ -n "$LUA_FILES" ]; then
+  STYLUA_CFG="$PWD/nvim/.config/nvim/.stylua.toml"
+  echo "$LUA_FILES" | while IFS= read -r f; do
+    stylua --config-path "$STYLUA_CFG" "$f"
+  done
+fi
+
+# Re-stage auto-fixed files
+echo "$STAGED" | xargs git add
