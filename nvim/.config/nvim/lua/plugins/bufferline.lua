@@ -27,7 +27,7 @@ return {
           end
           return s
         end,
-        separator_style = "slant",
+        separator_style = "thick",
       },
     }
   end,

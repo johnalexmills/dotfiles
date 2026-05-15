@@ -244,7 +244,42 @@ Save the RESULT buffer and close Diffview when done.
 | `<` / `>` (visual) | Indent and stay in visual mode |
 | `J` (normal) | Join lines (cursor stays in place) |
 | `gc` / `gcc` | Toggle comment (Neovim 0.10+ built-in) |
-| `sa` / `sd` / `sr` | mini.surround: add / delete / replace surrounding |
+| `sa` + motion + char | Add surrounding (Normal mode) |
+| `sa` + char          | Add surrounding (Visual mode) |
+| `sd` + char          | Delete surrounding |
+| `sr` + old + new     | Replace surrounding |
+| `sf` + char          | Find surrounding (move cursor right) |
+| `sF` + char          | Find surrounding (move cursor left) |
+| `sh` + char          | Highlight surrounding |
+
+**Surrounding identifiers:**
+
+| Char | Meaning |
+|---|---|---|
+| `)`, `(` | Parentheses (`(` adds inner padding spaces, `)` does not) |
+| `]`, `[` | Square brackets (`[` adds padding, `]` does not) |
+| `}`, `{` | Curly braces (`{` adds padding, `}` does not) |
+| `>`, `<` | Angle brackets (`<` adds padding, `>` does not) |
+| `"`, `'`, `` ` `` | Quotes |
+| `f` | Function call (delete finds call, add prompts for name) |
+| `t` | HTML/XML tag (prompts for tag name on add) |
+| `?` | Interactive (prompts for left and right parts) |
+
+**Examples:**
+
+| Command | Before | After |
+|---|---|---|
+| `saiw)` | `hello` | `(hello)` |
+| `saiw(` | `hello` | `( hello )` |
+| `sd)` | `(hello)` | `hello` |
+| `sr)"` | `(hello)` | `"hello"` |
+| `saiWf` → enter `print` | `hello` | `print(hello)` |
+| `sd"` | `"hello"` | `hello` |
+| `sr'` `` ` `` | `'hello'` | `` `hello` `` |
+| `sa2aw)` | `hello world` | `(hello world)` |
+
+**Note:** `sd` and `sr` take a surrounding **character**, not a motion/text object. For example, use `sd)` to delete parentheses — not `sdiw)`.
+
 | `<leader>/` | Toggle search highlight |
 | `<leader>r` | Toggle relative line numbers |
 
