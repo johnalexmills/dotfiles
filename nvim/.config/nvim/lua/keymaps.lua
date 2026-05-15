@@ -74,3 +74,14 @@ end, { silent = true, desc = "Toggle Search Highlight" })
 map("n", "<leader>r", function()
   vim.opt.relativenumber = not vim.wo.relativenumber
 end, { silent = true, desc = "Toggle Relative Numbers" })
+
+-- Tab management
+map("n", "<leader>Tn", "<cmd>tabnew<CR>", { desc = "New tab" })
+map("n", "<leader>Tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>To", "<cmd>tabonly<CR>", { desc = "Close other tabs" })
+map("n", "<leader>Th", "<cmd>tabprev<CR>", { desc = "Previous tab" })
+map("n", "<leader>Tl", "<cmd>tabnext<CR>", { desc = "Next tab" })
+map("n", "<leader>Tf", "<cmd>tabfirst<CR>", { desc = "First tab" })
+map("n", "<leader>TL", "<cmd>tablast<CR>", { desc = "Last tab" })
+map("n", "<leader>Tmh", "<cmd>-tabmove<CR>", { desc = "Move tab left" })
+map("n", "<leader>Tml", "<cmd>+tabmove<CR>", { desc = "Move tab right" })
