@@ -85,6 +85,13 @@ return {
       desc = "Rename File",
     },
     {
+      "<leader>d",
+      function()
+        Snacks.dashboard()
+      end,
+      desc = "Dashboard",
+    },
+    {
       "<leader>z",
       function()
         Snacks.zen()
