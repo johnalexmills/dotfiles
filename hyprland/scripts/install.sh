@@ -22,7 +22,7 @@ install_packages() {
     local pkgs=(
         hyprland hyprlock hypridle hyprpaper hyprshot hyprpolkitagent
         xdg-desktop-portal-hyprland
-        waybar wofi swaync ghostty
+        waybar wofi wlogout swaync ghostty
         brightnessctl pamixer pavucontrol
         wl-clipboard grim slurp
         ttf-jetbrains-mono-nerd noto-fonts-emoji
