@@ -22,7 +22,7 @@ install_packages() {
     local pkgs=(
         hyprland hyprlock hypridle hyprpaper hyprshot hyprpolkitagent
         xdg-desktop-portal-hyprland
-        waybar wofi wlogout swaync ghostty
+        waybar wofi swaync ghostty
         brightnessctl pamixer pavucontrol
         wl-clipboard grim slurp
         ttf-jetbrains-mono-nerd noto-fonts-emoji
@@ -56,23 +56,33 @@ install_packages() {
     ok "Packages installed"
 }
 
-# --- Install catppuccin cursors ---
+# --- Install AUR packages ---
 
-install_cursors() {
-    if [ -d /usr/share/icons/catppuccin-mocha-dark-cursors ]; then
-        ok "Catppuccin cursors already installed"
+install_aur() {
+    local aur_pkgs=(
+        catppuccin-cursors-mocha
+        wlogout
+    )
+    local missing=()
+
+    for pkg in "${aur_pkgs[@]}"; do
+        if paru -Q "$pkg" &>/dev/null 2>&1; then
+            ok "$pkg is already installed"
+        else
+            missing+=("$pkg")
+        fi
+    done
+
+    if [ ${#missing[@]} -eq 0 ]; then
         return
     fi
 
-    info "Installing catppuccin cursors from AUR..."
-
     if command_exists paru; then
-        paru -S --noconfirm catppuccin-cursors-mocha
+        paru -S --noconfirm "${missing[@]}"
     elif command_exists yay; then
-        yay -S --noconfirm catppuccin-cursors-mocha
+        yay -S --noconfirm "${missing[@]}"
     else
-        warn "No AUR helper found (yay/paru). Install catppuccin-cursors-mocha manually."
-        warn "See: https://aur.archlinux.org/packages/catppuccin-cursors-mocha"
+        warn "Install AUR packages manually: paru -S ${missing[*]}"
     fi
 }
 
@@ -197,7 +207,7 @@ main() {
 
     install_stow
     install_packages
-    install_cursors
+    install_aur
     install_sddm_theme
     setup_sddm
     install_wallpaper
