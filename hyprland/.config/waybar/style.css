@@ -74,10 +74,3 @@ window#waybar {
 #battery.charging {
     color: @teal;
 }
-
-#custom-keyboard {
-    color: @lavender;
-    border-bottom: 2px solid @lavender;
-    margin: 2px 4px;
-    padding: 0 4px;
-}

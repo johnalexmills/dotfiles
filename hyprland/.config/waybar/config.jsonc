@@ -2,13 +2,7 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["custom/keyboard", "network", "pulseaudio", "battery", "clock"],
-  "custom/keyboard": {
-    "exec": "~/.config/hypr/layout.sh",
-    "interval": 2,
-    "format": "{}",
-    "tooltip": false
-  },
+  "modules-right": ["network", "pulseaudio", "battery", "clock"],
   "clock": {
     "format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
