@@ -18,13 +18,13 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 | Key | Action |
 |-----|--------|
 | `Super-Shift-1…0` | Move window to workspace |
+| `Super-mouse left` | Move window by dragging |
 
 ## Resize
 
 | Key | Action |
 |-----|--------|
-| `Super-mouse right` | Resize window |
-| `Super-mouse left` | Move window |
+| `Super-mouse right` | Resize window by dragging |
 
 ## Layout
 
@@ -43,12 +43,13 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 | `Super-1…0` | Switch to workspace |
 | `Super-Shift-1…0` | Move window to workspace |
 | `Super-S` | Toggle scratchpad |
+| `Super-scroll` | Scroll through workspaces |
 
 ## Launcher
 
 | Key | Action |
 |-----|--------|
-| `Super-Space` | App launcher (wofi) |
+| `Alt-Space` | App launcher (wofi) |
 | `Super-Return` | Terminal (ghostty) |
 
 ## Media Keys
@@ -72,10 +73,13 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 
 | Key | Action |
 |-----|--------|
-| `Super-Shift-L` | Lock screen |
-| `Super-Shift-R` | Reload Hyprland config |
 | `Super-C` | Close active window |
-| `Super-M` | Exit Hyprland |
+| `Super-M` | Exit Hyprland (back to SDDM) |
+| `Super-Shift-L` | Lock screen |
+| `Super-Shift-P` | Poweroff |
+| `Super-Shift-R` | Reboot |
+| `Super-Shift-S` | Suspend |
+| `Super-Shift-.` | Reload Hyprland config |
 
 ## Gaming
 
