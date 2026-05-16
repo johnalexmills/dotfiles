@@ -61,7 +61,6 @@ install_packages() {
 install_aur() {
     local aur_pkgs=(
         catppuccin-cursors-mocha
-        wlogout
     )
     local missing=()
 
