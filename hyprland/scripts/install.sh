@@ -67,9 +67,9 @@ install_cursors() {
     info "Installing catppuccin cursors from AUR..."
 
     if command_exists paru; then
-        paru -S --noconfirm catppuccin-cursors-mocha 2>/dev/null || true
+        paru -S --noconfirm catppuccin-cursors-mocha
     elif command_exists yay; then
-        yay -S --noconfirm catppuccin-cursors-mocha 2>/dev/null || true
+        yay -S --noconfirm catppuccin-cursors-mocha
     else
         warn "No AUR helper found (yay/paru). Install catppuccin-cursors-mocha manually."
         warn "See: https://aur.archlinux.org/packages/catppuccin-cursors-mocha"
@@ -80,16 +80,16 @@ install_cursors() {
 
 setup_sddm() {
     if systemctl is-enabled gdm &>/dev/null 2>&1; then
-        info "Disabling GDM..."
-        sudo systemctl disable --now gdm
+        info "Disabling GDM (will take effect on next boot)..."
+        sudo systemctl disable gdm
         ok "GDM disabled"
     fi
 
     if systemctl is-enabled sddm &>/dev/null 2>&1; then
         ok "SDDM is already enabled"
     else
-        info "Enabling SDDM as the display manager..."
-        sudo systemctl enable --now sddm
+        info "Enabling SDDM (will start on next boot)..."
+        sudo systemctl enable sddm
         ok "SDDM enabled"
     fi
 }
@@ -102,21 +102,27 @@ install_sddm_theme() {
 
     if [ -d "$theme_dir" ]; then
         ok "Catppuccin SDDM theme already installed"
+        configure_sddm_theme "$theme_name"
         return
     fi
 
     info "Installing Catppuccin SDDM theme from AUR..."
 
     if command_exists paru; then
-        paru -S --noconfirm catppuccin-sddm-theme-mocha 2>/dev/null || true
+        paru -S --noconfirm catppuccin-sddm-theme-mocha
     elif command_exists yay; then
-        yay -S --noconfirm catppuccin-sddm-theme-mocha 2>/dev/null || true
+        yay -S --noconfirm catppuccin-sddm-theme-mocha
     else
         warn "No AUR helper found (yay/paru). Installing SDDM theme manually..."
         install_sddm_theme_manual
     fi
 
-    configure_sddm_theme "$theme_name"
+    if [ -d "$theme_dir" ]; then
+        configure_sddm_theme "$theme_name"
+    else
+        warn "SDDM theme directory not found after install — skipping config"
+        warn "Fix later: sudo paru -S catppuccin-sddm-theme-mocha"
+    fi
 }
 
 install_sddm_theme_manual() {
@@ -196,7 +202,10 @@ main() {
     setup_sddm
     install_wallpaper
     install_face
-    stow_module "hyprland" "$DOTFILES_DIR"
+    info "Stowing hyprland config (replacing any existing)..."
+    stow -d "$DOTFILES_DIR" -t "$HOME" --adopt hyprland
+    git -C "$DOTFILES_DIR" checkout -- hyprland
+    ok "hyprland config stowed"
 
     echo
     ok "Hyprland setup complete!"
