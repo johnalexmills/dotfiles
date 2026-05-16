@@ -92,6 +92,7 @@ main() {
     run_module tmux
     run_module yazi
     run_module aerospace
+    run_module hyprland
 
     echo
     ok "========================================"
