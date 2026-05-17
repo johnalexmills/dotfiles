@@ -6,6 +6,10 @@ description: >
   "be brief", "less tokens", or token efficiency is requested.
 ---
 
+<!-- upstream: JuliusBrussee/caveman skills/caveman/SKILL.md @ 31d804e5f28ffe7a98115ca86f00d947eb413333 -->
+<!-- check drift: opencode/scripts/check-upstream.sh -->
+
+
 Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
 ACTIVE EVERY RESPONSE. No revert after many turns. Off only: "stop caveman" / "normal mode".
