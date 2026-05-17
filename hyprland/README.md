@@ -4,6 +4,12 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 
 **Mod key:** `Super` (Windows/Command)
 
+**Keyboard layouts:** QWERTY (primary) and Colemak — toggle with `Alt+Shift`
+
+**Mouse:** Flat acceleration profile, natural scrolling enabled
+
+**Display:** 1.5× scale (XWayland forced to 1.0; `XCURSOR_SIZE=36` compensates)
+
 ## Focus
 
 | Key | Action |
@@ -33,7 +39,7 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 | `Super-F` | Toggle fullscreen |
 | `Super-V` | Toggle floating |
 | `Super-P` | Pseudo-tile (dwindle) |
-| `Super-E` | Toggle split (dwindle) |
+| `Super-T` | Toggle split (dwindle) |
 | `Super-W` | Toggle group |
 
 ## Workspaces
@@ -42,15 +48,16 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 |-----|--------|
 | `Super-1…0` | Switch to workspace |
 | `Super-Shift-1…0` | Move window to workspace |
-| `Super-S` | Toggle scratchpad |
 | `Super-scroll` | Scroll through workspaces |
 
-## Launcher
+## Launcher & Apps
 
 | Key | Action |
 |-----|--------|
 | `Alt-Space` | App launcher (wofi) |
 | `Super-Return` | Terminal (ghostty) |
+| `Super-E` | File manager (thunar) |
+| `Super-G` | Steam |
 
 ## Media Keys
 
@@ -68,6 +75,34 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 |-----|--------|
 | `Print` | Screenshot window |
 | `Shift-Print` | Screenshot region |
+| `Ctrl-Shift-Print` | Screenshot region to clipboard |
+
+## Clipboard
+
+| Key | Action |
+|-----|--------|
+| `Super-Shift-V` | Clipboard history picker (cliphist + wofi) |
+
+## Wallpaper
+
+| Key | Action |
+|-----|--------|
+| `Super-Shift-W` | Wallpaper picker (lists `~/.config/backgrounds/`) |
+
+Drop wallpapers into `~/.config/backgrounds/` and use the picker, or pass a
+path/URL directly:
+
+```bash
+~/.config/hypr/wallpaper.sh ~/Pictures/some.jpg
+~/.config/hypr/wallpaper.sh https://raw.githubusercontent.com/orangci/walls-catppuccin-mocha/master/astronaut.png
+```
+
+The script copies the chosen image to `~/.config/backgrounds/wallpaper` (used by
+both Hyprpaper and Hyprlock) and live-reloads Hyprpaper via IPC.
+
+Browse the catppuccin-mocha wallpaper gallery at
+<https://orangc.net/wallsppuccin/> or
+<https://github.com/orangci/walls-catppuccin-mocha>.
 
 ## System
 
