@@ -28,6 +28,9 @@ install_packages() {
         ttf-jetbrains-mono-nerd noto-fonts-emoji
         qt5-wayland qt6-wayland qt5ct qt6-declarative qt6-svg
         thunar
+        # Thumbnailers — tumbler is the daemon thunar uses; plugins extend it
+        # to videos / webp / PDFs.
+        tumbler ffmpegthumbnailer webp-pixbuf-loader poppler-glib
         pipewire pipewire-pulse wireplumber
         sddm
         gamescope gamemode mangohud
@@ -61,6 +64,7 @@ install_packages() {
 install_aur() {
     local aur_pkgs=(
         catppuccin-cursors-mocha
+        catppuccin-gtk-theme-mocha
     )
     local missing=()
 
