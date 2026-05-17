@@ -24,14 +24,14 @@ install_packages() {
         xdg-desktop-portal-hyprland
         waybar wofi swaync ghostty
         brightnessctl pamixer pavucontrol
-        wl-clipboard grim slurp
+        wl-clipboard cliphist grim slurp
         ttf-jetbrains-mono-nerd noto-fonts-emoji
-        polkit-gnome
         qt5-wayland qt6-wayland qt5ct qt6-declarative qt6-svg
-        nautilus
+        thunar
         pipewire pipewire-pulse wireplumber
         sddm
         gamescope gamemode mangohud
+        imagemagick
     )
 
     local pkg
@@ -178,10 +178,13 @@ install_wallpaper() {
         return
     fi
 
-    info "Downloading default Catppuccin wallpaper..."
+    # Default: orangc's catppuccin-mocha "dark-star" — pairs with the mauve accent.
+    # Browse alternatives at https://orangc.net/wallsppuccin/ and swap with
+    # `~/.config/hypr/wallpaper.sh <path-or-url>` or Super+Shift+W.
+    info "Downloading default Catppuccin wallpaper (dark-star)..."
     curl -fsSL -o "$wallpaper" \
-        "https://raw.githubusercontent.com/catppuccin/wallpapers/main/misc/arch/mocha_arch.png" || {
-        warn "Failed to download wallpaper — you can place one at $wallpaper"
+        "https://raw.githubusercontent.com/orangci/walls-catppuccin-mocha/master/dark-star.jpg" || {
+        warn "Failed to download wallpaper — place one manually at $wallpaper"
     }
 }
 
@@ -193,12 +196,27 @@ install_face() {
         return
     fi
     info "Creating placeholder ~/.face (avatar for lock screen)..."
-    convert -size 100x100 xc:'#cba6f7' "$HOME/.face" 2>/dev/null || {
-        warn "Install imagemagick or place a 100x100 image at ~/.face for the lock screen avatar"
-    }
+    # ImageMagick 7 uses `magick`; 6 uses `convert`. Try both.
+    if command_exists magick; then
+        magick -size 100x100 xc:'#cba6f7' "$HOME/.face"
+    elif command_exists convert; then
+        convert -size 100x100 xc:'#cba6f7' "$HOME/.face"
+    else
+        warn "imagemagick not found — place a 100x100 image at ~/.face for the lock screen avatar"
+    fi
 }
 
 # --- Main ---
+
+enable_polkit_agent() {
+    if systemctl --user is-enabled hyprpolkitagent.service &>/dev/null; then
+        ok "hyprpolkitagent user service already enabled"
+        return
+    fi
+    info "Enabling hyprpolkitagent user service..."
+    systemctl --user enable hyprpolkitagent.service || \
+        warn "Could not enable hyprpolkitagent.service (will still start via exec-once on Hyprland launch)"
+}
 
 main() {
     info "Setting up Hyprland..."
@@ -211,15 +229,15 @@ main() {
     setup_sddm
     install_wallpaper
     install_face
-    info "Stowing hyprland config (replacing any existing)..."
-    stow -d "$DOTFILES_DIR" -t "$HOME" --adopt hyprland
-    git -C "$DOTFILES_DIR" checkout -- hyprland
-    ok "hyprland config stowed"
+    enable_polkit_agent
+
+    stow_module hyprland "$DOTFILES_DIR"
 
     echo
     ok "Hyprland setup complete!"
     info "Reboot to see SDDM login with Catppuccin Mocha theme"
-    info "Keybinds: Super+Return (terminal), Super+Space (launcher), Super+Shift+L (lock)"
+    info "Keybinds: Alt+Space (launcher), Super+Return (terminal),"
+    info "          Super+Shift+L (lock), Super+Shift+W (wallpaper picker)"
     info "Gaming: use 'gamescope -f -- <command>' for per-game FSR/VRR"
 }
 
