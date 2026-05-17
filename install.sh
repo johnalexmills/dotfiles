@@ -93,6 +93,7 @@ main() {
     run_module yazi
     run_module aerospace
     run_module hyprland
+    run_module opencode
 
     echo
     ok "========================================"
