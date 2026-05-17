@@ -32,6 +32,7 @@ install_packages() {
         # to videos / webp / PDFs.
         tumbler ffmpegthumbnailer webp-pixbuf-loader poppler-glib
         pipewire pipewire-pulse wireplumber
+        bluez bluez-utils blueman
         sddm
         gamescope gamemode mangohud
         imagemagick
@@ -170,6 +171,18 @@ Current=$theme_name" | sudo tee /etc/sddm.conf > /dev/null
     ok "SDDM theme configured"
 }
 
+# --- Enable Bluetooth ---
+
+setup_bluetooth() {
+    if systemctl is-enabled bluetooth.service &>/dev/null 2>&1; then
+        ok "bluetooth.service is already enabled"
+    else
+        info "Enabling bluetooth.service..."
+        sudo systemctl enable --now bluetooth.service
+        ok "bluetooth.service enabled"
+    fi
+}
+
 # --- Download a default wallpaper ---
 
 install_wallpaper() {
@@ -236,6 +249,7 @@ main() {
     install_aur
     install_sddm_theme
     setup_sddm
+    setup_bluetooth
     install_wallpaper
     install_face
     enable_polkit_agent
