@@ -200,14 +200,19 @@ install_face() {
         return
     fi
     info "Creating placeholder ~/.face (avatar for lock screen)..."
-    # ImageMagick 7 uses `magick`; 6 uses `convert`. Try both.
+    # ImageMagick 7 uses `magick`; 6 uses `convert`. Either way we have to
+    # prefix the output with `png:` because ~/.face has no extension, and
+    # without a hint magick would try to use the source format (XC) which
+    # is not encodable.
     if command_exists magick; then
-        magick -size 100x100 xc:'#cba6f7' "$HOME/.face"
+        magick -size 100x100 xc:'#cba6f7' "png:$HOME/.face"
     elif command_exists convert; then
-        convert -size 100x100 xc:'#cba6f7' "$HOME/.face"
+        convert -size 100x100 xc:'#cba6f7' "png:$HOME/.face"
     else
         warn "imagemagick not found — place a 100x100 image at ~/.face for the lock screen avatar"
+        return
     fi
+    ok ".face placeholder created"
 }
 
 # --- Main ---
