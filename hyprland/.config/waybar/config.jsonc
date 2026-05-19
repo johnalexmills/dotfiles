@@ -2,7 +2,7 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["network#eth", "network#wifi", "bluetooth", "pulseaudio", "battery", "clock"],
+  "modules-right": ["hyprland/language", "network", "bluetooth", "pulseaudio", "battery", "clock"],
 
   "hyprland/workspaces": {
     "on-click": "activate"
@@ -12,6 +12,10 @@
     "format": "{title}",
     "max-length": 80,
     "separate-outputs": true
+  },
+
+  "hyprland/language": {
+    "format": "<span size='13000' foreground='#cba6f7'>󰌌 </span>{short} {variant}"
   },
 
   "clock": {
@@ -32,18 +36,12 @@
     "tooltip-format": "{time}"
   },
 
-  "network#eth": {
-    "interface": "eno1",
+  "network": {
+    "format-wifi":             "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
     "format-ethernet":         "<span size='13000' foreground='#f5e0dc'>󰈀  </span>{ifname}",
     "format-disconnected":     "",
+    "tooltip-format-wifi":     "{essid} ({signalStrength}%) {ipaddr}",
     "tooltip-format-ethernet": "{ifname}: {ipaddr}"
-  },
-
-  "network#wifi": {
-    "interface": "wlan0",
-    "format-wifi":         "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
-    "format-disconnected": "",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)"
   },
 
   "bluetooth": {
