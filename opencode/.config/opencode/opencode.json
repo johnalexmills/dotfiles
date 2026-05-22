@@ -3,5 +3,8 @@
   "skills": {
     "paths": ["~/.config/opencode/skills"]
   },
-  "instructions": ["~/.config/opencode/instructions/caveman.md"]
+  "instructions": [
+    "~/.config/opencode/instructions/caveman.md",
+    "~/.config/opencode/instructions/general.md"
+  ]
 }
