@@ -70,7 +70,7 @@ return {
           "sqlfluff", -- sql
         },
         auto_update = true,
-        run_on_start = true,
+        run_on_start = false,
       }
     end,
   },

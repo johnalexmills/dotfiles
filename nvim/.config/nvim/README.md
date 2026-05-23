@@ -1,358 +1,218 @@
 # Neovim Configuration
 
-A modern Neovim configuration with LSP support, advanced editing features, and beautiful UI enhancements.
-
-## Quick Reference
+Modern Neovim config with LSP, Snacks picker, blink.cmp, Catppuccin.
 
 **Leader key:** `Space`
 
+## Quick Reference
+
 | Action             | Keybinding   |
 | ------------------ | ------------ |
-| Open file explorer | `-`          |
+| Find files         | `<leader>sf` |
+| Live grep          | `<leader>sg` |
+| File explorer      | `-`          |
 | Toggle terminal    | `Ctrl+\`     |
-| Find files         | `<leader>tf` |
-| Live grep          | `<leader>tg` |
-| Close buffer       | `<leader>bd` |
+| Close buffer       | `<leader>c`  |
 | LazyGit            | `<leader>gg` |
+| Dashboard          | `<leader>d`  |
+| Zen mode           | `<leader>z`  |
 
-## Usage Guide
+## Snacks Picker (replaces Telescope)
 
-### Terminal
+| Keybinding   | Action                   |
+| ------------ | ------------------------ |
+| `<leader>sf` | Find files               |
+| `<leader>sg` | Live grep                |
+| `<leader>ss` | Grep string under cursor |
+| `<leader>sb` | Buffers                  |
+| `<leader>sh` | Help tags                |
+| `<leader>sk` | Keymaps                  |
+| `<leader>sc` | Commands                 |
+| `<leader>sm` | Man pages                |
+| `<leader>sr` | Registers                |
+| `<leader>sC` | Colorschemes             |
+| `<leader>so` | Options                  |
+| `<leader>sn` | Notifications            |
 
-The terminal uses a floating window for quick access.
+## File Explorer (yazi)
 
-| Keybinding   | Action                                       |
-| ------------ | -------------------------------------------- |
-| `Ctrl+\`     | Toggle floating terminal (works in any mode) |
-| `<leader>gg` | Open LazyGit for git operations              |
+| Keybinding | Action                                     |
+| ---------- | ------------------------------------------ |
+| `-`        | Open yazi at current file's directory      |
+| `<leader>-`| Open yazi at project root                  |
 
-**In terminal mode:**
+## Terminal
 
-- `Ctrl+\` to close the terminal
+| Keybinding | Action                       |
+| ---------- | ---------------------------- |
+| `Ctrl+\`   | Toggle floating terminal     |
+| `<leader>gg` | Open LazyGit               |
 
-### File Explorer (Oil)
-
-Oil provides a buffer-like file explorer where you can edit the filesystem like text.
-
-| Keybinding | Action                                  |
-| ---------- | --------------------------------------- |
-| `-`        | Open file explorer in current directory |
-| `Enter`    | Open file/directory                     |
-| `-`        | Go up to parent directory               |
-
-**In Oil buffer:**
-
-- Delete lines to delete files
-- Rename by editing the filename
-- Create new files by typing new lines
-- Save (`:w`) to apply changes
-
-### Finding Files (Telescope)
-
-Telescope is the fuzzy finder for searching everything.
-
-| Keybinding   | Action                           |
-| ------------ | -------------------------------- |
-| `<leader>tf` | Find files                       |
-| `<leader>tg` | Live grep (search file contents) |
-| `<leader>ts` | Grep string under cursor         |
-| `<leader>tb` | Switch buffers                   |
-| `<leader>th` | Search help tags                 |
-| `<leader>tK` | Search keymaps                   |
-| `<leader>tc` | Search commands                  |
-| `<leader>tm` | Search man pages                 |
-| `<leader>tr` | Search registers                 |
-| `<leader>tC` | Browse colorschemes              |
-| `<leader>to` | Search vim options               |
-| `<leader>tT` | Search todo comments             |
-
-**In Telescope:**
-
-- `Ctrl+j/k` or arrows to navigate
-- `Enter` to select
-- `Esc` to close
-- Type to filter results
-
-### Buffer Management
-
-Buffers are shown as tabs at the top of the screen.
+## Buffer Management
 
 | Keybinding   | Action                  |
 | ------------ | ----------------------- |
 | `Tab`        | Next buffer             |
 | `Shift+Tab`  | Previous buffer         |
-| `<leader>bd` | Close current buffer    |
+| `<leader>c`  | Close current buffer    |
 | `<leader>bo` | Close all other buffers |
 
-### Window Navigation
-
-Move between split windows easily.
+## Window Navigation
 
 | Keybinding | Action               |
 | ---------- | -------------------- |
-| `Ctrl+h`   | Move to left window  |
-| `Ctrl+j`   | Move to window below |
-| `Ctrl+k`   | Move to window above |
-| `Ctrl+l`   | Move to right window |
-| `Alt+h`    | Resize window left   |
-| `Alt+j`    | Resize window down   |
-| `Alt+k`    | Resize window up     |
-| `Alt+l`    | Resize window right  |
+| `Ctrl+h/j/k/l` | Move to window  |
+| `Alt+h/j/k/l`  | Resize window   |
 
-### Git Integration
+## Git Integration
 
 | Keybinding   | Action                   |
 | ------------ | ------------------------ |
 | `<leader>gg` | Open LazyGit             |
-| `<leader>gb` | Toggle git blame on line |
+| `<leader>gb` | Toggle git blame         |
 | `<leader>gp` | Preview hunk             |
 | `<leader>gS` | Stage hunk               |
-| `<leader>gu` | Undo stage hunk          |
 | `<leader>gr` | Reset hunk               |
-| `<leader>gd` | Diff this                |
-| `]c`         | Next git hunk            |
-| `[c`         | Previous git hunk        |
-| `<leader>gf` | Find git files           |
-| `<leader>gB` | Browse branches          |
-| `<leader>gc` | Browse commits           |
-| `<leader>gC` | Browse buffer commits    |
-| `<leader>gs` | Git status               |
+| `<leader>gi` | Diff this (inline)       |
+| `]c` / `[c`  | Next/prev git hunk       |
+| `<leader>gd` | Diffview open            |
+| `<leader>gh` | File history             |
+| `<leader>gH` | Repo history             |
+| `<leader>gf` | Snacks git files         |
+| `<leader>gc` | Snacks commits           |
+| `<leader>gs` | Snacks git status        |
 
-### LSP (Code Intelligence)
-
-LSP provides code completion, go-to-definition, and diagnostics. Files are automatically formatted on save via conform.nvim (500ms timeout, falls back to LSP).
+## LSP
 
 | Keybinding   | Action                      |
 | ------------ | --------------------------- |
 | `gd`         | Go to definition            |
 | `gD`         | Go to declaration           |
-| `gr`         | Find references             |
-| `gi`         | Go to implementation        |
-| `K`          | Hover (show docs/type info) |
-| `Ctrl+s`     | Signature help              |
-| `<leader>la` | Code actions                |
 | `<leader>lr` | Rename symbol               |
-| `<leader>lf` | Format document             |
-| `<leader>ld` | Toggle inline diagnostics   |
+| `<leader>la` | Code actions                |
+| `<leader>lg` | Signature help              |
 | `<leader>lh` | Toggle inlay hints          |
-| `<leader>lj` | Next diagnostic             |
-| `<leader>lk` | Previous diagnostic         |
-| `<leader>lD` | Document diagnostics        |
-| `<leader>lw` | Workspace diagnostics       |
-| `<leader>ls` | Document symbols            |
-| `<leader>lS` | Workspace symbols           |
-| `<leader>lR` | References (Telescope)      |
+| `<leader>lR` | References                  |
 | `<leader>lt` | Type definitions            |
 | `<leader>lm` | Implementations             |
-| `<leader>lL` | CodeLens action             |
+| `<leader>ls` | Document symbols            |
+| `<leader>lS` | Workspace symbols           |
+| `<leader>lD` | Document diagnostics        |
+| `<leader>lw` | Workspace diagnostics       |
+| `<leader>lj/k` | Next/prev diagnostic      |
+| `<leader>ld` | Toggle inline diagnostics   |
+| `<leader>lf` | Format document             |
 | `<leader>ll` | Trigger linting             |
+| `<leader>lL` | Lint all open buffers       |
 | `<leader>li` | LSP info                    |
 | `<leader>lI` | Open Mason installer        |
 
-### Trouble (Diagnostics Panel)
-
-Trouble provides an enhanced quickfix/loclist UI for diagnostics, symbols, and references.
+## Trouble (Diagnostics Panel)
 
 | Keybinding   | Action                            |
 | ------------ | --------------------------------- |
-| `<leader>xx` | Toggle workspace diagnostics      |
-| `<leader>xX` | Toggle buffer diagnostics         |
-| `<leader>xs` | Toggle symbols                    |
-| `<leader>xl` | Toggle LSP definitions/references |
-| `<leader>xL` | Toggle location list              |
-| `<leader>xQ` | Toggle quickfix list              |
+| `<leader>tt` | Toggle workspace diagnostics      |
+| `<leader>tT` | Toggle buffer diagnostics         |
+| `<leader>ts` | Toggle symbols                    |
+| `<leader>tl` | Toggle LSP definitions/references |
+| `<leader>tL` | Toggle location list              |
+| `<leader>tQ` | Toggle quickfix list              |
 
-### Todo Comments
+## Todo Comments
 
-Highlights and indexes `TODO`, `FIXME`, `HACK`, `NOTE`, etc. in your code.
+| Keybinding | Action               |
+| ---------- | -------------------- |
+| `]t` / `[t`| Next/prev todo       |
+| `<leader>tT` | Search todos (Trouble) |
 
-| Keybinding   | Action                               |
-| ------------ | ------------------------------------ |
-| `]t`         | Next todo comment                    |
-| `[t`         | Previous todo comment                |
-| `<leader>tT` | Search all todo comments (Telescope) |
-
-### Editing
+## Editing
 
 | Keybinding  | Action                                       |
 | ----------- | -------------------------------------------- |
-| `gcc`       | Toggle comment on line                       |
-| `gc`        | Toggle comment on selection (visual)         |
-| `<leader>u` | Toggle undo tree                             |
+| `gcc`       | Toggle comment on line (native)              |
+| `gc`        | Toggle comment on selection (native)         |
+| `<leader>u` | Undo history (Snacks)                        |
+| `<leader>fr`| Rename file (Snacks)                         |
 | `<leader>p` | Paste without overwriting clipboard (visual) |
 | `<leader>D` | Delete to black hole register                |
 | `J/K`       | Move selection up/down (visual)              |
 | `<`/`>`     | Indent/unindent and stay in visual mode      |
 
-**Surround (mini.surround):**
+## Surround (mini.surround)
 
-| Keybinding           | Action                               |
-| -------------------- | ------------------------------------ |
-| `sa` + motion + char | Add surrounding (Normal mode)        |
-| `sa` + char          | Add surrounding (Visual mode)        |
-| `sd` + char          | Delete surrounding                   |
-| `sr` + old + new     | Replace surrounding                  |
-| `sf` + char          | Find surrounding (move cursor right) |
-| `sF` + char          | Find surrounding (move cursor left)  |
-| `sh` + char          | Highlight surrounding                |
-| `sdn` + char         | Delete next surrounding              |
-| `sdl` + char         | Delete previous/last surrounding     |
-| `srn` + old + new    | Replace next surrounding             |
-| `srl` + old + new    | Replace previous/last surrounding    |
+| Keybinding         | Action                 |
+| ------------------ | ---------------------- |
+| `sa` + motion + c  | Add surrounding        |
+| `sd` + c           | Delete surrounding     |
+| `sr` + old + new   | Replace surrounding    |
+| `sf` + c           | Find (move right)      |
+| `sF` + c           | Find (move left)       |
 
-**Surrounding identifiers:**
+## Navigation
 
-| Char              | Meaning                                                   |
-| ----------------- | --------------------------------------------------------- |
-| `)`, `(`          | Parentheses (`(` adds inner padding spaces, `)` does not) |
-| `]`, `[`          | Square brackets (`[` adds padding, `]` does not)          |
-| `}`, `{`          | Curly braces (`{` adds padding, `}` does not)             |
-| `>`, `<`          | Angle brackets (`<` adds padding, `>` does not)           |
-| `"`, `'`, `` ` `` | Quotes                                                    |
-| `f`               | Function call (delete finds call, add prompts for name)   |
-| `t`               | HTML/XML tag (prompts for tag name on add)                |
-| `?`               | Interactive (prompts for left and right parts)            |
+| Keybinding | Action                        |
+| ---------- | ----------------------------- |
+| `Ctrl+d/u` | Page down/up (cursor centered)|
+| `n/N`      | Next/prev search (centered)   |
+| `<leader>/`| Toggle search highlight       |
+| `<leader>r`| Toggle relative line numbers  |
 
-**Examples:**
+## Session Management
 
-| Command                 | Before        | After           |
-| ----------------------- | ------------- | --------------- |
-| `saiw)`                 | `hello`       | `(hello)`       |
-| `saiw(`                 | `hello`       | `( hello )`     |
-| `sd)`                   | `(hello)`     | `hello`         |
-| `sr)"`                  | `(hello)`     | `"hello"`       |
-| `saiWf` → enter `print` | `hello`       | `print(hello)`  |
-| `sd"`                   | `"hello"`     | `hello`         |
-| `sr'` `` ` ``           | `'hello'`     | `` `hello` ``   |
-| `sa2aw)`                | `hello world` | `(hello world)` |
+| Keybinding   | Action                      |
+| ------------ | --------------------------- |
+| `<leader>qs` | Restore session             |
+| `<leader>qS` | Select session              |
+| `<leader>ql` | Restore last session        |
+| `<leader>qd` | Don't save current session  |
 
-**Note:** `sd` and `sr` take a surrounding **character**, not a motion/text object. For example, use `sd)` to delete parentheses — not `sdiw)`.
+## Which-Key Groups
 
-### Navigation
+Press `<leader>` and wait:
 
-| Keybinding | Action                            |
-| ---------- | --------------------------------- |
-| `Ctrl+d`   | Page down (cursor centered)       |
-| `Ctrl+u`   | Page up (cursor centered)         |
-| `n`        | Next search result (centered)     |
-| `N`        | Previous search result (centered) |
-
-### Utility
-
-| Keybinding   | Action                       |
-| ------------ | ---------------------------- |
-| `<leader>/`  | Toggle search highlight      |
-| `<leader>r`  | Toggle relative line numbers |
-| `<leader>z`  | Toggle zen mode              |
-| `<leader>cR` | Rename file                  |
-
-### Which-Key
-
-Press `<leader>` and wait to see available keybindings organized by category:
-
-- `b` - Buffer operations
-- `g` - Git operations
-- `l` - LSP operations
-- `t` - Telescope (search)
-- `T` - Tree view
-- `x` - Trouble (diagnostics)
+- `b` — Buffer operations
+- `c` — Close buffer
+- `d` — Dashboard
+- `g` — Git operations
+- `l` — LSP operations
+- `q` — Session (persistence)
+- `s` — Snacks picker (search)
+- `t` — Trouble
+- `T` — Todo
 
 ## Features
 
-### Core
-
-- **Lazy.nvim** - Fast plugin manager with lazy loading
-- **LSP Support** - Language Server Protocol (Python, Lua, Bash, Terraform, GDScript)
-- **Treesitter** - Advanced syntax highlighting and text objects
-- **Telescope** - Fuzzy finder for files, buffers, and more
-- **Oil** - File explorer with buffer-like editing
-
-### UI
-
-- **Catppuccin Mocha** - Color scheme
-- **Lualine** - Statusline with LSP status, diagnostics, and relative file path
-- **Bufferline** - Buffer tabs
-- **Snacks.nvim Dashboard** - Dashboard on startup with quick actions
-- **Which-key** - Key binding hints
-
-### Editing
-
-- **Blink-cmp** - Auto-completion (LSP, snippets, buffer, path)
-- **Conform** - Code formatting with format-on-save (stylua, ruff, prettier, etc.)
-- **Nvim-lint** - Linting (ruff, shellcheck, yamllint, etc.)
-- **Gitsigns** - Git signs, blame, hunk staging/preview/navigation
-- **Mini.comment** - Commenting with `gcc`
-- **Mini.surround** - Surround text manipulation
-- **Mini.pairs** - Auto-pairing brackets
-- **Undotree** - Undo history visualization
-- **Todo-comments** - Highlight and search TODO/FIXME/HACK/NOTE comments
-- **Trouble** - Enhanced diagnostics panel and quickfix replacement
-
-### Utilities
-
-- **Snacks.nvim** - Floating terminal, buffer delete, indent guides, zen mode, file rename, notifications
-
-### Markdown
-
-- **Render-markdown** - Live markdown rendering
-
-## Installation
-
-1. Backup existing config:
-
-   ```bash
-   mv ~/.config/nvim ~/.config/nvim.backup
-   ```
-
-2. Symlink this configuration:
-
-   ```bash
-   ln -sf /path/to/dotfiles/nvim/.config/nvim ~/.config/nvim
-   ```
-
-3. Start Neovim - plugins install automatically
+- **lazy.nvim** — fast lazy-loaded plugin management
+- **blink.cmp** — completion (LSP, snippets, path, buffer)
+- **Snacks.nvim** — picker, dashboard, terminal, notifications, indent, undo, zen, rename
+- **nvim-lint** — linting (luacheck, shellcheck, yamllint, jsonlint, markdownlint, tflint, hadolint, sqlfluff)
+- **conform.nvim** — format-on-save (stylua, ruff, prettier, taplo)
+- **yazi.nvim** — file explorer
+- **harpoon** — quick file navigation
+- **Catppuccin Mocha** — colorscheme
+- **Lualine** — statusline
+- **Bufferline** — buffer tabs
+- **Which-key** — keybinding hints
+- **Treesitter** — syntax highlighting
+- **Gitsigns** — git signs, blame, hunk ops
+- **Trouble** — enhanced diagnostics panel
+- **Todo-comments** — TODO/FIXME highlighting
+- **mini.surround/mini.pairs** — surround + auto-pairs
+- **render-markdown** — live markdown preview
+- **persistence.nvim** — session management
 
 ## Requirements
 
-- Neovim >= 0.10.0
-- Git
-- A Nerd Font (for icons)
+- Neovim >= 0.11.0
+- Nerd Font
 - ripgrep (for live grep)
-- fd (optional, for faster file finding)
+- fd (optional, faster file finding)
 
 ## Customization
 
-| What            | File                   |
-| --------------- | ---------------------- |
-| Editor options  | `lua/options.lua`      |
-| Key mappings    | `lua/keymaps.lua`      |
-| Auto commands   | `lua/autocommands.lua` |
-| Plugin settings | `lua/plugins/*.lua`    |
-
-## Supported Languages
-
-**LSP Servers:**
-
-- Python (pyright)
-- Lua (lua_ls)
-- Bash (bashls)
-- Terraform (terraformls)
-- GDScript (gdscript)
-
-**Formatters:**
-
-- Lua: stylua
-- Python: ruff (format & fix)
-- JSON/YAML/Markdown: prettier
-- TOML: taplo
-- Terraform: terraform_fmt
-
-**Linters:**
-
-- Python: ruff, mypy
-- Bash: shellcheck
-- YAML: yamllint
-- JSON: jsonlint
-- Markdown: markdownlint
-- Terraform: tflint
-- Dockerfile: hadolint
+| What            | File                      |
+| --------------- | ------------------------- |
+| Editor options  | `lua/options.lua`         |
+| Key mappings    | `lua/keymaps.lua`         |
+| Auto commands   | `lua/autocommands.lua`    |
+| Plugin settings | `lua/plugins/*.lua`       |
