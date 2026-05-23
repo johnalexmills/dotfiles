@@ -2,7 +2,7 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["hyprland/language", "custom/caffeine", "network", "bluetooth", "pulseaudio", "battery", "custom/updates", "custom/weather", "clock"],
+  "modules-right": ["custom/layout", "custom/caffeine", "network", "bluetooth", "pulseaudio", "battery", "custom/updates", "custom/weather", "clock"],
 
   "hyprland/workspaces": {
     "on-click": "activate"
@@ -14,55 +14,11 @@
     "separate-outputs": true
   },
 
-  "hyprland/language": {
-    "format": "<span size='13000' foreground='#cba6f7'>󰌌 </span>{long}"
-  },
-
-  "clock": {
-    "format": "<span foreground='#f5c2e7'>  </span>{:%a %d %H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-  },
-
-  "battery": {
-    "states": { "warning": 30, "critical": 15 },
-    "format":          "<span size='13000' foreground='#a6e3a1'>{icon} </span> {capacity}%",
-    "format-warning":  "<span size='13000' foreground='#f9e2af'>{icon} </span> {capacity}%",
-    "format-critical": "<span size='13000' foreground='#f38ba8'>{icon} </span> {capacity}%",
-    "format-charging": "<span size='13000' foreground='#94e2d5'> </span>{capacity}%",
-    "format-plugged":  "<span size='13000' foreground='#94e2d5'> </span>{capacity}%",
-    "format-alt":      "<span size='13000' foreground='#a6e3a1'>{icon} </span> {time}",
-    "format-full":     "<span size='13000' foreground='#a6e3a1'> </span>{capacity}%",
-    "format-icons": ["", "", "", "", ""],
-    "tooltip-format": "{time}"
-  },
-
-  "network": {
-    "format-wifi":             "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
-    "format-ethernet":         "<span size='13000' foreground='#f5e0dc'>󰈀  </span>{ifname}",
-    "format-disconnected":     "",
-    "tooltip-format-wifi":     "{essid} ({signalStrength}%) {ipaddr}",
-    "tooltip-format-ethernet": "{ifname}: {ipaddr}"
-  },
-
-  "bluetooth": {
-    "format":                   "<span size='13000' foreground='#89b4fa'>󰂯 </span>on",
-    "format-disabled":          "",
-    "format-off":               "",
-    "format-connected":         "<span size='13000' foreground='#89b4fa'>󰂱 </span>{device_alias}",
-    "format-connected-battery": "<span size='13000' foreground='#89b4fa'>󰂱 </span>{device_alias} {device_battery_percentage}%",
-    "tooltip-format":           "{controller_alias}\n{num_connections} connected",
-    "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}",
-    "on-click": "blueman-manager"
-  },
-
-  "pulseaudio": {
-    "format":       "{icon}  {volume}%",
-    "format-muted": "󰝟  muted",
-    "format-icons": { "default": ["󰕿", "󰖀", "󰕾"] },
-    "on-click":       "pavucontrol",
-    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-    "scroll-step": 5
+  "custom/layout": {
+    "format": "<span size='13000' foreground='#cba6f7'>󰌌 </span>{}",
+    "exec": "~/.config/waybar/scripts/layout.sh",
+    "interval": 1,
+    "return-type": "json"
   },
 
   "custom/caffeine": {
