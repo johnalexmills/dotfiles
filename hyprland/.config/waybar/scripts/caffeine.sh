@@ -15,5 +15,5 @@ fi
 if [[ -f "$STATE_FILE" ]]; then
     echo '{"text": " ", "class": "on", "tooltip": "Idle inhibit ON"}'
 else
-    echo '{"text": "﯈ ", "class": "off", "tooltip": "Idle inhibit OFF"}'
+    echo '{"text": " ", "class": "off", "tooltip": "Idle inhibit OFF"}'
 fi
