@@ -102,13 +102,13 @@ stow_module() {
             || ! git -C "$dotfiles_dir" diff --cached --quiet -- "$name" 2>/dev/null; then
             err "$name has uncommitted changes; refusing to --replace (would discard local work). Commit or stash first."
         fi
-        stow -d "$dotfiles_dir" -t "$HOME" --adopt "$name"
+        stow --no-folding -d "$dotfiles_dir" -t "$HOME" --adopt "$name"
         git -C "$dotfiles_dir" checkout -- "$name"
     else
         # ${STOW_ADOPT:-} is either empty or "--adopt"; word-splitting an empty
         # string yields no args, so this is safe without the :+ trick.
         # shellcheck disable=SC2086
-        stow ${STOW_ADOPT:-} -d "$dotfiles_dir" -t "$HOME" "$name"
+        stow --no-folding ${STOW_ADOPT:-} -d "$dotfiles_dir" -t "$HOME" "$name"
     fi
     ok "$name config stowed"
 }
