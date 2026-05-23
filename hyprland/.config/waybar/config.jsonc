@@ -2,7 +2,7 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["hyprland/language", "network", "bluetooth", "pulseaudio", "battery", "clock"],
+  "modules-right": ["hyprland/language", "custom/caffeine", "network", "bluetooth", "pulseaudio", "battery", "custom/updates", "custom/weather", "clock"],
 
   "hyprland/workspaces": {
     "on-click": "activate"
@@ -15,7 +15,7 @@
   },
 
   "hyprland/language": {
-    "format": "<span size='13000' foreground='#cba6f7'>󰌌 </span>{short} {variant}"
+    "format": "<span size='13000' foreground='#cba6f7'>󰌌 </span>{long}"
   },
 
   "clock": {
@@ -63,5 +63,27 @@
     "on-click":       "pavucontrol",
     "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "scroll-step": 5
+  },
+
+  "custom/caffeine": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/caffeine.sh",
+    "on-click": "~/.config/waybar/scripts/caffeine.sh --toggle",
+    "interval": 86400,
+    "return-type": "json"
+  },
+
+  "custom/weather": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 1800,
+    "return-type": "json"
+  },
+
+  "custom/updates": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/updates.sh",
+    "interval": 3600,
+    "return-type": "json"
   }
 }

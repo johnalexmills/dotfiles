@@ -36,8 +36,8 @@ window#waybar {
 }
 
 #clock {
-    color: @maroon;
-    border-bottom: 2px solid @maroon;
+    color: @pink;
+    border-bottom: 2px solid @pink;
     margin: 2px 4px;
     padding: 0 4px;
 }
@@ -52,6 +52,13 @@ window#waybar {
 #network {
     color: @yellow;
     border-bottom: 2px solid @yellow;
+    margin: 2px 4px;
+    padding: 0 4px;
+}
+
+#bluetooth {
+    color: @blue;
+    border-bottom: 2px solid @blue;
     margin: 2px 4px;
     padding: 0 4px;
 }
@@ -73,4 +80,72 @@ window#waybar {
 
 #battery.charging {
     color: @teal;
+}
+
+/* --- Custom modules --- */
+
+#language {
+    color: @mauve;
+    border-bottom: 2px solid @mauve;
+    margin: 2px 4px;
+    padding: 0 4px;
+}
+
+#custom-caffeine {
+    margin: 2px 4px;
+    padding: 0 4px;
+    border-bottom: 2px solid @surface2;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+#custom-caffeine.on {
+    color: @green;
+    border-bottom: 2px solid @green;
+}
+
+#custom-caffeine.off {
+    color: @overlay0;
+}
+
+#custom-updates {
+    margin: 2px 4px;
+    padding: 0 4px;
+    border-bottom: 2px solid @surface2;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+#custom-updates.has-updates {
+    color: @peach;
+    border-bottom: 2px solid @peach;
+}
+
+#custom-weather {
+    margin: 2px 4px;
+    padding: 0 4px;
+    color: @sky;
+    border-bottom: 2px solid @sky;
+}
+
+/* --- Module hover effects --- */
+
+#custom-caffeine:hover,
+#custom-updates:hover,
+#custom-weather:hover,
+#language:hover,
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#battery:hover {
+    color: @text;
+    transition: color 0.2s;
+}
+
+/* --- Hidden modules (inline if empty) --- */
+
+.hidden {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    border: none;
 }
