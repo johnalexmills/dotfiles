@@ -63,12 +63,10 @@ resolve_input() {
 apply() {
     local src="$1"
 
-    # Update the canonical link that hyprlock + next-boot read.
+    # Update the canonical link that hyprlock reads.
     ln -sfn -- "$src" "$DEFAULT_LINK"
 
     if pgrep -x hyprpaper >/dev/null && command -v hyprctl >/dev/null; then
-        # Hyprland 0.55+ hyprpaper IPC: only `wallpaper` is supported.
-        # Hyprpaper auto-preloads paths it hasn't seen.
         hyprctl hyprpaper wallpaper ",$src" >/dev/null \
             || die "hyprctl hyprpaper failed"
     else
