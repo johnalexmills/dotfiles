@@ -94,6 +94,10 @@ stow_module() {
     local name="$1"
     local dotfiles_dir="$2"
 
+    if ! command_exists stow; then
+        err "stow is not installed. Run the top-level install.sh first, or install stow manually."
+    fi
+
     info "Stowing $name config..."
     if [ -n "${STOW_REPLACE:-}" ]; then
         # Safety check: refuse to --replace if the module has uncommitted changes,
@@ -111,4 +115,63 @@ stow_module() {
         stow --no-folding ${STOW_ADOPT:-} -d "$dotfiles_dir" -t "$HOME" "$name"
     fi
     ok "$name config stowed"
+}
+
+ensure_brew() {
+    if ! command_exists brew; then
+        err "Homebrew is required on macOS. Install it from https://brew.sh"
+    fi
+}
+
+pkg_install() {
+    local pkg_manager
+    pkg_manager="$(detect_linux_pkg_manager)"
+    case "$pkg_manager" in
+        pacman) sudo pacman -S --needed --noconfirm "$@" ;;
+        apt)
+            sudo apt-get update
+            sudo apt-get install -y "$@"
+            ;;
+        dnf)    sudo dnf install -y "$@" ;;
+        zypper) sudo zypper install -y "$@" ;;
+    esac
+}
+
+install_package() {
+    local binary="$1"
+    shift
+    local brew_args=()
+    local pkg_name="$binary"
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --cask) brew_args+=("--cask") ;;
+            *)      pkg_name="$1" ;;
+        esac
+        shift
+    done
+
+    if command_exists "$binary"; then
+        local ver
+        ver=$("$binary" --version 2>/dev/null | head -1) || ver=""
+        ok "$binary is already installed${ver:+ ($ver)}"
+        return
+    fi
+
+    info "Installing $binary..."
+
+    if [ "$(detect_os)" = "mac" ]; then
+        ensure_brew
+        brew install "${brew_args[@]}" "$pkg_name"
+    else
+        pkg_install "$pkg_name"
+    fi
+
+    if command_exists "$binary"; then
+        local ver
+        ver=$("$binary" --version 2>/dev/null | head -1) || ver=""
+        ok "$binary installed${ver:+ ($ver)}"
+    else
+        err "$binary installation failed"
+    fi
 }

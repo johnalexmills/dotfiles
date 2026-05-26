@@ -16,35 +16,15 @@ install_ghostty() {
     fi
 
     info "Installing ghostty..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
+    if [ "$(detect_os)" = "mac" ]; then
+        ensure_brew
         brew install --cask ghostty
+    elif [ "$(detect_linux_pkg_manager)" = "pacman" ]; then
+        pkg_install ghostty
     else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm ghostty ;;
-            apt)
-                warn "ghostty is not in the default apt repos"
-                info "See https://ghostty.org/docs/install for Debian/Ubuntu instructions"
-                return
-                ;;
-            dnf)
-                warn "ghostty is not in the default dnf repos"
-                info "See https://ghostty.org/docs/install for Fedora instructions"
-                return
-                ;;
-            zypper)
-                warn "ghostty is not in the default zypper repos"
-                info "See https://ghostty.org/docs/install for openSUSE instructions"
-                return
-                ;;
-        esac
+        warn "ghostty is not in the default repos"
+        info "See https://ghostty.org/docs/install for your distro's instructions"
+        return
     fi
 
     if command_exists ghostty; then
@@ -67,38 +47,27 @@ install_nerd_font() {
     fi
 
     info "Installing CaskaydiaCove Nerd Font..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
+    if [ "$(detect_os)" = "mac" ]; then
+        ensure_brew
         brew install --cask font-caskaydia-cove-nerd-font
+    elif [ "$(detect_linux_pkg_manager)" = "pacman" ]; then
+        pkg_install ttf-cascadia-code-nerd
     else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm ttf-cascadia-code-nerd ;;
-            *)
-                # Manual install for distros without a packaged version
-                local font_dir="$HOME/.local/share/fonts"
-                local tmp_dir
-                tmp_dir="$(mktemp -d)"
+        local font_dir="$HOME/.local/share/fonts"
+        local tmp_dir
+        tmp_dir="$(mktemp -d)"
 
-                info "Downloading CaskaydiaCove Nerd Font..."
-                curl -fsSL -o "$tmp_dir/CaskaydiaCove.zip" \
-                    "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
+        info "Downloading CaskaydiaCove Nerd Font..."
+        curl -fsSL -o "$tmp_dir/CaskaydiaCove.zip" \
+            "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
 
-                mkdir -p "$font_dir"
-                unzip -qo "$tmp_dir/CaskaydiaCove.zip" -d "$font_dir"
-                rm -rf "$tmp_dir"
+        mkdir -p "$font_dir"
+        unzip -qo "$tmp_dir/CaskaydiaCove.zip" -d "$font_dir"
+        rm -rf "$tmp_dir"
 
-                if command_exists fc-cache; then
-                    fc-cache -f "$font_dir"
-                fi
-                ;;
-        esac
+        if command_exists fc-cache; then
+            fc-cache -f "$font_dir"
+        fi
     fi
 
     if command_exists fc-list && fc-list | grep -qi "$font_name"; then
@@ -114,7 +83,6 @@ main() {
     info "Setting up ghostty..."
     echo
 
-    install_stow
     install_ghostty
     install_nerd_font
     stow_module "ghostty" "$DOTFILES_DIR"

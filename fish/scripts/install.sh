@@ -10,72 +10,7 @@ DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
 # --- Install fish ---
 
 install_fish() {
-    if command_exists fish; then
-        ok "fish is already installed ($(fish --version))"
-        return
-    fi
-
-    info "Installing fish..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
-        brew install fish
-    else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm fish ;;
-            apt)    sudo apt-get update && sudo apt-get install -y fish ;;
-            dnf)    sudo dnf install -y fish ;;
-            zypper) sudo zypper install -y fish ;;
-        esac
-    fi
-
-    if command_exists fish; then
-        ok "fish installed ($(fish --version))"
-    else
-        err "fish installation failed"
-    fi
-}
-
-# --- Install starship (also handled by starship module; kept here so fish-only
-#     install still results in a working prompt). ---
-
-install_starship() {
-    if command_exists starship; then
-        ok "starship is already installed ($(starship --version | head -1))"
-        return
-    fi
-
-    info "Installing starship..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
-        brew install starship
-    else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm starship ;;
-            apt)    curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
-            dnf)    sudo dnf install -y starship ;;
-            zypper) curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
-        esac
-    fi
-
-    if command_exists starship; then
-        ok "starship installed ($(starship --version | head -1))"
-    else
-        err "starship installation failed"
-    fi
+    install_package fish
 }
 
 # --- Install zoxide ---
@@ -87,22 +22,13 @@ install_zoxide() {
     fi
 
     info "Installing zoxide..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
+    if [ "$(detect_os)" = "mac" ]; then
+        ensure_brew
         brew install zoxide
     else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm zoxide ;;
-            apt)    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh ;;
-            dnf)    sudo dnf install -y zoxide ;;
-            zypper) curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh ;;
+        case "$(detect_linux_pkg_manager)" in
+            pacman|dnf) pkg_install zoxide ;;
+            apt|zypper) curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh ;;
         esac
     fi
 
@@ -145,12 +71,9 @@ main() {
     info "Setting up fish..."
     echo
 
-    install_stow
     install_fish
-    install_starship
     install_zoxide
     stow_module "fish" "$DOTFILES_DIR"
-    stow_module "starship" "$DOTFILES_DIR"
     install_fisher_plugins
 
     echo

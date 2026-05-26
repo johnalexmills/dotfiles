@@ -16,22 +16,13 @@ install_starship() {
     fi
 
     info "Installing starship..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
+    if [ "$(detect_os)" = "mac" ]; then
+        ensure_brew
         brew install starship
     else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm starship ;;
-            apt)    curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
-            dnf)    sudo dnf install -y starship ;;
-            zypper) curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
+        case "$(detect_linux_pkg_manager)" in
+            pacman|dnf) pkg_install starship ;;
+            apt|zypper) curl -sS https://starship.rs/install.sh | sh -s -- -y ;;
         esac
     fi
 
@@ -48,7 +39,6 @@ main() {
     info "Setting up starship..."
     echo
 
-    install_stow
     install_starship
     stow_module "starship" "$DOTFILES_DIR"
 

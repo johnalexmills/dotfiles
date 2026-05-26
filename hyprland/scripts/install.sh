@@ -28,8 +28,6 @@ install_packages() {
         ttf-jetbrains-mono-nerd noto-fonts-emoji
         qt5-wayland qt6-wayland qt5ct qt6-declarative qt6-svg
         thunar
-        # Thumbnailers — tumbler is the daemon thunar uses; plugins extend it
-        # to videos / webp / PDFs.
         tumbler ffmpegthumbnailer webp-pixbuf-loader poppler-glib
         pipewire pipewire-pulse wireplumber
         bluez bluez-utils blueman
@@ -38,25 +36,7 @@ install_packages() {
         imagemagick
     )
 
-    local pkg
-    pkg="$(detect_linux_pkg_manager)"
-
-    case "$pkg" in
-        pacman)
-            sudo pacman -S --needed --noconfirm "${pkgs[@]}"
-            ;;
-        apt)
-            sudo apt-get update
-            sudo apt-get install -y "${pkgs[@]}"
-            ;;
-        dnf)
-            sudo dnf install -y "${pkgs[@]}"
-            ;;
-        zypper)
-            sudo zypper install -y "${pkgs[@]}"
-            ;;
-    esac
-
+    pkg_install "${pkgs[@]}"
     ok "Packages installed"
 }
 
@@ -244,7 +224,6 @@ main() {
     info "Setting up Hyprland..."
     echo
 
-    install_stow
     install_packages
     install_aur
     install_sddm_theme

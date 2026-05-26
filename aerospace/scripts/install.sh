@@ -17,24 +17,7 @@ fi
 # --- Install AeroSpace ---
 
 install_aerospace() {
-    if command_exists aerospace; then
-        ok "AeroSpace is already installed ($(aerospace --version))"
-        return
-    fi
-
-    info "Installing AeroSpace..."
-
-    if ! command_exists brew; then
-        err "Homebrew is required on macOS. Install it from https://brew.sh"
-    fi
-
-    brew install --cask nikitabobko/tap/aerospace
-
-    if command_exists aerospace; then
-        ok "AeroSpace installed ($(aerospace --version))"
-    else
-        err "AeroSpace installation failed"
-    fi
+    install_package aerospace --cask nikitabobko/tap/aerospace
 }
 
 # --- Main ---
@@ -43,7 +26,6 @@ main() {
     info "Setting up AeroSpace..."
     echo
 
-    install_stow
     install_aerospace
     stow_module aerospace "$DOTFILES_DIR"
 

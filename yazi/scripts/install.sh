@@ -16,19 +16,12 @@ install_yazi() {
     fi
 
     info "Installing yazi..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
+    if [ "$(detect_os)" = "mac" ]; then
+        ensure_brew
         brew install yazi
     else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm yazi ;;
+        case "$(detect_linux_pkg_manager)" in
+            pacman|dnf|zypper) pkg_install yazi ;;
             apt)
                 warn "yazi is not in the standard apt repos. Installing via cargo..."
                 warn "Note: yazi has optional runtime deps for full functionality:"
@@ -41,8 +34,6 @@ install_yazi() {
                     err "yazi requires cargo on Debian/Ubuntu. Install Rust from https://rustup.rs"
                 fi
                 ;;
-            dnf)    sudo dnf install -y yazi ;;
-            zypper) sudo zypper install -y yazi ;;
         esac
     fi
 
@@ -101,7 +92,6 @@ main() {
     info "Setting up yazi..."
     echo
 
-    install_stow
     install_yazi
     stow_module "yazi" "$DOTFILES_DIR"
     install_yazi_flavor

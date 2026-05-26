@@ -10,36 +10,7 @@ DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
 # --- Install tmux ---
 
 install_tmux() {
-    if command_exists tmux; then
-        ok "tmux is already installed ($(tmux -V))"
-        return
-    fi
-
-    info "Installing tmux..."
-    local os
-    os="$(detect_os)"
-
-    if [ "$os" = "mac" ]; then
-        if ! command_exists brew; then
-            err "Homebrew is required on macOS. Install it from https://brew.sh"
-        fi
-        brew install tmux
-    else
-        local pkg
-        pkg="$(detect_linux_pkg_manager)"
-        case "$pkg" in
-            pacman) sudo pacman -S --noconfirm tmux ;;
-            apt)    sudo apt-get update && sudo apt-get install -y tmux ;;
-            dnf)    sudo dnf install -y tmux ;;
-            zypper) sudo zypper install -y tmux ;;
-        esac
-    fi
-
-    if command_exists tmux; then
-        ok "tmux installed ($(tmux -V))"
-    else
-        err "tmux installation failed"
-    fi
+    install_package tmux
 }
 
 # --- Install TPM ---
@@ -90,7 +61,6 @@ main() {
     info "Setting up tmux..."
     echo
 
-    install_stow
     install_tmux
     install_tpm
     stow_module "tmux" "$DOTFILES_DIR"

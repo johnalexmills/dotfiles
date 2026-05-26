@@ -11,8 +11,6 @@ main() {
     info "Setting up opencode..."
     echo
 
-    install_stow
-
     if ! command_exists opencode; then
         warn "opencode not installed. Config will be stowed regardless. Install from https://opencode.ai"
     else
