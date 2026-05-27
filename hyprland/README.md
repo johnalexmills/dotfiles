@@ -114,7 +114,7 @@ Browse the catppuccin-mocha wallpaper gallery at
 |-----|--------|
 | `Super-C` | Close active window |
 | `Super-M` | Exit Hyprland (back to SDDM) |
-| `Super-Shift-L` | Lock screen |
+| `Super-Escape` | Lock screen |
 | `Super-Shift-P` | Poweroff |
 | `Super-Shift-R` | Reboot |
 | `Super-Shift-S` | Suspend |
