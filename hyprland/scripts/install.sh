@@ -239,7 +239,7 @@ main() {
     ok "Hyprland setup complete!"
     info "Reboot to see SDDM login with Catppuccin Mocha theme"
     info "Keybinds: Alt+Space (launcher), Super+Return (terminal),"
-    info "          Super+Shift+L (lock), Super+Shift+W (wallpaper picker)"
+    info "          Super+Escape (lock), Super+Shift+W (wallpaper picker)"
     info "Gaming: use 'gamescope -f -- <command>' for per-game FSR/VRR"
 }
 

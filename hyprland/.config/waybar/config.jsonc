@@ -17,7 +17,7 @@
   "custom/layout": {
     "format": "<span size='13000' foreground='#cba6f7'>󰌌 </span>{}",
     "exec": "~/.config/waybar/scripts/layout.sh",
-    "interval": 1,
+    "interval": 5,
     "return-type": "json"
   },
 

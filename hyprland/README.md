@@ -35,6 +35,7 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 | Key | Action |
 |-----|--------|
 | `Super-mouse right` | Resize window by dragging |
+| `Super-R` | Enter resize mode (h/j/k/l to resize, Esc to exit) |
 
 ## Layout
 
