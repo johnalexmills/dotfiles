@@ -55,8 +55,6 @@ return {
         layout = "diff2_horizontal",
       },
       merge_tool = {
-        -- 3-way merge layout: LOCAL | BASE | REMOTE on top, RESULT on bottom
-        layout = "diff3_horizontal",
         disable_diagnostics = true,
       },
     },
