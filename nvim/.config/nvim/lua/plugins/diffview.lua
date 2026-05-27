@@ -6,11 +6,13 @@ return {
     { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
     { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo History" },
     { "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "Close Diff View" },
-    -- Merge conflict accept (work in any diff buffer, including result buffer)
+    -- Merge conflict accept (only in diff mode buffers)
     {
       "gcl",
       function()
-        vim.cmd "diffget 1"
+        if vim.wo.diff then
+          vim.cmd "diffget 1"
+        end
       end,
       desc = "Accept LOCAL",
       mode = "n",
@@ -18,7 +20,9 @@ return {
     {
       "gcb",
       function()
-        vim.cmd "diffget 2"
+        if vim.wo.diff then
+          vim.cmd "diffget 2"
+        end
       end,
       desc = "Accept BASE",
       mode = "n",
@@ -26,7 +30,9 @@ return {
     {
       "gcr",
       function()
-        vim.cmd "diffget 3"
+        if vim.wo.diff then
+          vim.cmd "diffget 3"
+        end
       end,
       desc = "Accept REMOTE",
       mode = "n",
@@ -34,7 +40,9 @@ return {
     {
       "gca",
       function()
-        vim.cmd "diffget 1 | diffget 3"
+        if vim.wo.diff then
+          vim.cmd "diffget 1 | diffget 3"
+        end
       end,
       desc = "Accept both LOCAL + REMOTE",
       mode = "n",
