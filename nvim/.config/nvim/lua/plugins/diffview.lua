@@ -55,6 +55,7 @@ return {
         layout = "diff2_horizontal",
       },
       merge_tool = {
+        layout = "diff4_mixed",
         disable_diagnostics = true,
       },
     },
