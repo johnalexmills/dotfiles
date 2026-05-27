@@ -156,6 +156,15 @@ The undo picker shows a visual, searchable tree of every state your buffer has b
 - **Right:** REMOTE (incoming changes)
 - **Bottom:** RESULT (what gets saved — edit this to resolve)
 
+| Key (in merge conflict) | Action |
+|---|---|
+| `<leader>co` | Accept OURS (LOCAL) |
+| `<leader>ct` | Accept THEIRS (REMOTE) |
+| `<leader>cb` | Accept BASE |
+| `<leader>ca` | Accept ALL |
+| `dx` | Delete hunk |
+| `]x` / `[x` | Next / prev conflict |
+
 Save the RESULT buffer and close Diffview when done.
 
 ### LSP
