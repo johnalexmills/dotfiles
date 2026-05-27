@@ -23,6 +23,10 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 
 | Key | Action |
 |-----|--------|
+| `Super-Shift-h` | Move window left |
+| `Super-Shift-j` | Move window down |
+| `Super-Shift-k` | Move window up |
+| `Super-Shift-l` | Move window right |
 | `Super-Shift-1…0` | Move window to workspace |
 | `Super-mouse left` | Move window by dragging |
 
