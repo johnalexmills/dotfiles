@@ -6,6 +6,39 @@ return {
     { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
     { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo History" },
     { "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "Close Diff View" },
+    -- Merge conflict accept (work in any diff buffer, including result buffer)
+    {
+      "gcl",
+      function()
+        vim.cmd "diffget 1"
+      end,
+      desc = "Accept LOCAL",
+      mode = "n",
+    },
+    {
+      "gcb",
+      function()
+        vim.cmd "diffget 2"
+      end,
+      desc = "Accept BASE",
+      mode = "n",
+    },
+    {
+      "gcr",
+      function()
+        vim.cmd "diffget 3"
+      end,
+      desc = "Accept REMOTE",
+      mode = "n",
+    },
+    {
+      "gca",
+      function()
+        vim.cmd "diffget 1 | diffget 3"
+      end,
+      desc = "Accept both LOCAL + REMOTE",
+      mode = "n",
+    },
   },
   opts = {
     enhanced_diff_hl = true,
@@ -31,24 +64,10 @@ return {
       },
     },
     hooks = {
-      -- Disable diagnostics and word wrap in diff buffers for clarity
       diff_buf_read = function(_bufnr)
         vim.opt_local.wrap = false
         vim.opt_local.list = false
         vim.opt_local.colorcolumn = ""
-        -- Merge conflict quick-accept keymaps (buffer-local)
-        vim.keymap.set("n", "gcl", function()
-          vim.cmd "diffget 1"
-        end, { buffer = true, desc = "Accept LOCAL" })
-        vim.keymap.set("n", "gcb", function()
-          vim.cmd "diffget 2"
-        end, { buffer = true, desc = "Accept BASE" })
-        vim.keymap.set("n", "gcr", function()
-          vim.cmd "diffget 3"
-        end, { buffer = true, desc = "Accept REMOTE" })
-        vim.keymap.set("n", "gca", function()
-          vim.cmd "diffget 1 | diffget 3"
-        end, { buffer = true, desc = "Accept both LOCAL + REMOTE" })
       end,
     },
   },
