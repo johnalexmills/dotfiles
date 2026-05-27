@@ -36,6 +36,19 @@ return {
         vim.opt_local.wrap = false
         vim.opt_local.list = false
         vim.opt_local.colorcolumn = ""
+        -- Merge conflict quick-accept keymaps (buffer-local)
+        vim.keymap.set("n", "gcl", function()
+          vim.cmd "diffget 1"
+        end, { buffer = true, desc = "Accept LOCAL" })
+        vim.keymap.set("n", "gcb", function()
+          vim.cmd "diffget 2"
+        end, { buffer = true, desc = "Accept BASE" })
+        vim.keymap.set("n", "gcr", function()
+          vim.cmd "diffget 3"
+        end, { buffer = true, desc = "Accept REMOTE" })
+        vim.keymap.set("n", "gca", function()
+          vim.cmd "diffget 1 | diffget 3"
+        end, { buffer = true, desc = "Accept both LOCAL + REMOTE" })
       end,
     },
   },
