@@ -63,33 +63,7 @@ window#waybar {
     padding: 0 4px;
 }
 
-#battery {
-    color: @green;
-    border-bottom: 2px solid @green;
-    margin: 2px 4px;
-    padding: 0 4px;
-}
-
-#battery.warning {
-    color: @yellow;
-}
-
-#battery.critical {
-    color: @red;
-}
-
-#battery.charging {
-    color: @teal;
-}
-
 /* --- Custom modules --- */
-
-#language {
-    color: @mauve;
-    border-bottom: 2px solid @mauve;
-    margin: 2px 4px;
-    padding: 0 4px;
-}
 
 #custom-caffeine {
     margin: 2px 4px;
@@ -131,12 +105,10 @@ window#waybar {
 #custom-caffeine:hover,
 #custom-updates:hover,
 #custom-weather:hover,
-#language:hover,
 #clock:hover,
 #pulseaudio:hover,
 #network:hover,
-#bluetooth:hover,
-#battery:hover {
+#bluetooth:hover {
     color: @text;
     transition: color 0.2s;
 }

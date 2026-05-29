@@ -22,8 +22,9 @@ return {
 
     conform.setup {
       formatters_by_ft = {
+        -- Python: ruff handles formatting AND import sorting via ruff_format / ruff_organize_imports
         lua = { "stylua" },
-        -- Python: handled by ruff LSP (formatting + import sorting via code actions)
+        python = { "ruff_format" },
         json = { "prettier" },
         yaml = { "prettier" },
         yml = { "prettier" },

@@ -121,6 +121,11 @@ main() {
     if [ "$DRY_RUN" != "1" ]; then
         # Install stow once up-front so module scripts can assume it's present.
         install_stow
+
+        # Enable pre-commit hooks
+        info "Configuring git hooks..."
+        git config core.hooksPath .githooks
+        ok "Git hooks configured (.githooks/pre-commit)"
     fi
 
     run_module ghostty

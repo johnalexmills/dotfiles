@@ -52,6 +52,7 @@ return {
           "prettier", -- json, yaml, markdown
           "taplo", -- toml
           "hclfmt", -- hcl (terragrunt)
+          "terraform_fmt", -- terraform
 
           -- Linters (non-LSP)
           "luacheck", -- lua

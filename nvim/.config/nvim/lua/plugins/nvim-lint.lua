@@ -39,6 +39,7 @@ return {
       "--globals",
       "vim",
       "Snacks",
+      "ConfigMode",
       "--formatter",
       "plain",
       "--codes",
