@@ -7,7 +7,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
   build = ":TSUpdate",
-  lazy = false,
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     -- Install parsers (main branch API)
     require("nvim-treesitter").install {

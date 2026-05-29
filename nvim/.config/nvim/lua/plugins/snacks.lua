@@ -28,8 +28,7 @@ local picker_exclude = {
 
 return {
   "folke/snacks.nvim",
-  lazy = false,
-  priority = 900,
+  event = "VeryLazy",
   keys = {
     {
       "<C-\\>",

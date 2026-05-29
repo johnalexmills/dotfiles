@@ -69,7 +69,7 @@ return {
           "hadolint", -- dockerfile
           "sqlfluff", -- sql
         },
-        auto_update = true,
+        auto_update = false,
         run_on_start = false,
       }
     end,

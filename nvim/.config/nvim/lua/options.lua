@@ -63,7 +63,7 @@ local options = {
   -- Timing
   timeoutlen = 500, -- Time in ms to wait for mapped sequence to complete
   ttimeoutlen = 50, -- Time in ms to wait for key code sequence to complete
-  updatetime = 250, -- Time in ms before swap file is written (also affects CursorHold)
+  updatetime = 500, -- Time in ms before swap file is written (also affects CursorHold)
 
   -- Folding (using treesitter for syntax-aware folds)
   foldmethod = "expr", -- Use expression for folding
