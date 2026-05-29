@@ -1,10 +1,9 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  opts = {},
-  config = function(_, opts)
+  config = function()
     local wk = require "which-key"
-    wk.setup(opts)
+    wk.setup {}
     wk.add {
       -- Group definitions
       { "<leader>f", group = "File", nowait = true, remap = false },
