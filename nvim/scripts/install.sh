@@ -52,13 +52,22 @@ sync_plugins() {
         return
     fi
 
+    local log_file
+    log_file="$(mktemp)"
+
     info "Syncing plugins via lazy.nvim (this may take a moment)..."
-    nvim --headless "+Lazy! sync" +qa 2>&1 || true
-    ok "Plugins synced"
+    if nvim --headless "+Lazy! sync" +qa >"$log_file" 2>&1; then
+        ok "Plugins synced"
+    else
+        warn "Lazy sync had errors (full log: $log_file)"
+    fi
 
     info "Updating treesitter parsers..."
-    nvim --headless "+TSUpdate" +qa 2>&1 || true
-    ok "Treesitter parsers updated"
+    if nvim --headless "+TSUpdate" +qa >"$log_file" 2>&1; then
+        ok "Treesitter parsers updated"
+    else
+        warn "TSUpdate had errors (full log: $log_file)"
+    fi
 }
 
 # --- Main ---

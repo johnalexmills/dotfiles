@@ -38,12 +38,23 @@ install_ghostty() {
 
 install_nerd_font() {
     local font_name="CaskaydiaCove"
+    local os
+    os="$(detect_os)"
 
-    if ! command_exists fc-list; then
-        warn "fc-list not found, can't verify font installation; will attempt install anyway"
-    elif fc-list | grep -qi "$font_name"; then
-        ok "CaskaydiaCove Nerd Font is already installed"
-        return
+    # Verify font is installed
+    if [ "$os" = "mac" ]; then
+        # Homebrew fonts live in Caskroom, not always in ~/Library/Fonts
+        if find ~/Library/Fonts /Library/Fonts /opt/homebrew/Caskroom -iname "*CaskaydiaCoveNerd*" 2>/dev/null | grep -q .; then
+            ok "CaskaydiaCove Nerd Font is already installed"
+            return
+        fi
+    elif [ "$os" = "linux" ]; then
+        if ! command_exists fc-list; then
+            warn "fc-list not found, can't verify font installation; will attempt install anyway"
+        elif fc-list | grep -qi "$font_name"; then
+            ok "CaskaydiaCove Nerd Font is already installed"
+            return
+        fi
     fi
 
     info "Installing CaskaydiaCove Nerd Font..."
@@ -70,7 +81,13 @@ install_nerd_font() {
         fi
     fi
 
-    if command_exists fc-list && fc-list | grep -qi "$font_name"; then
+    if [ "$os" = "mac" ]; then
+        if find ~/Library/Fonts /Library/Fonts /opt/homebrew/Caskroom -iname "*CaskaydiaCoveNerd*" 2>/dev/null | grep -q .; then
+            ok "CaskaydiaCove Nerd Font installed"
+        else
+            warn "Could not verify font installation (may need to restart your session)"
+        fi
+    elif command_exists fc-list && fc-list | grep -qi "$font_name"; then
         ok "CaskaydiaCove Nerd Font installed"
     else
         warn "Could not verify font installation (may need to restart your session)"

@@ -122,8 +122,16 @@ install_sddm_theme() {
 install_sddm_theme_manual() {
     local tmpdir
     tmpdir="$(mktemp -d)"
-    local release_url="https://github.com/catppuccin/sddm/releases/download/v1.1.2/catppuccin-mocha-mauve-sddm.zip"
 
+    info "Fetching latest catppuccin-sddm release..."
+    local tag
+    tag="$(curl -fsSL https://api.github.com/repos/catppuccin/sddm/releases/latest | grep '"tag_name"' | cut -d'"' -f4)" || {
+        warn "Failed to fetch latest release tag"
+        rm -rf "$tmpdir"
+        return
+    }
+
+    local release_url="https://github.com/catppuccin/sddm/releases/download/${tag}/catppuccin-mocha-mauve-sddm.zip"
     info "Downloading theme from $release_url ..."
     curl -fsSL -o "$tmpdir/theme.zip" "$release_url" || {
         warn "Failed to download SDDM theme"
@@ -146,8 +154,11 @@ configure_sddm_theme() {
     fi
 
     info "Configuring /etc/sddm.conf to use $theme_name..."
-    echo "[Theme]
-Current=$theme_name" | sudo tee /etc/sddm.conf > /dev/null
+    if grep -q '^\[Theme\]' /etc/sddm.conf 2>/dev/null; then
+        sudo sed -i '/^\[Theme\]/,/Current=/s/^Current=.*/Current='"$theme_name"'/' /etc/sddm.conf
+    else
+        printf '\n[Theme]\nCurrent=%s\n' "$theme_name" | sudo tee -a /etc/sddm.conf > /dev/null
+    fi
     ok "SDDM theme configured"
 }
 

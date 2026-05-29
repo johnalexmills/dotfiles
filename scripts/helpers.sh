@@ -134,6 +134,7 @@ pkg_install() {
             ;;
         dnf)    sudo dnf install -y "$@" ;;
         zypper) sudo zypper install -y "$@" ;;
+        *)      err "No supported package manager found; install manually: $*" ;;
     esac
 }
 

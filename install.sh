@@ -7,10 +7,12 @@ source "$SCRIPT_DIR/scripts/helpers.sh"
 
 export STOW_ADOPT=""
 export STOW_REPLACE=""
+DRY_RUN=""
+SELECTED_MODULES=""
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [--adopt | --replace]
+Usage: $(basename "$0") [--adopt | --replace] [--dry-run] [--modules m1,m2,...]
 
 Options:
   --adopt    Adopt existing files into the dotfiles repo (useful on machines
@@ -19,6 +21,9 @@ Options:
   --replace  Remove existing configs and replace them with dotfiles versions.
              WARNING: requires a clean working tree per affected module;
              refuses to run if any module has uncommitted changes.
+  --dry-run  Show what would be done without making changes.
+  --modules  Comma-separated list of modules to install (default: all).
+             Available: ghostty fish starship nvim tmux yazi aerospace hyprland opencode
 EOF
 }
 
@@ -40,6 +45,17 @@ parse_args() {
                 fi
                 STOW_REPLACE="1"
                 warn "Running with --replace: existing config files will be deleted and replaced"
+                ;;
+            --dry-run)
+                DRY_RUN="1"
+                info "Dry run: no changes will be made"
+                ;;
+            --modules)
+                shift
+                if [ $# -eq 0 ] || [[ "$1" == --* ]]; then
+                    err "--modules requires a comma-separated list of module names"
+                fi
+                SELECTED_MODULES="$1"
                 ;;
             -h|--help)
                 usage
@@ -64,11 +80,31 @@ run_module() {
         return
     fi
 
+    # If --modules was specified, skip modules not in the list
+    if [ -n "$SELECTED_MODULES" ]; then
+        local IFS=','
+        local found=0
+        for mod in $SELECTED_MODULES; do
+            if [ "$mod" = "$name" ]; then
+                found=1
+                break
+            fi
+        done
+        if [ "$found" -eq 0 ]; then
+            return
+        fi
+    fi
+
     echo
     info "========================================"
     info " Setting up $name"
     info "========================================"
     echo
+
+    if [ "$DRY_RUN" = "1" ]; then
+        info "[dry-run] Would run: $script"
+        return
+    fi
 
     bash "$script"
 }
@@ -82,8 +118,10 @@ main() {
     info " dotfiles — full system setup"
     info "========================================"
 
-    # Install stow once up-front so module scripts can assume it's present.
-    install_stow
+    if [ "$DRY_RUN" != "1" ]; then
+        # Install stow once up-front so module scripts can assume it's present.
+        install_stow
+    fi
 
     run_module ghostty
     run_module fish
