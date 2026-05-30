@@ -13,11 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Run shellcheck
-        uses: ludeeus/action-shellcheck@v2
-        with:
-          severity: warning
-          scandir: ./
-          additional_files: install.sh
+        run: |
+          find . -name '*.sh' -exec shellcheck --severity=warning {} +
 
   stylua:
     name: stylua

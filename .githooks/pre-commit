@@ -44,5 +44,26 @@ if [ -n "$LUA_FILES" ]; then
   done
 fi
 
+# 6. shfmt on shell scripts
+SH_FILES=$(echo "$STAGED" | grep '\.sh$' || true)
+if [ -n "$SH_FILES" ] && command -v shfmt >/dev/null 2>&1; then
+  echo "$SH_FILES" | while IFS= read -r f; do
+    shfmt -w -i 2 -ci "$f"
+  done
+fi
+
+# 7. shellcheck on shell scripts (warning only, not abort)
+if [ -n "$SH_FILES" ] && command -v shellcheck >/dev/null 2>&1; then
+  echo "$SH_FILES" | while IFS= read -r f; do
+    shellcheck -s bash --severity=style "$f" || true
+  done
+fi
+
+# 8. fish_indent on fish files
+FISH_FILES=$(echo "$STAGED" | grep '\.fish$' || true)
+if [ -n "$FISH_FILES" ] && command -v fish_indent >/dev/null 2>&1; then
+  fish_indent -w $FISH_FILES
+fi
+
 # Re-stage auto-fixed files
 echo "$STAGED" | xargs git add
