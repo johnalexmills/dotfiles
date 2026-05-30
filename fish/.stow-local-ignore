@@ -6,4 +6,5 @@ scripts
 fisher\.fish
 conf\.d/fish_frozen_theme\.fish
 fish_variables
+config\.fish
 themes
