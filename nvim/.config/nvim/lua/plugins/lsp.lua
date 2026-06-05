@@ -26,7 +26,7 @@ return {
     -- vim.lsp.enable('ty').
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    event = { "BufReadPre", "BufNewFile" },
+    event = "VeryLazy",
     config = function()
       require("mason-lspconfig").setup {}
     end,
@@ -35,7 +35,7 @@ return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    event = { "BufReadPre", "BufNewFile" },
+    event = "VeryLazy",
     config = function()
       require("mason-tool-installer").setup {
         ensure_installed = {
