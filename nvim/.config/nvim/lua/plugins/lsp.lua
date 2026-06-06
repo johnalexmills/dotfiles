@@ -52,7 +52,6 @@ return {
           "prettier", -- json, yaml, markdown
           "taplo", -- toml
           "hclfmt", -- hcl (terragrunt)
-          "terraform_fmt", -- terraform
 
           -- Linters (non-LSP)
           "luacheck", -- lua
@@ -64,7 +63,6 @@ return {
 
           -- Multi-purpose (linter + formatter)
           "gdtoolkit", -- gdscript (gdlint + gdformat)
-          "rubocop", -- ruby
 
           -- Additional tools
           "hadolint", -- dockerfile
