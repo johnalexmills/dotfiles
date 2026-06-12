@@ -16,7 +16,7 @@ local options = {
 
   -- Line Numbers
   number = true, -- Show absolute line numbers
-  relativenumber = true, -- Show relative line numbers
+  relativenumber = false, -- Show relative line numbers
 
   -- System Integration
   clipboard = "unnamedplus", -- Use system clipboard for yank/paste operations
