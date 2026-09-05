@@ -22,8 +22,6 @@ require("lazy").setup("plugins", {
     rtp = {
       disabled_plugins = {
         "gzip",
-        "matchit",
-        "matchparen",
         "netrwPlugin",
         "tarPlugin",
         "tohtml",
@@ -35,6 +33,9 @@ require("lazy").setup("plugins", {
         -- results with :Man, and autocommands.lua binds q in man buffers.
         -- NOTE: "health" is not a runtime plugin in Neovim 0.12 (:checkhealth
         -- is built in), so listing it here did nothing.
+        -- NOTE: "matchit" (extended % on language constructs) and "matchparen"
+        -- (highlight the matching bracket) are deliberately left enabled;
+        -- nothing else in this config provides either.
       },
     },
   },

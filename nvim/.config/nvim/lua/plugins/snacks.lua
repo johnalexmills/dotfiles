@@ -53,28 +53,8 @@ return {
       desc = "Close Buffer",
     },
 
-    -- Session management (backed by persistence.nvim)
-    {
-      "<leader>Sr",
-      function()
-        require("persistence").select()
-      end,
-      desc = "Restore Session",
-    },
-    {
-      "<leader>Ss",
-      function()
-        require("persistence").save()
-      end,
-      desc = "Save Session",
-    },
-    {
-      "<leader>Sd",
-      function()
-        require("persistence").stop()
-      end,
-      desc = "Stop Session (don't save on exit)",
-    },
+    -- NOTE: session mappings (<leader>S*) live in plugins/persistence.lua,
+    -- which is the plugin that actually implements them.
 
     {
       "<leader>fr",

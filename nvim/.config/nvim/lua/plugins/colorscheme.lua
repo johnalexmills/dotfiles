@@ -38,6 +38,8 @@ return {
       -- NOTE: there is no "treesitter" integration. Treesitter highlight groups
       -- live in catppuccin/groups/treesitter.lua (a core group, always applied),
       -- not in groups/integrations/, so setting it here was silently ignored.
+      -- Enabled explicitly rather than via auto_integrations, which rescans the
+      -- plugin list on every setup. Keep this in sync when adding plugins.
       integrations = {
         blink_cmp = true,
         gitsigns = true,
@@ -45,6 +47,16 @@ return {
         snacks = true,
         mason = true,
         mini = true,
+        harpoon = true,
+        neotest = true,
+        lsp_trouble = true,
+        render_markdown = true,
+        diffview = true, -- defaults to false upstream
+        notifier = true, -- snacks.notifier
+        dashboard = true,
+        -- NOTE: native_lsp and semantic_tokens are NOT integrations either;
+        -- they are core groups (groups/lsp.lua, groups/semantic_tokens.lua).
+        -- Diagnostic styling is configured via the lsp_styles block above.
       },
     }
     -- v2.0+: the colorscheme name is "catppuccin-nvim" (was "catppuccin").

@@ -22,15 +22,17 @@ return {
 
     conform.setup {
       formatters_by_ft = {
-        -- Python: ruff handles formatting AND import sorting via ruff_format / ruff_organize_imports
         lua = { "stylua" },
-        python = { "ruff_format" },
+        -- ruff handles both formatting and import sorting, but they are two
+        -- separate conform formatters and run in order.
+        python = { "ruff_organize_imports", "ruff_format" },
         json = { "prettier" },
+        -- NOTE: there is no "yml" filetype; .yml files are detected as "yaml".
         yaml = { "prettier" },
-        yml = { "prettier" },
         toml = { "taplo" },
         markdown = { "prettier" },
         terraform = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
         hcl = { "hclfmt" },
         gdscript = { "gdformat" },
         ruby = { "rubocop" },

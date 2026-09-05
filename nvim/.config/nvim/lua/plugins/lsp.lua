@@ -68,6 +68,7 @@ return {
 
           -- Multi-purpose (linter + formatter)
           "gdtoolkit", -- gdscript (gdlint + gdformat)
+          "rubocop", -- ruby (referenced by both conform and nvim-lint)
 
           -- Additional tools
           "hadolint", -- dockerfile
@@ -133,7 +134,7 @@ return {
         desc = "References",
       },
       { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
-      { "<leader>lx", vim.diagnostic.reset, desc = "Refresh Diagnostics" },
+      { "<leader>lx", vim.diagnostic.reset, desc = "Clear Diagnostics" },
       {
         "<leader>ls",
         function()
@@ -255,13 +256,10 @@ return {
           "selene.yml",
           ".git",
         },
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "ConfigMode" },
-            },
-          },
-        },
+        -- No `settings` block: lazydev.nvim supplies the vim global and the
+        -- Neovim runtime library, and .luarc.json covers the rest. The only
+        -- entry that used to live here declared a "ConfigMode" global that
+        -- nothing in this config has ever referenced.
       })
 
       vim.lsp.config("bashls", {
@@ -270,9 +268,11 @@ return {
         root_markers = { ".git" },
       })
 
+      -- "tf" is the Tads filetype, not Terraform; terraform-ls wants
+      -- terraform / terraform-vars.
       vim.lsp.config("terraformls", {
         capabilities = capabilities,
-        filetypes = { "terraform", "tf" },
+        filetypes = { "terraform", "terraform-vars" },
         root_markers = { ".terraform", ".git" },
       })
 
@@ -347,8 +347,15 @@ return {
           end
 
           -- Buffer local mappings
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to Declaration" })
+          -- Use the Snacks pickers rather than vim.lsp.buf.definition: when a
+          -- symbol resolves to several locations the builtin dumps them into
+          -- the quickfix list, whereas the picker shows them with previews.
+          vim.keymap.set("n", "gd", function()
+            Snacks.picker.lsp_definitions()
+          end, { buffer = ev.buf, desc = "Go to Definition" })
+          vim.keymap.set("n", "gD", function()
+            Snacks.picker.lsp_declarations()
+          end, { buffer = ev.buf, desc = "Go to Declaration" })
           vim.keymap.set("n", "<leader>lg", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
 
           -- Inlay hints: only enable for clients that support them, and provide a per-buffer toggle.

@@ -3,6 +3,10 @@
 -- plugins/which-key.lua.
 --
 -- Note: vim.keymap.set defaults to noremap = true since Neovim 0.7, so we omit it.
+--
+-- Note: visual-mode mappings use "x" (visual) rather than "v" (visual + select).
+-- Select mode is what snippet placeholders put you in, so a "v" mapping there
+-- would replace the selected placeholder text instead of acting on it.
 
 local map = vim.keymap.set
 
@@ -31,14 +35,14 @@ map("n", "<A-l>", "<cmd>vertical resize +2<CR>", { silent = true, desc = "Grow w
 
 -- Better paste (Primeagen's "greatest remap ever")
 -- Paste without losing clipboard content
-map("v", "p", [["_dP]], { silent = true, desc = "Paste without overwriting register" })
+map("x", "p", [["_dP]], { silent = true, desc = "Paste without overwriting register" })
 
 -- Delete to black hole register (doesn't overwrite clipboard)
-map({ "n", "v" }, "<leader>D", [["_d]], { silent = true, desc = "Delete to black hole register" })
+map({ "n", "x" }, "<leader>D", [["_d]], { silent = true, desc = "Delete to black hole register" })
 
 -- Stay in indent mode
-map("v", "<", "<gv", { silent = true, desc = "Indent left and reselect" })
-map("v", ">", ">gv", { silent = true, desc = "Indent right and reselect" })
+map("x", "<", "<gv", { silent = true, desc = "Indent left and reselect" })
+map("x", ">", ">gv", { silent = true, desc = "Indent right and reselect" })
 
 -- Move blocks with indent
 -- NOTE: these must use ":" and not "<cmd>". <Cmd> does not leave visual mode,
@@ -75,7 +79,7 @@ end, { silent = true, desc = "Toggle Search Highlight" })
 
 -- Toggle relative line numbers
 map("n", "<leader>r", function()
-  vim.opt.relativenumber = not vim.wo.relativenumber
+  vim.wo.relativenumber = not vim.wo.relativenumber
 end, { silent = true, desc = "Toggle Relative Numbers" })
 
 -- Tab management

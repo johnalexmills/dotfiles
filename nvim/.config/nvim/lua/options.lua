@@ -52,7 +52,10 @@ local options = {
   -- Scrolling
   scrolloff = 10, -- Keep 10 lines visible above/below cursor when scrolling
   sidescrolloff = 8, -- Keep 8 columns visible left/right of cursor when scrolling
-  jumpoptions = "stack", -- Make jumplist behave like a stack (Neovim 0.11+)
+  -- NOTE: jumpoptions = "stack" was removed. Harpoon deliberately owns <C-o>
+  -- and <C-i> (file slots 4 and 3), so the jumplist cannot be navigated with
+  -- the default keys and there is nothing to tune. Restore this option if
+  -- those mappings are ever freed up.
 
   -- Text Wrapping
   wrap = false, -- Don't wrap long lines visually
@@ -90,7 +93,30 @@ local options = {
 
   -- Wildmenu (Command-line Completion)
   wildmode = "longest:full,full", -- Complete longest common string, then show full matches
-  wildignore = "*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,*.so,*.dll,*.swp,.DS_Store,*.jpg,*.png,*.xpm,*.gif,*.pdf,*.bmp,*.tar,*.zip,*.tgz", -- Files to ignore in completion
+  -- Files to ignore in completion. Given as a list so the line stays readable;
+  -- vim.opt joins it back into the comma-separated string the option expects.
+  wildignore = {
+    "*.o",
+    "*.obj",
+    "*.a",
+    "*.lib",
+    "*.so",
+    "*.dll",
+    "*.exe",
+    "*.pdb",
+    "*~",
+    "*.swp",
+    ".DS_Store",
+    "*.jpg",
+    "*.png",
+    "*.xpm",
+    "*.gif",
+    "*.bmp",
+    "*.pdf",
+    "*.tar",
+    "*.zip",
+    "*.tgz",
+  },
 
   -- Session Management
   sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions", -- What to save in sessions

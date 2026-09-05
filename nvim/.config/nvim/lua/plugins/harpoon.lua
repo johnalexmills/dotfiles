@@ -1,3 +1,9 @@
+-- NOTE: the <C-n>/<C-e>/<C-i>/<C-o>/<C-'> file slots below are a deliberate
+-- trade-off. <C-o> and <C-i> are Neovim's jumplist back/forward, and <C-i> is
+-- indistinguishable from <Tab> (mapped to :bnext) on terminals that do not
+-- implement the kitty keyboard protocol. Ghostty does implement it; over a
+-- plain TTY or an old tmux, <C-i> will fall back to being <Tab>.
+-- 'jumpoptions' is intentionally left at its default in options.lua as a result.
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",

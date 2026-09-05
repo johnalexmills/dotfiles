@@ -1,7 +1,9 @@
 return {
   "saghen/blink.cmp",
   event = "InsertEnter",
-  version = "*",
+  -- Pin to the 1.x line. "*" resolves to the newest tag, which would silently
+  -- pull in a future 2.0 with breaking config changes.
+  version = "1.*",
   dependencies = {
     "rafamadriz/friendly-snippets",
   },
@@ -26,7 +28,9 @@ return {
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
       per_filetype = {
-        lua = { "lsp", "path", "snippets", "buffer", "lazydev" },
+        -- inherit_defaults avoids restating `default` here; without it this
+        -- list has to be kept manually in sync with the one above.
+        lua = { inherit_defaults = true, "lazydev" },
       },
       providers = {
         buffer = {

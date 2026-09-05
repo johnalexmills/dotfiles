@@ -1,6 +1,8 @@
 return {
   "mfussenegger/nvim-lint",
-  event = "VeryLazy",
+  -- Must load before the BufReadPost autocmd below can fire. On VeryLazy the
+  -- first file opened was already past BufReadPost and so never got linted.
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     local lint = require "lint"
 
@@ -15,10 +17,13 @@ return {
       fish = { "fish" },
 
       -- Configuration Languages
+      -- NOTE: the "tf" filetype is Tads, not Terraform. Neovim only falls back
+      -- to it for .tf files that are empty or comment-only; real Terraform
+      -- files are detected as "terraform" (see vim.filetype.detect.tf).
       yaml = { "yamllint" },
       json = { "jsonlint" },
       terraform = { "tflint" },
-      tf = { "tflint" },
+      ["terraform-vars"] = { "tflint" },
 
       -- Documentation
       markdown = { "markdownlint" },
@@ -39,7 +44,6 @@ return {
       "--globals",
       "vim",
       "Snacks",
-      "ConfigMode",
       "--formatter",
       "plain",
       "--codes",

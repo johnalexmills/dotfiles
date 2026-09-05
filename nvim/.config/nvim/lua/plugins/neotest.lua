@@ -102,8 +102,16 @@ return {
                   return path
                 end
               end
-              -- Fall back to system python
-              return vim.fn.exepath "python3" or vim.fn.exepath "python" or "python"
+              -- Fall back to system python. Note exepath() returns an empty
+              -- string (which is truthy in Lua) when nothing is found, so the
+              -- fallbacks have to be tested explicitly rather than with `or`.
+              for _, exe in ipairs { "python3", "python" } do
+                local found = vim.fn.exepath(exe)
+                if found ~= "" then
+                  return found
+                end
+              end
+              return "python"
             end,
           },
         },
