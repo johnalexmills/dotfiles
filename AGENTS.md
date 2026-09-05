@@ -55,7 +55,7 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trail
 | tmux | tmux, TPM | `prefix + I` inside tmux to install plugins |
 | hyprland | Linux only. Arch: hyprland, waybar, wofi, SDDM, AUR (catppuccin themes). Config is `hyprland.lua` (Lua, 0.55+); hyprlock/hypridle/hyprpaper still use `.conf` (hyprlang). Palette in `mocha.lua` | Enables SDDM, disables GDM, enables bluetooth |
 | aerospace | macOS only | — |
-| opencode | opencode CLI | Stows `opencode.jsonc` + skills. Caveman skill tracks upstream SHA |
+| opencode | opencode CLI | Stows `opencode.jsonc`, `instructions/`, `plugins/`. Caveman instruction tracks upstream SHA |
 
 ## Quirks & gotchas
 
@@ -65,5 +65,7 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trail
 - **Nerd font**: CaskaydiaCove Nerd Font required by ghostty, nvim, waybar, etc. Installed per-module.
 - **hyprland install** is heavy (~40 packages), assumes Arch + AUR helper (paru/yay).
 - **Opencode config** lives in `opencode/.config/opencode/opencode.jsonc`. Restart opencode sessions to pick up changes.
+- **Opencode plugins** in `~/.config/opencode/plugins/` are auto-discovered; no `plugin` key needed. Verify with `opencode debug config`.
+- **Caveman is always on**, enforced twice: as an entry in `instructions[]` and re-appended last by `plugins/caveman.ts`. The plugin reads the instruction file at runtime, so edit only `instructions/caveman.md`.
 - **No test framework, no build step, no formatter** beyond pre-commit hooks.
 - **AGENTS.md is the canonical agent instructions file** — update this when adding/removing modules or changing install flow.

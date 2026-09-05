@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# Check our caveman SKILL.md against upstream JuliusBrussee/caveman.
-# Reports new upstream commits since our pinned SHA and shows content diff.
+# Check our caveman instruction against upstream JuliusBrussee/caveman.
+# Upstream ships it as a skill; we carry the same prose as an always-on
+# instruction instead. Reports new upstream commits since our pinned SHA.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../../scripts/helpers.sh
 source "$SCRIPT_DIR/../../scripts/helpers.sh"
 
-LOCAL_SKILL="$SCRIPT_DIR/../.config/opencode/skills/caveman/SKILL.md"
+LOCAL_FILE="$SCRIPT_DIR/../.config/opencode/instructions/caveman.md"
 UPSTREAM_REPO="JuliusBrussee/caveman"
 UPSTREAM_PATH="skills/caveman/SKILL.md"
 UPSTREAM_RAW="https://raw.githubusercontent.com/$UPSTREAM_REPO/main/$UPSTREAM_PATH"
@@ -16,7 +17,7 @@ UPSTREAM_API="https://api.github.com/repos/$UPSTREAM_REPO/commits?path=$UPSTREAM
 # --- Read pinned SHA from local file ---
 
 pinned_sha() {
-    grep -oE 'upstream:.*@ [0-9a-f]{40}' "$LOCAL_SKILL" \
+    grep -oE 'upstream:.*@ [0-9a-f]{40}' "$LOCAL_FILE" \
         | grep -oE '[0-9a-f]{40}$' \
         | head -1
 }
@@ -35,7 +36,7 @@ latest_sha() {
 main() {
     local pinned latest
     pinned="$(pinned_sha)"
-    [ -z "$pinned" ] && err "no pinned SHA found in $LOCAL_SKILL"
+    [ -z "$pinned" ] && err "no pinned SHA found in $LOCAL_FILE"
 
     info "pinned:  $pinned"
     latest="$(latest_sha)" || err "failed to fetch upstream SHA"
@@ -58,7 +59,7 @@ main() {
     # shellcheck disable=SC2064
     trap "rm -f '$tmp'" EXIT
     curl -fsSL "$UPSTREAM_RAW" >"$tmp"
-    diff -u "$tmp" "$LOCAL_SKILL" || true
+    diff -u "$tmp" "$LOCAL_FILE" || true
     echo "---"
     echo
     info "to sync: port relevant changes manually, then update pinned SHA to: $latest"
