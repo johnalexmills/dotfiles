@@ -53,7 +53,7 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trail
 | nvim | Neovim 0.11+, lazy.nvim, Mason | `nvim --headless "+Lazy! sync" +qa` then `+TSUpdate` |
 | fish | fish, fisher, zoxide | `fisher update` reads `fish_plugins` |
 | tmux | tmux, TPM | `prefix + I` inside tmux to install plugins |
-| hyprland | Linux only. Arch: hyprland, waybar, wofi, SDDM, AUR (catppuccin themes) | Enables SDDM, disables GDM, enables bluetooth |
+| hyprland | Linux only. Arch: hyprland, waybar, wofi, SDDM, AUR (catppuccin themes). Config is `hyprland.lua` (Lua, 0.55+); hyprlock/hypridle/hyprpaper still use `.conf` (hyprlang). Palette in `mocha.lua` | Enables SDDM, disables GDM, enables bluetooth |
 | aerospace | macOS only | — |
 | opencode | opencode CLI | Stows `opencode.jsonc` + skills. Caveman skill tracks upstream SHA |
 
