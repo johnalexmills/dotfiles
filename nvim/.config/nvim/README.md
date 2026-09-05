@@ -246,8 +246,8 @@ Press `<leader>` and wait:
 - **lazy.nvim** — fast lazy-loaded plugin management
 - **blink.cmp** — completion (LSP, snippets, path, buffer), pinned to 1.x
 - **Snacks.nvim** — picker, dashboard, terminal, notifications, indent, undo, zen, rename
-- **nvim-lint** — linting (luacheck, shellcheck, yamllint, jsonlint, markdownlint, tflint, hadolint, sqlfluff, rubocop)
-- **conform.nvim** — format-on-save (stylua, ruff format + import sort, prettier, taplo, hclfmt)
+- **nvim-lint** — linting (luacheck, shellcheck, fish, yamllint, jsonlint, markdownlint, tflint, hadolint, sqlfluff, gdlint, rubocop)
+- **conform.nvim** — format-on-save (stylua, ruff format + import sort, prettier, taplo, hclfmt, terraform_fmt, gdformat, rubocop)
 - **yazi.nvim** — file explorer
 - **harpoon** — quick file navigation
 - **Catppuccin Mocha** — colorscheme
