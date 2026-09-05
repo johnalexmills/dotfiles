@@ -1,6 +1,9 @@
+-- Mason moved from the personal "williamboman" namespace to the "mason-org"
+-- organisation with the v2 releases (mason v2.x, mason-lspconfig v2.x). The old
+-- paths still resolve through a GitHub redirect, but are no longer canonical.
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     config = function()
       require("mason").setup {
@@ -21,8 +24,8 @@ return {
     --
     -- Loaded as a dependency of nvim-lspconfig (not on its own event) so that
     -- it is always ready before any server is started.
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason-org/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup {
         -- v2 defaults this to true, which calls vim.lsp.enable() for *every*
@@ -36,7 +39,7 @@ return {
 
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    dependencies = { "williamboman/mason.nvim" },
+    dependencies = { "mason-org/mason.nvim" },
     event = "VeryLazy",
     config = function()
       require("mason-tool-installer").setup {
@@ -84,8 +87,8 @@ return {
       -- is what prepends ~/.local/share/nvim/mason/bin to PATH. Loading it
       -- on its own lazy event raced with this plugin's BufReadPre and left
       -- every Mason-installed server unresolvable on the first file opened.
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "saghen/blink.cmp",
       "rachartier/tiny-inline-diagnostic.nvim",
     },

@@ -82,8 +82,9 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   end,
 })
 
--- Note: auto-save on FocusLost was removed; snacks.session handles auto-save
--- on exit (see plugins/snacks.lua), which is the single source of truth.
+-- Note: auto-save on FocusLost was removed. Session auto-save on exit is
+-- handled by persistence.nvim, which registers its own VimLeavePre autocmd
+-- (see plugins/persistence.lua). Snacks has no session module.
 
 -- Per-filetype colorcolumn
 -- Prose/text formats get no ruler; code files get language-appropriate limits

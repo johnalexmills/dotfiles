@@ -35,10 +35,12 @@ return {
           background = true,
         },
       },
+      -- NOTE: there is no "treesitter" integration. Treesitter highlight groups
+      -- live in catppuccin/groups/treesitter.lua (a core group, always applied),
+      -- not in groups/integrations/, so setting it here was silently ignored.
       integrations = {
         blink_cmp = true,
         gitsigns = true,
-        treesitter = true,
         which_key = true,
         snacks = true,
         mason = true,
