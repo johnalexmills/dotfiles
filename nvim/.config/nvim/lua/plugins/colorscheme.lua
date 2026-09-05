@@ -6,7 +6,9 @@ return {
   config = function()
     require("catppuccin").setup {
       flavour = "mocha",
-      transparent_background = false,
+      -- Let the terminal background show through. Requires a translucent
+      -- terminal to be visible; ghostty sets background-opacity to match.
+      transparent_background = true,
       term_colors = true,
       styles = {
         comments = { "italic" },

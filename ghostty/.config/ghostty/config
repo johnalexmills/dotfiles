@@ -12,3 +12,16 @@ window-padding-y = 10
 copy-on-select = clipboard
 confirm-close-surface = false
 shell-integration-features = no-cursor
+
+# Slight transparency. Pairs with transparent_background in the Neovim
+# colourscheme (nvim/.config/nvim/lua/plugins/colorscheme.lua); changing one
+# without the other leaves Neovim painting an opaque block over the terminal.
+background-opacity = 0.95
+
+# Linux/GTK only: use the window manager's simple titlebar rather than the full
+# GTK one. Has no effect when window-decoration is none, or on macOS.
+gtk-titlebar = false
+
+# Send a literal newline instead of submitting. Lets multi-line input work in
+# REPLs and TUIs that treat plain Enter as "send".
+keybind = shift+enter=text:\n
