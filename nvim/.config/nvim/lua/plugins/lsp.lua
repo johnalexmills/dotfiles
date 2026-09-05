@@ -17,18 +17,20 @@ return {
 
   {
     -- Bridges Mason package names <-> nvim-lspconfig server names (e.g.
-    -- "lua-language-server" <-> "lua_ls"). Required for some setups but
-    -- mainly used here for ensure_installed of LSP servers.
+    -- "lua-language-server" <-> "lua_ls").
     --
-    -- NOTE: ty (Astral's Python type checker LSP) is not yet auto-recognised
-    -- by mason-lspconfig (see https://github.com/mason-org/mason-lspconfig.nvim/issues/642).
-    -- We install ty via mason-tool-installer below and enable it manually with
-    -- vim.lsp.enable('ty').
+    -- Loaded as a dependency of nvim-lspconfig (not on its own event) so that
+    -- it is always ready before any server is started.
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    event = "VeryLazy",
     config = function()
-      require("mason-lspconfig").setup {}
+      require("mason-lspconfig").setup {
+        -- v2 defaults this to true, which calls vim.lsp.enable() for *every*
+        -- server Mason has installed. That silently resurrects servers left
+        -- over from previous configs (e.g. pyright attaching to Python
+        -- alongside ty). We enable servers explicitly below instead.
+        automatic_enable = false,
+      }
     end,
   },
 
@@ -78,6 +80,12 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      -- Mason must be set up before any server is spawned: mason.setup()
+      -- is what prepends ~/.local/share/nvim/mason/bin to PATH. Loading it
+      -- on its own lazy event raced with this plugin's BufReadPre and left
+      -- every Mason-installed server unresolvable on the first file opened.
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
       "saghen/blink.cmp",
       "rachartier/tiny-inline-diagnostic.nvim",
     },
@@ -222,15 +230,13 @@ return {
         root_markers = { "ty.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
       })
 
+      -- Ruff's defaults are sensible. Note: an empty `init_options.settings`
+      -- table is rejected by the server ("invalid client settings"), so omit
+      -- init_options entirely rather than leaving a placeholder.
       vim.lsp.config("ruff", {
         capabilities = capabilities,
         filetypes = { "python" },
         root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
-        init_options = {
-          settings = {
-            -- ruff settings; defaults are sensible. Add overrides here if needed.
-          },
-        },
       })
 
       vim.lsp.config("lua_ls", {

@@ -41,8 +41,11 @@ map("v", "<", "<gv", { silent = true, desc = "Indent left and reselect" })
 map("v", ">", ">gv", { silent = true, desc = "Indent right and reselect" })
 
 -- Move blocks with indent
-map("v", "J", "<cmd>m '>+1<CR>gv=gv", { silent = true, desc = "Move block down" })
-map("v", "K", "<cmd>m '<-2<CR>gv=gv", { silent = true, desc = "Move block up" })
+-- NOTE: these must use ":" and not "<cmd>". <Cmd> does not leave visual mode,
+-- so the '< and '> marks would still hold the *previous* selection. Typing ":"
+-- in visual mode leaves it and inserts the '<,'> range, updating the marks.
+map("x", "J", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move block down" })
+map("x", "K", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move block up" })
 
 -- Better line joining
 map("n", "J", "mzJ`z", { silent = true, desc = "Join lines (keep cursor)" })

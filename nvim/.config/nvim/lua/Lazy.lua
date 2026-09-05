@@ -29,10 +29,12 @@ require("lazy").setup("plugins", {
         "tohtml",
         "tutor",
         "zipPlugin",
-        "health",
-        "man",
         "rplugin",
         "spellfile",
+        -- NOTE: do not disable "man". Snacks' man picker (<leader>sm) opens
+        -- results with :Man, and autocommands.lua binds q in man buffers.
+        -- NOTE: "health" is not a runtime plugin in Neovim 0.12 (:checkhealth
+        -- is built in), so listing it here did nothing.
       },
     },
   },

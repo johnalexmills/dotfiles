@@ -65,9 +65,11 @@ local options = {
   ttimeoutlen = 50, -- Time in ms to wait for key code sequence to complete
   updatetime = 500, -- Time in ms before swap file is written (also affects CursorHold)
 
-  -- Folding (using treesitter for syntax-aware folds)
-  foldmethod = "expr", -- Use expression for folding
-  foldexpr = "v:lua.vim.treesitter.foldexpr()", -- Treesitter-based folding
+  -- Folding
+  -- foldmethod/foldexpr are set per-buffer in plugins/treesitter.lua, but only
+  -- for filetypes that actually have a parser. Setting them globally would run
+  -- the treesitter foldexpr on every line of every parserless buffer for no
+  -- benefit.
   foldlevelstart = 99, -- Start with all folds open
   foldnestmax = 4, -- Maximum nesting of folds
 

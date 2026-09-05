@@ -36,13 +36,9 @@ return {
         end,
         desc = "Run last test",
       },
-      {
-        "<leader>nd",
-        function()
-          require("neotest").run.run { strategy = "dap" }
-        end,
-        desc = "Debug nearest test",
-      },
+      -- NOTE: a "<leader>nd" mapping using strategy = "dap" used to live here,
+      -- but nvim-dap is not installed, so it could only ever error. Re-add it
+      -- alongside a real nvim-dap + nvim-dap-python setup.
       {
         "<leader>no",
         function()
