@@ -64,6 +64,8 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trail
 - **`detect_os`** returns `linux` or `mac`. Package managers: pacman > apt > dnf > zypper.
 - **Nerd font**: CaskaydiaCove Nerd Font required by ghostty, nvim, waybar, etc. Installed per-module.
 - **hyprland install** is heavy (~40 packages), assumes Arch + AUR helper (paru/yay).
+- **Hyprland safe mode ignores this repo.** The SDDM session runs `start-hyprland`, a watchdog that relaunches with `--safe-mode` after any unclean exit. Safe mode loads a generated copy of Hyprland's upstream example config from `$XDG_RUNTIME_DIR/hypr/<instance>/recoverycfg.lua`, never `hyprland.lua`. The path is per-instance, so it cannot be pre-seeded — do not try to "fix" safe mode from this repo. Recovery and diagnosis are documented in `hyprland/README.md`.
+- **`mocha.conf` is not dead** despite `hyprland.lua` using `mocha.lua` — `hyprlock.conf:1` sources it. Both palettes must stay in sync.
 - **Opencode config** lives in `opencode/.config/opencode/opencode.jsonc`. Restart opencode sessions to pick up changes.
 - **Opencode plugins** in `~/.config/opencode/plugins/` are auto-discovered; no `plugin` key needed. Verify with `opencode debug config`.
 - **Caveman is always on**, enforced twice: as an entry in `instructions[]` and re-appended last by `plugins/caveman.ts`. The plugin reads the instruction file at runtime, so edit only `instructions/caveman.md`.

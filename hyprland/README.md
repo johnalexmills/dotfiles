@@ -59,7 +59,7 @@ A dynamic tiling Wayland compositor with Catppuccin Mocha theme.
 
 | Key | Action |
 |-----|--------|
-| `Alt-Space` | App launcher (wofi) |
+| `Super-Space` | App launcher (wofi) |
 | `Super-Return` | Terminal (ghostty) |
 | `Super-E` | File manager (thunar) |
 | `Super-G` | Steam |
@@ -133,6 +133,67 @@ mangohud <game>
 # Use gamemode for optimized performance
 gamemoderun <game>
 ```
+
+## Crash recovery (safe mode)
+
+The SDDM session runs `/usr/bin/start-hyprland`, a watchdog process. When
+Hyprland exits uncleanly the watchdog relaunches it with `--safe-mode`, and
+keeps that flag set for the rest of the login chain.
+
+Safe mode does **not** load `hyprland.lua`. It writes a throwaway copy of
+Hyprland's upstream example config to
+`$XDG_RUNTIME_DIR/hypr/<instance>/recoverycfg.lua` and loads that instead. The
+instance directory is unique per session, so this file cannot be pre-seeded or
+customised — safe mode always uses upstream defaults.
+
+| Action | Normal | Safe mode |
+|--------|--------|-----------|
+| Terminal | `Super-Return` (ghostty) | `Super-Q` (kitty — **not installed**) |
+| Launcher | `Super-Space` (wofi) | `Super-R` (hyprland-run) |
+| File manager | `Super-E` (thunar) | `Super-E` (dolphin — not installed) |
+| Close window | `Super-C` | `Super-C` |
+| Exit | `Super-M` | `Super-M` |
+
+`Super-Return` and `Super-Space` are unbound in safe mode, and `Super-Q` fails
+silently because kitty is not installed — which makes the session look frozen
+even though it is not. Waybar and the autostart list also do not run, and the
+1.5× monitor scale is not applied, so everything renders tiny at 3840x2160.
+
+### Getting out
+
+1. **Safe Mode dialog → "Load config"** — clears safe mode and reloads
+   `hyprland.lua` in place, no logout required. Fastest route.
+2. **`Super-R`** — opens the `hyprland-run` prompt; type `ghostty` for a shell.
+3. **`Super-M`** — exit to SDDM, then log in again for a normal session.
+
+`hyprctl reload` on its own does not help. The safe-mode config path stays
+cached until the compositor's internal safe-mode flag is cleared, and only the
+dialog button does that.
+
+### Common cause: GPU reset
+
+An amdgpu ring timeout resets the GPU and destroys the GL context. Hyprland
+aborts deliberately in `CHyprOpenGLImpl::begin`:
+
+```
+Aborting, glGetGraphicsResetStatus returned GL_GUILTY_CONTEXT_RESET.
+Cannot continue until proper GPU reset handling is implemented.
+```
+
+There is no config option or environment variable guarding this, so any GPU
+reset takes the compositor down with it. To confirm that is what happened:
+
+```bash
+# what hung the GPU, and when — -b -1 is the previous boot
+journalctl -k -b -1 | grep -E "ring .* timeout|Illegal opcode|GPU reset"
+
+# Hyprland's own crash report, including the EGL error and backtrace
+ls ~/.cache/hyprland/
+```
+
+A hang caused by a game is a driver or game bug, not a config problem. Capture
+`/sys/class/drm/card1/device/devcoredump/data` before rebooting if you intend to
+report it, since that file does not survive a reboot.
 
 ## Installation
 
