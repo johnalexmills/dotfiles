@@ -2,12 +2,7 @@
   "$schema": "https://opencode.ai/config.json",
 
   // Loaded into every session's system prompt, in order.
-  // caveman.md is always-on output styling; see also plugins/caveman.ts, which
-  // re-appends it in last position where it carries more weight.
-  "instructions": [
-    "~/.config/opencode/instructions/caveman.md",
-    "~/.config/opencode/instructions/general.md"
-  ]
+  "instructions": ["~/.config/opencode/instructions/general.md"]
 
   // No "skills" key: there are no custom skills, and opencode's built-ins load
   // regardless. To add one, create
@@ -16,4 +11,5 @@
 
   // No "plugin" key needed: opencode auto-discovers every .ts/.js file in
   // ~/.config/opencode/plugins/ (verified via `opencode debug config`).
+  // No plugins currently, so that directory is absent from the repo.
 }
