@@ -33,7 +33,19 @@ return {
     {
       "<C-\\>",
       function()
-        Snacks.terminal(nil, { win = { position = "float" } })
+        Snacks.terminal(nil, {
+          win = {
+            position = "float",
+            border = "rounded",
+            -- The editor bg is transparent, so snacks' backdrop (a dim overlay)
+            -- is disabled and winblend is forced to 0. Use NormalFloat's opaque
+            -- bg instead so the terminal reads as a solid block over the code.
+            wo = {
+              winhighlight =
+                "Normal:NormalFloat,NormalNC:NormalFloat,TermNormal:NormalFloat,TermNormalNC:NormalFloat,WinBar:NormalFloat,WinBarNC:NormalFloat",
+            },
+          },
+        })
       end,
       desc = "Toggle Terminal",
       mode = { "n", "t" },
