@@ -3,7 +3,7 @@
 ## Repo structure
 
 GNU stow-based dotfiles. Each top-level directory is a stow package mapping
-into `$HOME`. 9 modules: `ghostty fish starship nvim tmux yazi aerospace hyprland opencode`.
+into `$HOME`. 8 modules: `ghostty fish starship nvim herdr yazi aerospace opencode`.
 
 ```
 install.sh              — orchestrated setup (installs stow, runs modules in order)
@@ -52,8 +52,7 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trail
 |--------|----------|-------------|
 | nvim | Neovim 0.11+, lazy.nvim, Mason | `nvim --headless "+Lazy! sync" +qa` then `+TSUpdate` |
 | fish | fish, fisher, zoxide | `fisher update` reads `fish_plugins` |
-| tmux | tmux, TPM | `prefix + I` inside tmux to install plugins |
-| hyprland | Linux only. Arch: hyprland, waybar, wofi, SDDM, AUR (catppuccin themes). Config is `hyprland.lua` (Lua, 0.55+); hyprlock/hypridle/hyprpaper still use `.conf` (hyprlang). Palette in `mocha.lua` | Enables SDDM, disables GDM, enables bluetooth |
+| herdr | Herdr CLI | Stows `config.toml`; Homebrew on macOS, official installer on Linux |
 | aerospace | macOS only | — |
 | opencode | opencode CLI | Stows `opencode.jsonc` and `instructions/` |
 
@@ -62,10 +61,7 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trail
 - **`stow_module` always uses `--no-folding`** — stow creates symlinks per-file, not directory symlinks.
 - **`--replace` safety** — refuses to run if the module has uncommitted git changes.
 - **`detect_os`** returns `linux` or `mac`. Package managers: pacman > apt > dnf > zypper.
-- **Nerd font**: CaskaydiaCove Nerd Font required by ghostty, nvim, waybar, etc. Installed per-module.
-- **hyprland install** is heavy (~40 packages), assumes Arch + AUR helper (paru/yay).
-- **Hyprland safe mode ignores this repo.** The SDDM session runs `start-hyprland`, a watchdog that relaunches with `--safe-mode` after any unclean exit. Safe mode loads a generated copy of Hyprland's upstream example config from `$XDG_RUNTIME_DIR/hypr/<instance>/recoverycfg.lua`, never `hyprland.lua`. The path is per-instance, so it cannot be pre-seeded — do not try to "fix" safe mode from this repo. Recovery and diagnosis are documented in `hyprland/README.md`.
-- **`mocha.conf` is not dead** despite `hyprland.lua` using `mocha.lua` — `hyprlock.conf:1` sources it. Both palettes must stay in sync.
+- **Nerd font**: CaskaydiaCove Nerd Font required by ghostty, nvim, etc. Installed per-module.
 - **Opencode config** lives in `opencode/.config/opencode/opencode.jsonc`. Restart opencode sessions to pick up changes.
 - **Opencode plugins** in `~/.config/opencode/plugins/` are auto-discovered; no `plugin` key needed. Verify with `opencode debug config`. None exist currently, so the directory is absent from the repo — git cannot track an empty one.
 - **Session cost is context, not prose.** Measured: cache write 62.5%, cache read 29.8%, all output 7.6%; tool results are 85% of what enters context. Optimise via model choice, `compaction.prune` and `tool_output` caps — not output-style instructions.

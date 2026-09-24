@@ -3,6 +3,14 @@ set -e
 
 PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
+sed_in_place() {
+  if [ "$(uname -s)" = "Darwin" ]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 STAGED=$(git diff --cached --name-only --diff-filter=ACM || true)
 if [ -z "$STAGED" ]; then
   exit 0
@@ -27,12 +35,12 @@ fi
 
 # 3. Trailing whitespace
 echo "$STAGED" | while IFS= read -r f; do
-  sed -i 's/[[:space:]]*$//' "$f"
+  sed_in_place 's/[[:space:]]*$//' "$f"
 done
 
 # 4. Newline at end of file
 echo "$STAGED" | while IFS= read -r f; do
-  sed -i -e '$a\' "$f"
+  sed_in_place -e '$a\' "$f"
 done
 
 # 5. stylua on lua files

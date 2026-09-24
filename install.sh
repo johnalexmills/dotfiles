@@ -23,7 +23,7 @@ Options:
              refuses to run if any module has uncommitted changes.
   --dry-run  Show what would be done without making changes.
   --modules  Comma-separated list of modules to install (default: all).
-             Available: ghostty fish starship nvim tmux yazi aerospace hyprland opencode
+             Available: ghostty fish starship nvim herdr yazi aerospace opencode
 EOF
 }
 
@@ -132,10 +132,9 @@ main() {
     run_module fish
     run_module starship
     run_module nvim
-    run_module tmux
+    run_module herdr
     run_module yazi
     run_module aerospace
-    run_module hyprland
     run_module opencode
 
     echo

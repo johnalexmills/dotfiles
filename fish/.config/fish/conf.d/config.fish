@@ -41,12 +41,6 @@ alias h='history'
 # Neovim shortcut
 alias v='nvim'
 
-# Tmux shortcuts
-alias tn='tmux new -s'
-alias ta='tmux attach -t'
-alias tl='tmux ls'
-alias tk='tmux kill-session -t'
-
 # Quick venv activation/deactivation
 function venv --description "Activate nearest .venv/venv (walks up the directory tree)"
     if set -q VIRTUAL_ENV
