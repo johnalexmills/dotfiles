@@ -9,6 +9,8 @@ export STOW_ADOPT=""
 export STOW_REPLACE=""
 DRY_RUN=""
 SELECTED_MODULES=""
+# Modules whose install script exited non-zero. Populated by run_module.
+FAILED_MODULES=()
 
 usage() {
     cat <<EOF
@@ -106,7 +108,14 @@ run_module() {
         return
     fi
 
-    bash "$script"
+    # A module failing must not abort the remaining modules. Without this,
+    # `set -e` in main() would kill the whole run on the first non-zero exit,
+    # silently skipping every module queued behind it. Failures are recorded
+    # in FAILED_MODULES and reported in the summary.
+    if ! bash "$script"; then
+        warn "$name setup failed (see error above)"
+        FAILED_MODULES+=("$name")
+    fi
 }
 
 # --- Main ---
@@ -138,6 +147,17 @@ main() {
     run_module opencode
 
     echo
+    if [ ${#FAILED_MODULES[@]} -gt 0 ]; then
+        # err() exits on its first call, so the summary is emitted as a single
+        # multi-line message. A non-zero exit keeps CI honest about the partial
+        # failure even though every module was attempted.
+        err "========================================
+ ${#FAILED_MODULES[@]} module(s) failed: ${FAILED_MODULES[*]}
+ Fix the above, then re-run just those, e.g.:
+   ./install.sh --modules ${FAILED_MODULES[0]}
+========================================"
+    fi
+
     ok "========================================"
     ok " All done! Restart your terminal to"
     ok " pick up all changes."
