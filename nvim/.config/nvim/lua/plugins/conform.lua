@@ -20,9 +20,20 @@ return {
       stdin = true,
     }
 
+    -- conform's built-in shfmt formatter runs bare `shfmt -w`, which defaults
+    -- to tabs. Pass the same flags as the pre-commit hook and CI so all three
+    -- agree on 2-space.
+    conform.formatters.shfmt = {
+      command = "shfmt",
+      args = { "-w", "-i", "2", "-ci" },
+      stdin = true,
+    }
+
     conform.setup {
       formatters_by_ft = {
         lua = { "stylua" },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
         -- ruff handles both formatting and import sorting, but they are two
         -- separate conform formatters and run in order.
         python = { "ruff_organize_imports", "ruff_format" },
