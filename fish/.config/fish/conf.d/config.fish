@@ -1,4 +1,9 @@
 # ~/.config/fish/conf.d/config.fish
+
+# Tools installed by upstream installers (herdr, etc.) land in ~/.local/bin,
+# which is not on PATH by default on Arch.
+fish_add_path "$HOME/.local/bin"
+
 zoxide init fish --cmd cd | source
 starship init fish | source
 
