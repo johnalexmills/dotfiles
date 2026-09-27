@@ -27,3 +27,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --check nvim/.config/nvim
+
+  shfmt:
+    name: shfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check shell formatting
+        run: |
+          # Same flags as .githooks/pre-commit and conform.nvim. Without this
+          # gate the 2-space convention drifted for four months, because the
+          # hook only runs when shfmt happens to be on PATH.
+          shfmt -d -i 2 -ci .
