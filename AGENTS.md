@@ -44,7 +44,7 @@ On push/PR to main:
 
 ## Editorconfig (`.editorconfig`)
 
-Spaces, LF, UTF-8. Lua/toml/yaml/fish: indent 2. Makefile: tabs. Markdown: trailing spaces preserved.
+Spaces, LF, UTF-8. Lua/toml/yaml/fish/sh: indent 2. Makefile: tabs. Markdown: trailing spaces preserved.
 
 ## Module details
 
