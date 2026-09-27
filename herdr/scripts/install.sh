@@ -46,11 +46,12 @@ install_herdr() {
 
   if command_exists herdr; then
     ok "herdr installed ($(herdr_version))"
-  elif binary_installed herdr; then
-    warn "herdr installed to ~/.local/bin but that directory is not on PATH"
-    info "Add this to your shell config:"
-    info '  fish_add_path "$HOME/.local/bin"'
-    info "Then restart your shell or run: set -U fish_user_paths \$HOME/.local/bin"
+  elif bin="$(resolve_binary herdr)"; then
+    # Installed, but the shell still cannot run it. Name the directory the
+    # binary actually landed in rather than assuming ~/.local/bin.
+    warn "herdr installed to $bin, but that directory is not on PATH"
+    info "Add it to your shell config:"
+    info "  fish_add_path \"$(dirname "$bin")\""
   else
     err "herdr installation failed"
   fi
@@ -66,10 +67,6 @@ main() {
   echo
   ok "herdr setup complete!"
   info "Launch or attach with: herdr"
-  if ! command_exists herdr; then
-    info "Note: ~/.local/bin is not on your PATH yet. Open a new shell, or run:"
-    info '  set -U fish_user_paths $HOME/.local/bin'
-  fi
 }
 
 main
