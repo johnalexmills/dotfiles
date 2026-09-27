@@ -19,7 +19,10 @@ fi
 # ----- Checks that abort the commit -----
 
 # 1. Merge conflict markers
-if echo "$STAGED" | xargs grep -ln '^<<<<<<< \|^=======\|^>>>>>>> ' 2>/dev/null; then
+# Anchored to git's exact 7-character markers. An earlier version used
+# '^=======' with no end anchor, which matched any line of 7+ '=' and
+# falsely flagged decorative rules like install.sh's '=====' banners.
+if echo "$STAGED" | xargs grep -lnE '^<{7} |^={7}$|^>{7} ' 2>/dev/null; then
   echo "ERROR: Merge conflict markers found in files above. Aborting."
   exit 1
 fi
