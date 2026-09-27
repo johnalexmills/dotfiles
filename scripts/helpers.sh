@@ -68,20 +68,27 @@ ensure_user_bin_on_path() {
     export PATH="$user_bin:$PATH"
 }
 
-# Report whether a binary is usable, checking well-known install locations that
-# may not be on PATH yet. Unlike command_exists, this is a last resort: it will
-# report a binary as present even if the user's shell cannot find it, so pair it
-# with ensure_user_bin_on_path rather than relying on it alone.
+# Resolve a binary to an executable path, searching well-known install
+# locations that may not be on PATH yet. Prints the path and returns 0 when
+# found, or returns 1.
 #
-# Usage: binary_installed <name>
-binary_installed() {
+# Unlike command_exists, this can report a binary the user's shell cannot run,
+# so the path it prints may still need adding to PATH. Print the directory to
+# the user rather than assuming ~/.local/bin.
+#
+# Usage: bin="$(resolve_binary <name>)"
+resolve_binary() {
     local name="$1"
     local candidate
 
-    command_exists "$name" && return 0
+    if command_exists "$name"; then
+        command -v "$name"
+        return 0
+    fi
 
     for candidate in "$HOME/.local/bin/$name" "$HOME/bin/$name"; do
         if [ -x "$candidate" ]; then
+            printf '%s\n' "$candidate"
             return 0
         fi
     done
