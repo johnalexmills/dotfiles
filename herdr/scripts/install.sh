@@ -7,9 +7,26 @@ source "$SCRIPT_DIR/../../scripts/helpers.sh"
 
 DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
 
-install_herdr() {
+herdr_version() {
+  local bin
   if command_exists herdr; then
-    ok "herdr is already installed ($(herdr --version 2>/dev/null | head -1))"
+    bin="herdr"
+  elif [ -x "$HOME/.local/bin/herdr" ]; then
+    bin="$HOME/.local/bin/herdr"
+  else
+    return 1
+  fi
+  "$bin" --version 2>/dev/null | head -1
+}
+
+install_herdr() {
+  # The upstream installer drops the binary in ~/.local/bin, which is not on
+  # PATH by default on Arch. Reconcile PATH first so the checks below reflect
+  # reality instead of reporting a successful install as a failure.
+  ensure_user_bin_on_path
+
+  if command_exists herdr; then
+    ok "herdr is already installed ($(herdr_version))"
     return
   fi
 
@@ -24,10 +41,18 @@ install_herdr() {
     curl -fsSL https://herdr.dev/install.sh | sh
   fi
 
+  # Re-check PATH: the installer may have just created ~/.local/bin.
+  ensure_user_bin_on_path
+
   if command_exists herdr; then
-    ok "herdr installed ($(herdr --version 2>/dev/null | head -1))"
+    ok "herdr installed ($(herdr_version))"
+  elif binary_installed herdr; then
+    warn "herdr installed to ~/.local/bin but that directory is not on PATH"
+    info "Add this to your shell config:"
+    info '  fish_add_path "$HOME/.local/bin"'
+    info "Then restart your shell or run: set -U fish_user_paths \$HOME/.local/bin"
   else
-    err "herdr installation failed or its install directory is not on PATH"
+    err "herdr installation failed"
   fi
 }
 
@@ -41,6 +66,10 @@ main() {
   echo
   ok "herdr setup complete!"
   info "Launch or attach with: herdr"
+  if ! command_exists herdr; then
+    info "Note: ~/.local/bin is not on your PATH yet. Open a new shell, or run:"
+    info '  set -U fish_user_paths $HOME/.local/bin'
+  fi
 }
 
 main
