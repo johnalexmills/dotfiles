@@ -13,7 +13,7 @@ SELECTED_MODULES=""
 FAILED_MODULES=()
 
 usage() {
-    cat <<EOF
+  cat <<EOF
 Usage: $(basename "$0") [--adopt | --replace] [--dry-run] [--modules m1,m2,...]
 
 Options:
@@ -32,136 +32,136 @@ EOF
 # --- Parse arguments ---
 
 parse_args() {
-    while [ $# -gt 0 ]; do
-        case "$1" in
-            --adopt)
-                if [ -n "$STOW_REPLACE" ]; then
-                    err "--adopt and --replace are mutually exclusive"
-                fi
-                STOW_ADOPT="--adopt"
-                warn "Running with --adopt: existing files will be pulled into the repo"
-                ;;
-            --replace)
-                if [ -n "$STOW_ADOPT" ]; then
-                    err "--adopt and --replace are mutually exclusive"
-                fi
-                STOW_REPLACE="1"
-                warn "Running with --replace: existing config files will be deleted and replaced"
-                ;;
-            --dry-run)
-                DRY_RUN="1"
-                info "Dry run: no changes will be made"
-                ;;
-            --modules)
-                shift
-                if [ $# -eq 0 ] || [[ "$1" == --* ]]; then
-                    err "--modules requires a comma-separated list of module names"
-                fi
-                SELECTED_MODULES="$1"
-                ;;
-            -h|--help)
-                usage
-                exit 0
-                ;;
-            *)
-                err "Unknown option: $1 (see --help)"
-                ;;
-        esac
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --adopt)
+        if [ -n "$STOW_REPLACE" ]; then
+          err "--adopt and --replace are mutually exclusive"
+        fi
+        STOW_ADOPT="--adopt"
+        warn "Running with --adopt: existing files will be pulled into the repo"
+        ;;
+      --replace)
+        if [ -n "$STOW_ADOPT" ]; then
+          err "--adopt and --replace are mutually exclusive"
+        fi
+        STOW_REPLACE="1"
+        warn "Running with --replace: existing config files will be deleted and replaced"
+        ;;
+      --dry-run)
+        DRY_RUN="1"
+        info "Dry run: no changes will be made"
+        ;;
+      --modules)
         shift
-    done
+        if [ $# -eq 0 ] || [[ "$1" == --* ]]; then
+          err "--modules requires a comma-separated list of module names"
+        fi
+        SELECTED_MODULES="$1"
+        ;;
+      -h | --help)
+        usage
+        exit 0
+        ;;
+      *)
+        err "Unknown option: $1 (see --help)"
+        ;;
+    esac
+    shift
+  done
 }
 
 # --- Run a module's install script ---
 
 run_module() {
-    local name="$1"
-    local script="$SCRIPT_DIR/$name/scripts/install.sh"
+  local name="$1"
+  local script="$SCRIPT_DIR/$name/scripts/install.sh"
 
-    if [ ! -f "$script" ]; then
-        warn "No install script found for $name, skipping"
-        return
+  if [ ! -f "$script" ]; then
+    warn "No install script found for $name, skipping"
+    return
+  fi
+
+  # If --modules was specified, skip modules not in the list
+  if [ -n "$SELECTED_MODULES" ]; then
+    local IFS=','
+    local found=0
+    for mod in $SELECTED_MODULES; do
+      if [ "$mod" = "$name" ]; then
+        found=1
+        break
+      fi
+    done
+    if [ "$found" -eq 0 ]; then
+      return
     fi
+  fi
 
-    # If --modules was specified, skip modules not in the list
-    if [ -n "$SELECTED_MODULES" ]; then
-        local IFS=','
-        local found=0
-        for mod in $SELECTED_MODULES; do
-            if [ "$mod" = "$name" ]; then
-                found=1
-                break
-            fi
-        done
-        if [ "$found" -eq 0 ]; then
-            return
-        fi
-    fi
+  echo
+  info "========================================"
+  info " Setting up $name"
+  info "========================================"
+  echo
 
-    echo
-    info "========================================"
-    info " Setting up $name"
-    info "========================================"
-    echo
+  if [ "$DRY_RUN" = "1" ]; then
+    info "[dry-run] Would run: $script"
+    return
+  fi
 
-    if [ "$DRY_RUN" = "1" ]; then
-        info "[dry-run] Would run: $script"
-        return
-    fi
-
-    # A module failing must not abort the remaining modules. Without this,
-    # `set -e` in main() would kill the whole run on the first non-zero exit,
-    # silently skipping every module queued behind it. Failures are recorded
-    # in FAILED_MODULES and reported in the summary.
-    if ! bash "$script"; then
-        warn "$name setup failed (see error above)"
-        FAILED_MODULES+=("$name")
-    fi
+  # A module failing must not abort the remaining modules. Without this,
+  # `set -e` in main() would kill the whole run on the first non-zero exit,
+  # silently skipping every module queued behind it. Failures are recorded
+  # in FAILED_MODULES and reported in the summary.
+  if ! bash "$script"; then
+    warn "$name setup failed (see error above)"
+    FAILED_MODULES+=("$name")
+  fi
 }
 
 # --- Main ---
 
 main() {
-    parse_args "$@"
+  parse_args "$@"
 
-    info "========================================"
-    info " dotfiles — full system setup"
-    info "========================================"
+  info "========================================"
+  info " dotfiles — full system setup"
+  info "========================================"
 
-    if [ "$DRY_RUN" != "1" ]; then
-        # Install stow once up-front so module scripts can assume it's present.
-        install_stow
+  if [ "$DRY_RUN" != "1" ]; then
+    # Install stow once up-front so module scripts can assume it's present.
+    install_stow
 
-        # Enable pre-commit hooks
-        info "Configuring git hooks..."
-        git config core.hooksPath .githooks
-        ok "Git hooks configured (.githooks/pre-commit)"
-    fi
+    # Enable pre-commit hooks
+    info "Configuring git hooks..."
+    git config core.hooksPath .githooks
+    ok "Git hooks configured (.githooks/pre-commit)"
+  fi
 
-    run_module ghostty
-    run_module fish
-    run_module starship
-    run_module nvim
-    run_module herdr
-    run_module yazi
-    run_module aerospace
-    run_module opencode
+  run_module ghostty
+  run_module fish
+  run_module starship
+  run_module nvim
+  run_module herdr
+  run_module yazi
+  run_module aerospace
+  run_module opencode
 
-    echo
-    if [ ${#FAILED_MODULES[@]} -gt 0 ]; then
-        # err() exits on its first call, so the summary is emitted as a single
-        # multi-line message. A non-zero exit keeps CI honest about the partial
-        # failure even though every module was attempted.
-        err "========================================
+  echo
+  if [ ${#FAILED_MODULES[@]} -gt 0 ]; then
+    # err() exits on its first call, so the summary is emitted as a single
+    # multi-line message. A non-zero exit keeps CI honest about the partial
+    # failure even though every module was attempted.
+    err "========================================
  ${#FAILED_MODULES[@]} module(s) failed: ${FAILED_MODULES[*]}
  Fix the above, then re-run just those, e.g.:
    ./install.sh --modules ${FAILED_MODULES[0]}
 ========================================"
-    fi
+  fi
 
-    ok "========================================"
-    ok " All done! Restart your terminal to"
-    ok " pick up all changes."
-    ok "========================================"
+  ok "========================================"
+  ok " All done! Restart your terminal to"
+  ok " pick up all changes."
+  ok "========================================"
 }
 
 main "$@"

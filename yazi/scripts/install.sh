@@ -10,38 +10,38 @@ DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
 # --- Install yazi ---
 
 install_yazi() {
-    if command_exists yazi; then
-        ok "yazi is already installed ($(yazi --version | head -1))"
-        return
-    fi
+  if command_exists yazi; then
+    ok "yazi is already installed ($(yazi --version | head -1))"
+    return
+  fi
 
-    info "Installing yazi..."
-    if [ "$(detect_os)" = "mac" ]; then
-        ensure_brew
-        brew install yazi
-    else
-        case "$(detect_linux_pkg_manager)" in
-            pacman|dnf|zypper) pkg_install yazi ;;
-            apt)
-                warn "yazi is not in the standard apt repos. Installing via cargo..."
-                warn "Note: yazi has optional runtime deps for full functionality:"
-                warn "  file, ffmpegthumbnailer, unar, jq, poppler-utils, fd-find,"
-                warn "  ripgrep, fzf, zoxide, imagemagick"
-                warn "Install them with: sudo apt-get install -y <deps>"
-                if command_exists cargo; then
-                    cargo install --locked yazi-fm yazi-cli
-                else
-                    err "yazi requires cargo on Debian/Ubuntu. Install Rust from https://rustup.rs"
-                fi
-                ;;
-        esac
-    fi
+  info "Installing yazi..."
+  if [ "$(detect_os)" = "mac" ]; then
+    ensure_brew
+    brew install yazi
+  else
+    case "$(detect_linux_pkg_manager)" in
+      pacman | dnf | zypper) pkg_install yazi ;;
+      apt)
+        warn "yazi is not in the standard apt repos. Installing via cargo..."
+        warn "Note: yazi has optional runtime deps for full functionality:"
+        warn "  file, ffmpegthumbnailer, unar, jq, poppler-utils, fd-find,"
+        warn "  ripgrep, fzf, zoxide, imagemagick"
+        warn "Install them with: sudo apt-get install -y <deps>"
+        if command_exists cargo; then
+          cargo install --locked yazi-fm yazi-cli
+        else
+          err "yazi requires cargo on Debian/Ubuntu. Install Rust from https://rustup.rs"
+        fi
+        ;;
+    esac
+  fi
 
-    if command_exists yazi; then
-        ok "yazi installed ($(yazi --version | head -1))"
-    else
-        err "yazi installation failed"
-    fi
+  if command_exists yazi; then
+    ok "yazi installed ($(yazi --version | head -1))"
+  else
+    err "yazi installation failed"
+  fi
 }
 
 # --- Install yazi catppuccin-mocha flavor ---
@@ -55,50 +55,50 @@ install_yazi() {
 # rest of the dotfiles install.
 
 install_yazi_flavor() {
-    local pkg="yazi-rs/flavors:catppuccin-mocha"
-    local pkg_toml="$HOME/.config/yazi/package.toml"
-    local flavor_dir="$HOME/.config/yazi/flavors/catppuccin-mocha.yazi"
+  local pkg="yazi-rs/flavors:catppuccin-mocha"
+  local pkg_toml="$HOME/.config/yazi/package.toml"
+  local flavor_dir="$HOME/.config/yazi/flavors/catppuccin-mocha.yazi"
 
-    if ! command_exists ya; then
-        warn "ya (yazi package manager) not found, skipping flavor install"
-        info "After yazi is fully installed, run: ya pkg install || ya pkg add $pkg"
-        return 0
-    fi
+  if ! command_exists ya; then
+    warn "ya (yazi package manager) not found, skipping flavor install"
+    info "After yazi is fully installed, run: ya pkg install || ya pkg add $pkg"
+    return 0
+  fi
 
-    if [ -d "$flavor_dir" ]; then
-        ok "catppuccin-mocha flavor already materialised"
-        return 0
-    fi
+  if [ -d "$flavor_dir" ]; then
+    ok "catppuccin-mocha flavor already materialised"
+    return 0
+  fi
 
-    if [ -f "$pkg_toml" ] && grep -q "$pkg" "$pkg_toml" 2>/dev/null; then
-        info "Materialising yazi flavors declared in package.toml..."
-        ya pkg install || warn "ya pkg install failed (non-fatal)"
-    else
-        info "Adding + installing catppuccin-mocha yazi flavor..."
-        ya pkg add "$pkg" || warn "ya pkg add failed (non-fatal)"
-    fi
+  if [ -f "$pkg_toml" ] && grep -q "$pkg" "$pkg_toml" 2>/dev/null; then
+    info "Materialising yazi flavors declared in package.toml..."
+    ya pkg install || warn "ya pkg install failed (non-fatal)"
+  else
+    info "Adding + installing catppuccin-mocha yazi flavor..."
+    ya pkg add "$pkg" || warn "ya pkg add failed (non-fatal)"
+  fi
 
-    if [ -d "$flavor_dir" ]; then
-        ok "catppuccin-mocha flavor installed"
-    else
-        warn "catppuccin-mocha flavor not present after install attempt"
-        info "Try manually: ya pkg install"
-    fi
+  if [ -d "$flavor_dir" ]; then
+    ok "catppuccin-mocha flavor installed"
+  else
+    warn "catppuccin-mocha flavor not present after install attempt"
+    info "Try manually: ya pkg install"
+  fi
 }
 
 # --- Main ---
 
 main() {
-    info "Setting up yazi..."
-    echo
+  info "Setting up yazi..."
+  echo
 
-    install_yazi
-    stow_module "yazi" "$DOTFILES_DIR"
-    install_yazi_flavor
+  install_yazi
+  stow_module "yazi" "$DOTFILES_DIR"
+  install_yazi_flavor
 
-    echo
-    ok "yazi setup complete!"
-    info "Launch with: yazi"
+  echo
+  ok "yazi setup complete!"
+  info "Launch with: yazi"
 }
 
 main
