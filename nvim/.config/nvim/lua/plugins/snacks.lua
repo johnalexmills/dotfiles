@@ -41,8 +41,7 @@ return {
             -- is disabled and winblend is forced to 0. Use NormalFloat's opaque
             -- bg instead so the terminal reads as a solid block over the code.
             wo = {
-              winhighlight =
-                "Normal:NormalFloat,NormalNC:NormalFloat,TermNormal:NormalFloat,TermNormalNC:NormalFloat,WinBar:NormalFloat,WinBarNC:NormalFloat",
+              winhighlight = "Normal:NormalFloat,NormalNC:NormalFloat,TermNormal:NormalFloat,TermNormalNC:NormalFloat,WinBar:NormalFloat,WinBarNC:NormalFloat",
             },
           },
         })
