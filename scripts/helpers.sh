@@ -47,6 +47,48 @@ dotfiles_root_from_module() {
 
 # --- Common installs ---
 
+# Many upstream installers drop binaries in ~/.local/bin without touching the
+# user's shell config. That directory is not on PATH by default on Arch, so
+# `command -v <tool>` fails even though the install succeeded.
+#
+# Prepends ~/.local/bin to PATH for the current script if it exists and is not
+# already present. Affects only the running process, so it makes verification
+# work without masking a genuinely missing binary.
+#
+# Usage: ensure_user_bin_on_path
+ensure_user_bin_on_path() {
+    local user_bin="$HOME/.local/bin"
+
+    [ -d "$user_bin" ] || return 0
+
+    case ":$PATH:" in
+    *":$user_bin:"*) return 0 ;;
+    esac
+
+    export PATH="$user_bin:$PATH"
+}
+
+# Report whether a binary is usable, checking well-known install locations that
+# may not be on PATH yet. Unlike command_exists, this is a last resort: it will
+# report a binary as present even if the user's shell cannot find it, so pair it
+# with ensure_user_bin_on_path rather than relying on it alone.
+#
+# Usage: binary_installed <name>
+binary_installed() {
+    local name="$1"
+    local candidate
+
+    command_exists "$name" && return 0
+
+    for candidate in "$HOME/.local/bin/$name" "$HOME/bin/$name"; do
+        if [ -x "$candidate" ]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
 install_stow() {
     if command_exists stow; then
         ok "stow is already installed"
