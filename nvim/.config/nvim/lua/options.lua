@@ -13,6 +13,8 @@ local options = {
 
   -- Project-Specific Configuration
   exrc = true, -- Enable reading .nvimrc/.exrc in project directories
+  -- SECURITY: exrc=true executes arbitrary Lua/Vimscript from .nvimrc files
+  -- in the current directory. Only use in trusted projects.
 
   -- Line Numbers
   number = true, -- Show absolute line numbers
@@ -45,6 +47,7 @@ local options = {
 
   -- Colors and Display
   conceallevel = 0, -- Don't hide any characters (e.g., `` in markdown)
+  -- Note: conceallevel=2 is set for markdown files via autocommands (better with render-markdown)
   cursorline = true, -- Highlight the current line
   cursorlineopt = "number", -- Only highlight the line number, not the whole line
   -- colorcolumn managed per-filetype via autocommands.lua
@@ -119,7 +122,7 @@ local options = {
   },
 
   -- Session Management
-  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions", -- What to save in sessions
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos", -- What to save in sessions
 }
 
 -- Apply all options from the table above

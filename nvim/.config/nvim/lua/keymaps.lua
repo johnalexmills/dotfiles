@@ -26,6 +26,9 @@ map("n", "<S-Tab>", "<cmd>bprevious<CR>", { silent = true, desc = "Previous buff
 
 -- Buffer management
 map("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { silent = true, desc = "Close others" })
+map("n", "<leader>bd", function()
+  require("snacks").bufdelete()
+end, { silent = true, desc = "Close buffer" })
 
 -- Resize with Alt+hjkl
 map("n", "<A-h>", "<cmd>vertical resize -2<CR>", { silent = true, desc = "Shrink window width" })

@@ -99,11 +99,11 @@ Harpoon lets you pin up to 5 files and jump between them instantly with no typin
 |---|---|
 | `<leader>ha` | Add current file to Harpoon list |
 | `<leader>hh` | Open Harpoon quick menu |
-| `<M-n>` | Jump to Harpoon file 1 |
-| `<M-e>` | Jump to Harpoon file 2 |
-| `<M-i>` | Jump to Harpoon file 3 |
-| `<M-o>` | Jump to Harpoon file 4 |
-| `<M-'>` | Jump to Harpoon file 5 |
+| `<C-n>` | Jump to Harpoon file 1 |
+| `<C-e>` | Jump to Harpoon file 2 |
+| `<C-i>` | Jump to Harpoon file 3 |
+| `<C-o>` | Jump to Harpoon file 4 |
+| `<C-'>` | Jump to Harpoon file 5 |
 
 **Workflow:** Open the quick menu (`<leader>hh`) to see and reorder your pinned files. Edit the list like a normal buffer — delete lines to remove pins, reorder with `dd`/`p`.
 
@@ -129,8 +129,7 @@ The undo picker shows a visual, searchable tree of every state your buffer has b
 | `<leader>gi` | Inline diff this file (gitsigns) |
 | `<leader>gb` | Toggle inline git blame |
 | `<leader>gp` | Preview hunk |
-| `<leader>gS` | Stage hunk |
-| `<leader>gu` | Undo stage hunk |
+| `<leader>gS` | Stage / unstage hunk (toggle) |
 | `<leader>gr` | Reset hunk |
 | `]c` / `[c` | Next / prev git hunk |
 | `<leader>gf` | Git files (picker) |
@@ -230,6 +229,7 @@ Save the RESULT buffer and close Diffview when done.
 | Key | Action |
 |---|---|
 | `<leader>c` | Close current buffer |
+| `<leader>bd` | Close current buffer (Snacks) |
 | `<leader>bo` | Close all other buffers |
 | `<leader>Sr` | Restore session |
 | `<leader>Ss` | Save session |
