@@ -42,41 +42,52 @@ return {
     dependencies = { "mason-org/mason.nvim" },
     event = "VeryLazy",
     config = function()
-      require("mason-tool-installer").setup {
-        ensure_installed = {
-          -- LSP servers
-          "lua-language-server",
-          "bash-language-server",
-          "terraform-ls",
-          "yaml-language-server",
-          "ty", -- Python type checker LSP (Astral)
-          "ruff", -- Python linter/formatter LSP (Astral)
+      local tools = {
+        -- LSP servers
+        "lua-language-server",
+        "bash-language-server",
+        "terraform-ls",
+        "yaml-language-server",
+        "ty", -- Python type checker LSP (Astral)
+        "ruff", -- Python linter/formatter LSP (Astral)
 
-          -- Formatters (non-LSP)
-          "stylua", -- lua
-          "prettier", -- json, yaml, markdown
-          "taplo", -- toml
-          "hclfmt", -- hcl (terragrunt)
+        -- Formatters (non-LSP)
+        "stylua", -- lua
+        "prettier", -- json, yaml, markdown
+        "taplo", -- toml
+        "hclfmt", -- hcl (terragrunt)
+        "shfmt", -- bash/sh
 
-          -- Linters (non-LSP)
-          "luacheck", -- lua
-          "shellcheck", -- bash/sh
-          "yamllint", -- yaml
-          "jsonlint", -- json
-          "markdownlint", -- markdown
-          "tflint", -- terraform
+        -- Linters (non-LSP)
+        "luacheck", -- lua
+        "shellcheck", -- bash/sh
+        "yamllint", -- yaml
+        "jsonlint", -- json
+        "markdownlint", -- markdown
+        "tflint", -- terraform
 
-          -- Multi-purpose (linter + formatter)
-          "gdtoolkit", -- gdscript (gdlint + gdformat)
-          "rubocop", -- ruby (referenced by both conform and nvim-lint)
+        -- Multi-purpose (linter + formatter)
+        "gdtoolkit", -- gdscript (gdlint + gdformat)
+        -- rubocop (ruby; used by conform and nvim-lint) is a gem, so Mason
+        -- can only install it when Ruby is present. Added conditionally below.
 
-          -- Additional tools
-          "hadolint", -- dockerfile
-          "sqlfluff", -- sql
-        },
-        auto_update = false,
-        run_on_start = false,
+        -- Additional tools
+        "hadolint", -- dockerfile
+        "sqlfluff", -- sql
       }
+      if vim.fn.executable "gem" == 1 then
+        table.insert(tools, "rubocop")
+      end
+
+      require("mason-tool-installer").setup {
+        ensure_installed = tools,
+        auto_update = false,
+        run_on_start = true,
+      }
+      -- The plugin's own run_on_start hook fires on VimEnter, which has already
+      -- passed by the time VeryLazy loads it, so trigger the missing-tool check
+      -- here. Without this, ensure_installed never ran on a fresh machine.
+      require("mason-tool-installer").run_on_start()
     end,
   },
 
@@ -284,7 +295,9 @@ return {
 
       vim.lsp.config("yamlls", {
         capabilities = capabilities,
-        filetypes = { "yaml", "yaml.docker-compose" },
+        -- Neovim has no "yaml.docker-compose" filetype (compose files are
+        -- plain "yaml"), so listing it only produced a checkhealth warning.
+        filetypes = { "yaml" },
         root_markers = { ".git" },
         settings = {
           yaml = {

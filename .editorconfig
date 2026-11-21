@@ -11,6 +11,17 @@ indent_size = 4
 [*.{lua,toml,yaml,yml,fish,sh}]
 indent_size = 2
 
+# Shell style read by shfmt (and so by conform.nvim's built-in shfmt
+# formatter). Must match the `-i 2 -ci` flags in CI and the pre-commit hook.
+# Kept as two sections: a "/" anywhere in a glob anchors the whole pattern to
+# the repo root, so {*.sh,.githooks/*} would miss scripts in subdirectories.
+[*.sh]
+switch_case_indent = true
+
+[.githooks/*]
+indent_size = 2
+switch_case_indent = true
+
 [Makefile]
 indent_style = tab
 

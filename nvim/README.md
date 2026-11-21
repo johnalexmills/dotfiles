@@ -56,6 +56,20 @@ cd ~/dotfiles && stow -t ~ nvim
 nvim --headless "+Lazy! sync" +qa
 ```
 
+## Keeping plugins up to date
+
+Plugins track their latest commit (no version pins, except blink.cmp, which is
+held to `1.*` because its unreleased 2.0 branch is breaking). lazy.nvim checks
+for updates in the background and shows the pending count in the statusline.
+
+1. When the statusline shows updates, run `:Lazy update`. Commits marked
+   breaking (`!`) are highlighted in the log; read those before moving on.
+2. Run `:checkhealth` and skim for new warnings, deprecations included.
+3. Commit `lazy-lock.json` — it is a record, not a pin, so a bad update can be
+   undone with `:Lazy restore` (restores the committed lock) and then fixed.
+
+`:MasonToolsUpdate` updates the LSP servers / formatters / linters the same way.
+
 ---
 
 ## Key Mappings

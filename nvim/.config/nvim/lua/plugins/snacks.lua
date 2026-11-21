@@ -31,7 +31,10 @@ local picker_exclude = {
 
 return {
   "folke/snacks.nvim",
-  event = "VeryLazy",
+  -- Snacks must load at startup: quickfile, statuscolumn, notifier and input
+  -- hook in before the first buffer is shown (see :checkhealth snacks).
+  lazy = false,
+  priority = 1000,
   keys = {
     {
       "<C-\\>",

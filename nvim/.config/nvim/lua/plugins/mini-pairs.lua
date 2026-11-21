@@ -1,18 +1,9 @@
+-- The mini.* repos moved from echasnovski/ to the nvim-mini/ organisation.
 return {
-  "echasnovski/mini.pairs",
+  "nvim-mini/mini.pairs",
   event = "InsertEnter",
-  opts = {
-    -- Pairs to auto-close. Each entry: open char -> { close, action, pair, neigh_pattern }
-    mappings = {
-      ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\]." },
-      ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\]." },
-      ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\]." },
-      [")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
-      ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
-      ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
-      ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^\\].", register = { cr = false } },
-      ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^%a\\].", register = { cr = false } },
-      ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\].", register = { cr = false } },
-    },
-  },
+  -- Defaults: (), [], {}, "", '', `` in insert mode, not after a backslash,
+  -- and ' not after a letter. The old explicit `mappings` table restated
+  -- these in a pattern format upstream has since replaced.
+  opts = {},
 }

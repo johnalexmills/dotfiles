@@ -17,6 +17,9 @@ require("lazy").setup("plugins", {
   defaults = { lazy = true },
   ui = { border = "rounded" },
   change_detection = { enabled = true, notify = false },
+  -- Fetch in the background (hourly) to count pending updates; nothing is
+  -- installed until :Lazy update. The count shows in lualine.
+  checker = { enabled = true, notify = false },
   debug = false,
   performance = {
     rtp = {

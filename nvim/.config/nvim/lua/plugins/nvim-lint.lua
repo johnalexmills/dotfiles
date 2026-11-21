@@ -51,24 +51,10 @@ return {
       "-",
     }
 
-    -- Bash: Configure shellcheck
-    lint.linters.shellcheck.args = {
-      "--format",
-      "json",
-      "--external-sources",
-      "--stdin-filename",
-      function()
-        return vim.api.nvim_buf_get_name(0)
-      end,
-      "-",
-    }
-
-    -- YAML: Configure yamllint
-    lint.linters.yamllint.args = {
-      "--format",
-      "parsable",
-      "-",
-    }
+    -- shellcheck: extend upstream's args rather than replacing them. A full
+    -- override pinned `--format json` after nvim-lint switched its parser to
+    -- json1 (May 2025), which silently produced zero diagnostics.
+    table.insert(lint.linters.shellcheck.args, 1, "--external-sources")
 
     -- Auto-lint on specific events
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

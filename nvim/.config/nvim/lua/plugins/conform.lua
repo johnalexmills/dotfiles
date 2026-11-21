@@ -20,14 +20,11 @@ return {
       stdin = true,
     }
 
-    -- conform's built-in shfmt formatter runs bare `shfmt -w`, which defaults
-    -- to tabs. Pass the same flags as the pre-commit hook and CI so all three
-    -- agree on 2-space.
-    conform.formatters.shfmt = {
-      command = "shfmt",
-      args = { "-w", "-i", "2", "-ci" },
-      stdin = true,
-    }
+    -- shfmt uses conform's built-in definition: it passes no style flags when
+    -- an .editorconfig exists, so shfmt reads indent/switch_case_indent from
+    -- there (the dotfiles repo's matches CI and the pre-commit hook), and
+    -- falls back to the buffer's shiftwidth otherwise. A previous override
+    -- passed `-w` while reading stdin, which shfmt rejects outright.
 
     conform.setup {
       formatters_by_ft = {

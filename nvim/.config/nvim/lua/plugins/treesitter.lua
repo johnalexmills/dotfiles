@@ -49,7 +49,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
   build = ":TSUpdate",
-  event = { "BufReadPre", "BufNewFile" },
+  lazy = false, -- the main branch does not support lazy-loading (see README)
   config = function()
     require("nvim-treesitter").install(parsers)
 

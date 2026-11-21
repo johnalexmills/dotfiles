@@ -62,6 +62,10 @@ return {
         lualine_b = { "branch" },
         lualine_c = { filename },
         lualine_x = {
+          {
+            require("lazy.status").updates,
+            cond = require("lazy.status").has_updates,
+          },
           lsp_info,
           diagnostics,
           diff,
