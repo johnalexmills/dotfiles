@@ -11,7 +11,7 @@ return {
   keys = {
     -- next_hunk / prev_hunk are deprecated in favour of nav_hunk(direction).
     -- ]c and [c are also Neovim's built-in diff-mode motions, so fall back to
-    -- those when the window is in diff mode (:diffsplit, diffview, ...).
+    -- those when the window is in diff mode (:diffsplit, :Gitsigns diffthis).
     {
       "]c",
       function()
@@ -40,6 +40,10 @@ return {
     -- stage_hunk now toggles (acts as both stage and unstage); undo_stage_hunk removed in v1.0
     { "<leader>gS", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage / unstage hunk (toggle)" },
     { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset hunk" },
-    { "<leader>gi", "<cmd>Gitsigns diffthis<cr>", desc = "Diff this (inline)" },
+    { "<leader>gi", "<cmd>Gitsigns diffthis<cr>", desc = "Diff this (3-way on conflicts)" },
+    -- File tree + side-by-side diffs of the working tree (replaces diffview).
+    -- In the panel: s / u stage / unstage, ]f / [f next / prev file, g? help,
+    -- q close. Takes ranges too, e.g. :Gitsigns diff main...HEAD
+    { "<leader>gd", "<cmd>Gitsigns diff<cr>", desc = "Diff panel (working tree)" },
   },
 }

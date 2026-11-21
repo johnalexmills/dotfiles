@@ -225,6 +225,21 @@ return {
       end,
       desc = "Git Status",
     },
+    -- History keys kept from diffview; same pickers as <leader>gC / <leader>gc.
+    {
+      "<leader>gh",
+      function()
+        Snacks.picker.git_log_file()
+      end,
+      desc = "File History",
+    },
+    {
+      "<leader>gH",
+      function()
+        Snacks.picker.git_log()
+      end,
+      desc = "Repo History",
+    },
 
     -- Diff current buffer with a file
     {

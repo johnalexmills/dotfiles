@@ -97,10 +97,9 @@ Modern Neovim config with LSP, Snacks picker, blink.cmp, Catppuccin.
 | `<leader>gr` | Reset hunk                      |
 | `<leader>gi` | Diff this (inline)              |
 | `]c` / `[c`  | Next/prev git hunk (diff-aware) |
-| `<leader>gd` | Diffview open (working tree)    |
+| `<leader>gd` | Diff panel (`:Gitsigns diff`)   |
 | `<leader>gh` | File history                    |
 | `<leader>gH` | Repo history                    |
-| `<leader>gx` | Close diff view                 |
 | `<leader>gf` | Git files                       |
 | `<leader>gB` | Git branches                    |
 | `<leader>gc` | Git commits                     |

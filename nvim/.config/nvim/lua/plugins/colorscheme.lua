@@ -53,7 +53,6 @@ return {
         neotest = true,
         lsp_trouble = true,
         render_markdown = true,
-        diffview = true, -- defaults to false upstream
         notifier = true, -- snacks.notifier
         dashboard = true,
         -- NOTE: native_lsp and semantic_tokens are NOT integrations either;

@@ -15,7 +15,6 @@ A modern Neovim config built on Neovim 0.11+ features: native LSP config (`vim.l
 | `nvim-lint` | Linting |
 | `snacks.nvim` | Picker, dashboard, terminal, indent guides, notifications, undo history |
 | `gitsigns.nvim` | Git signs and hunk operations |
-| `diffview.nvim` | Side-by-side diffs and merge conflict resolution |
 | `harpoon` (v2) | File bookmarks |
 | `neotest` + `neotest-python` | Test runner |
 | `bufferline.nvim` | Buffer tabs |
@@ -140,11 +139,10 @@ The undo picker shows a visual, searchable tree of every state your buffer has b
 | Key | Action |
 |---|---|
 | `<leader>gg` | Open LazyGit |
-| `<leader>gd` | Open Diffview (working tree) |
-| `<leader>gh` | File history (current file) |
-| `<leader>gH` | Full repo history |
-| `<leader>gx` | Close Diffview |
-| `<leader>gi` | Inline diff this file (gitsigns) |
+| `<leader>gd` | Diff panel: changed files + side-by-side diff (gitsigns) |
+| `<leader>gh` | File history (picker, same as `<leader>gC`) |
+| `<leader>gH` | Repo history (picker, same as `<leader>gc`) |
+| `<leader>gi` | Diff this file against the index (3-way on conflicts) |
 | `<leader>gb` | Toggle inline git blame |
 | `<leader>gp` | Preview hunk |
 | `<leader>gS` | Stage / unstage hunk (toggle) |
@@ -156,33 +154,27 @@ The undo picker shows a visual, searchable tree of every state your buffer has b
 | `<leader>gC` | Buffer commits (picker) |
 | `<leader>gs` | Git status (picker) |
 
-#### Diffview
+#### Diff panel
 
-`<leader>gd` opens a full-screen diff panel with a file tree on the left and a side-by-side diff on the right.
+`<leader>gd` runs `:Gitsigns diff`: a file tree of changes on the left and a
+side-by-side diff on the right.
 
-| Key (in Diffview) | Action |
+| Key (in panel) | Action |
 |---|---|
-| `<Tab>` / `<S-Tab>` | Next / prev changed file |
+| `<CR>` | Open file / toggle directory |
+| `]f` / `[f` | Next / prev changed file |
 | `]c` / `[c` | Next / prev hunk |
-| `<leader>e` | Focus / toggle file panel |
-| `q` | Close Diffview |
+| `s` / `u` / `<Space>` | Stage / unstage / toggle file (or whole directory) |
+| `g?` | Show all panel keys |
+| `q` | Close |
 
-**Merge conflicts:** Run `<leader>gd` during a merge. You'll see a 3-pane layout:
-- **Left:** LOCAL (your changes)
-- **Center:** BASE (common ancestor)
-- **Right:** REMOTE (incoming changes)
-- **Bottom:** RESULT (what gets saved — edit this to resolve)
+It also takes revisions: `:Gitsigns diff main...HEAD` (branch review),
+`:Gitsigns diff --commit <sha>` (one commit), `:Gitsigns diff HEAD~3 -- lua/`.
 
-| Key (in merge conflict) | Action |
-|---|---|
-| `<leader>co` | Accept OURS (LOCAL) |
-| `<leader>ct` | Accept THEIRS (REMOTE) |
-| `<leader>cb` | Accept BASE |
-| `<leader>ca` | Accept ALL |
-| `dx` | Delete hunk |
-| `]x` / `[x` | Next / prev conflict |
-
-Save the RESULT buffer and close Diffview when done.
+**Merge conflicts:** `<leader>gi` on a conflicted file opens a 3-way split —
+ours (`:2`) left, the working file centre, theirs (`:3`) right — for reading
+the conflict. Resolve in LazyGit (`<leader>gg`, select the file, pick hunks),
+or edit the markers in the centre window directly.
 
 ### LSP
 
