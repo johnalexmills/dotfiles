@@ -33,6 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      # shfmt is not preinstalled on GitHub's Ubuntu runners; without this the
+      # job failed with "command not found" on every run since it was added.
+      - name: Install shfmt
+        run: sudo apt-get update && sudo apt-get install -y shfmt
       - name: Check shell formatting
         run: |
           # Same flags as .githooks/pre-commit and conform.nvim. Without this
