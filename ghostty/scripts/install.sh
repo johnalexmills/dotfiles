@@ -10,7 +10,8 @@ DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
 # --- Install ghostty ---
 
 install_ghostty() {
-  if command_exists ghostty; then
+  # The macOS cask installs Ghostty.app without putting `ghostty` on PATH.
+  if command_exists ghostty || [ -d /Applications/Ghostty.app ]; then
     ok "ghostty is already installed"
     return
   fi
@@ -27,7 +28,7 @@ install_ghostty() {
     return
   fi
 
-  if command_exists ghostty; then
+  if command_exists ghostty || [ -d /Applications/Ghostty.app ]; then
     ok "ghostty installed"
   else
     err "ghostty installation failed"

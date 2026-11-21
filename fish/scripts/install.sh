@@ -26,10 +26,8 @@ install_zoxide() {
     ensure_brew
     brew install zoxide
   else
-    case "$(detect_linux_pkg_manager)" in
-      pacman | dnf) pkg_install zoxide ;;
-      apt | zypper) curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh ;;
-    esac
+    # Packaged by pacman, dnf, zypper and apt (Debian 11+/Ubuntu 21.04+).
+    pkg_install zoxide
   fi
 
   if command_exists zoxide; then

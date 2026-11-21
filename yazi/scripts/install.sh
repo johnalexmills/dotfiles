@@ -30,6 +30,10 @@ install_yazi() {
         warn "Install them with: sudo apt-get install -y <deps>"
         if command_exists cargo; then
           cargo install --locked yazi-fm yazi-cli
+          case ":$PATH:" in
+            *":$HOME/.cargo/bin:"*) ;;
+            *) export PATH="$HOME/.cargo/bin:$PATH" ;;
+          esac
         else
           err "yazi requires cargo on Debian/Ubuntu. Install Rust from https://rustup.rs"
         fi

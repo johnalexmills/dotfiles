@@ -44,6 +44,7 @@ install_herdr() {
   # Re-check PATH: the installer may have just created ~/.local/bin.
   ensure_user_bin_on_path
 
+  local bin
   if command_exists herdr; then
     ok "herdr installed ($(herdr_version))"
   elif bin="$(resolve_binary herdr)"; then

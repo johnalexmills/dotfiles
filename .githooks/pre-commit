@@ -48,7 +48,7 @@ done
 
 # 5. stylua on lua files
 LUA_FILES=$(echo "$STAGED" | grep '\.lua$' || true)
-if [ -n "$LUA_FILES" ]; then
+if [ -n "$LUA_FILES" ] && command -v stylua >/dev/null 2>&1; then
   STYLUA_CFG="$PWD/nvim/.config/nvim/.stylua.toml"
   echo "$LUA_FILES" | while IFS= read -r f; do
     stylua --config-path "$STYLUA_CFG" "$f"

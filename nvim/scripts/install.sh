@@ -11,6 +11,13 @@ DOTFILES_DIR="$(dotfiles_root_from_module "$SCRIPT_DIR")"
 
 install_neovim() {
   install_package nvim neovim
+
+  # init.lua refuses to load below 0.11, and older distro repos (e.g. Ubuntu
+  # 24.04 ships 0.9.x) will happily install something too old.
+  if ! nvim --clean --headless "+if !has('nvim-0.11') | cquit | endif" +qa >/dev/null 2>&1; then
+    warn "Installed $(nvim --version | head -1) is older than the required 0.11"
+    info "Install a newer build: https://github.com/neovim/neovim/releases"
+  fi
 }
 
 # --- Install tree-sitter CLI ---
