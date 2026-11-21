@@ -11,6 +11,8 @@ DRY_RUN=""
 SELECTED_MODULES=""
 # Modules whose install script exited non-zero. Populated by run_module.
 FAILED_MODULES=()
+# Install order. Also the list --modules is validated against.
+MODULES=(ghostty fish starship nvim herdr yazi aerospace)
 
 usage() {
   cat <<EOF
@@ -25,7 +27,7 @@ Options:
              refuses to run if any module has uncommitted changes.
   --dry-run  Show what would be done without making changes.
   --modules  Comma-separated list of modules to install (default: all).
-             Available: ghostty fish starship nvim herdr yazi aerospace opencode
+             Available: ${MODULES[*]}
 EOF
 }
 
@@ -58,6 +60,7 @@ parse_args() {
           err "--modules requires a comma-separated list of module names"
         fi
         SELECTED_MODULES="$1"
+        validate_modules "$SELECTED_MODULES"
         ;;
       -h | --help)
         usage
@@ -68,6 +71,19 @@ parse_args() {
         ;;
     esac
     shift
+  done
+}
+
+# Reject unknown names up-front; otherwise a typo like --modules nvm silently
+# installs nothing and still reports "All done!".
+validate_modules() {
+  local IFS=','
+  local mod known
+  for mod in $1; do
+    for known in "${MODULES[@]}"; do
+      [ "$mod" = "$known" ] && continue 2
+    done
+    err "Unknown module: $mod (available: ${MODULES[*]})"
   done
 }
 
@@ -85,7 +101,7 @@ run_module() {
   # If --modules was specified, skip modules not in the list
   if [ -n "$SELECTED_MODULES" ]; then
     local IFS=','
-    local found=0
+    local found=0 mod
     for mod in $SELECTED_MODULES; do
       if [ "$mod" = "$name" ]; then
         found=1
@@ -133,18 +149,14 @@ main() {
 
     # Enable pre-commit hooks
     info "Configuring git hooks..."
-    git config core.hooksPath .githooks
+    git -C "$SCRIPT_DIR" config core.hooksPath .githooks
     ok "Git hooks configured (.githooks/pre-commit)"
   fi
 
-  run_module ghostty
-  run_module fish
-  run_module starship
-  run_module nvim
-  run_module herdr
-  run_module yazi
-  run_module aerospace
-  run_module opencode
+  local mod
+  for mod in "${MODULES[@]}"; do
+    run_module "$mod"
+  done
 
   echo
   if [ ${#FAILED_MODULES[@]} -gt 0 ]; then

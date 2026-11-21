@@ -3,7 +3,8 @@
 ## Repo structure
 
 GNU stow-based dotfiles. Each top-level directory is a stow package mapping
-into `$HOME`. 8 modules: `ghostty fish starship nvim herdr yazi aerospace opencode`.
+into `$HOME`. 7 modules: `ghostty fish starship nvim herdr yazi aerospace`.
+The list and install order live in the `MODULES` array in `install.sh`.
 
 ```
 install.sh              — orchestrated setup (installs stow, runs modules in order)
@@ -41,6 +42,7 @@ Aborts commit on: merge conflict markers, private key material.
 On push/PR to main:
 - `shellcheck --severity=warning` on all `.sh`
 - `stylua --check nvim/.config/nvim` (check only, no auto-fix)
+- `shfmt -d -i 2 -ci .` (same flags as the pre-commit hook)
 
 ## Editorconfig (`.editorconfig`)
 
@@ -54,7 +56,6 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish/sh: indent 2. Makefile: tabs. Markdown: tr
 | fish | fish, fisher, zoxide | `fisher update` reads `fish_plugins` |
 | herdr | Herdr CLI | Stows `config.toml`; Homebrew on macOS, official installer on Linux |
 | aerospace | macOS only | — |
-| opencode | opencode CLI | Stows `opencode.jsonc` and `instructions/` |
 
 ## Quirks & gotchas
 
@@ -62,8 +63,5 @@ Spaces, LF, UTF-8. Lua/toml/yaml/fish/sh: indent 2. Makefile: tabs. Markdown: tr
 - **`--replace` safety** — refuses to run if the module has uncommitted git changes.
 - **`detect_os`** returns `linux` or `mac`. Package managers: pacman > apt > dnf > zypper.
 - **Nerd font**: CaskaydiaCove Nerd Font required by ghostty, nvim, etc. Installed per-module.
-- **Opencode config** lives in `opencode/.config/opencode/opencode.jsonc`. Restart opencode sessions to pick up changes.
-- **Opencode plugins** in `~/.config/opencode/plugins/` are auto-discovered; no `plugin` key needed. Verify with `opencode debug config`. None exist currently, so the directory is absent from the repo — git cannot track an empty one.
-- **Session cost is context, not prose.** Measured: cache write 62.5%, cache read 29.8%, all output 7.6%; tool results are 85% of what enters context. Optimise via model choice, `compaction.prune` and `tool_output` caps — not output-style instructions.
 - **No test framework, no build step, no formatter** beyond pre-commit hooks.
 - **AGENTS.md is the canonical agent instructions file** — update this when adding/removing modules or changing install flow.
