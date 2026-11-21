@@ -27,7 +27,9 @@ local options = {
 
   -- Command Line and UI
   showmode = false, -- Don't show mode (e.g., -- INSERT --) since it's in statusline
-  showtabline = 0, -- Never show the tabline (bufferline plugin handles this)
+  -- No buffer bar (buffers are reached via harpoon, <Tab>, <leader>sb). The
+  -- tabline only appears when there are 2+ tab pages (<leader>T* mappings).
+  showtabline = 1,
   pumheight = 10, -- Maximum number of items in popup menu (completion)
 
   -- Search Settings

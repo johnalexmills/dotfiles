@@ -251,7 +251,6 @@ Press `<leader>` and wait:
 - **harpoon** — quick file navigation
 - **Catppuccin Mocha** — colorscheme
 - **Lualine** — statusline
-- **Bufferline** — buffer tabs
 - **Which-key** — keybinding hints
 - **Treesitter** — highlighting, folds and indent (nvim-treesitter `main` branch)
 - **Gitsigns** — git signs, blame, hunk ops

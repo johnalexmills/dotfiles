@@ -17,7 +17,6 @@ A modern Neovim config built on Neovim 0.11+ features: native LSP config (`vim.l
 | `gitsigns.nvim` | Git signs and hunk operations |
 | `harpoon` (v2) | File bookmarks |
 | `neotest` + `neotest-python` | Test runner |
-| `bufferline.nvim` | Buffer tabs |
 | `lualine.nvim` | Status line |
 | `trouble.nvim` | Diagnostics list |
 | `render-markdown.nvim` | Markdown rendering |
