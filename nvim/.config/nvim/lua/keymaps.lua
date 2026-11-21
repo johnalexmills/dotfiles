@@ -25,7 +25,11 @@ map("n", "<Tab>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>bprevious<CR>", { silent = true, desc = "Previous buffer" })
 
 -- Buffer management
-map("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { silent = true, desc = "Close others" })
+-- Snacks keeps window layout and prompts for modified buffers; the old
+-- `%bd|e#|bd#` reloaded the current file and lost the cursor position.
+map("n", "<leader>bo", function()
+  require("snacks").bufdelete.other()
+end, { silent = true, desc = "Close others" })
 map("n", "<leader>bd", function()
   require("snacks").bufdelete()
 end, { silent = true, desc = "Close buffer" })
@@ -36,9 +40,10 @@ map("n", "<A-j>", "<cmd>resize +2<CR>", { silent = true, desc = "Grow window hei
 map("n", "<A-k>", "<cmd>resize -2<CR>", { silent = true, desc = "Shrink window height" })
 map("n", "<A-l>", "<cmd>vertical resize +2<CR>", { silent = true, desc = "Grow window width" })
 
--- Better paste (Primeagen's "greatest remap ever")
--- Paste without losing clipboard content
-map("x", "p", [["_dP]], { silent = true, desc = "Paste without overwriting register" })
+-- Paste over a selection without losing the register. Built-in visual `P`
+-- does exactly this; the old `"_dP` pasted one column too early when the
+-- selection ended at the end of a line.
+map("x", "p", "P", { silent = true, desc = "Paste without overwriting register" })
 
 -- Delete to black hole register (doesn't overwrite clipboard)
 map({ "n", "x" }, "<leader>D", [["_d]], { silent = true, desc = "Delete to black hole register" })
@@ -55,7 +60,12 @@ map("x", "J", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move block down" })
 map("x", "K", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move block up" })
 
 -- Better line joining
-map("n", "J", "mzJ`z", { silent = true, desc = "Join lines (keep cursor)" })
+-- `mzJ`z` dropped the count (3J joined only two lines) and clobbered mark z.
+map("n", "J", function()
+  local pos = vim.api.nvim_win_get_cursor(0)
+  vim.cmd("normal! " .. vim.v.count1 .. "J")
+  vim.api.nvim_win_set_cursor(0, pos)
+end, { silent = true, desc = "Join lines (keep cursor)" })
 
 -- Clear search highlight with Escape
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })

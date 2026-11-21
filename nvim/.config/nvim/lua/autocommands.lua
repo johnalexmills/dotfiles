@@ -1,8 +1,8 @@
 -- Quick close for special buffers
--- Allows "q" to close quickfix, help, man, LSP info, and spectre panels
--- Also hides these buffers from the buffer list
+-- Allows "q" to close quickfix, help and man windows (checkhealth buffers
+-- already map q themselves). Also hides these buffers from the buffer list.
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "qf", "help", "man", "lspinfo" },
+  pattern = { "qf", "help", "man" },
   callback = function(event)
     vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = event.buf, silent = true })
     vim.bo[event.buf].buflisted = false

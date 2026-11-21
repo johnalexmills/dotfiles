@@ -51,6 +51,14 @@ install_tree_sitter() {
   fi
 }
 
+# --- Install ripgrep ---
+# Snacks' grep pickers (<leader>sg, <leader>ss, <leader>sT) shell out to rg and
+# fail with "Failed to spawn rg" without it.
+
+install_ripgrep() {
+  install_package rg ripgrep
+}
+
 # --- Sync plugins ---
 
 sync_plugins() {
@@ -85,6 +93,7 @@ main() {
 
   install_neovim
   install_tree_sitter
+  install_ripgrep
   stow_module "nvim" "$DOTFILES_DIR"
   sync_plugins
 

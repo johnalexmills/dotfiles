@@ -239,6 +239,24 @@ return {
       desc = "Diff With File",
     },
 
+    -- Jump between LSP references to the word under the cursor (Snacks.words).
+    -- Overrides the built-in ]] / [[ section motions, which only mean
+    -- anything in C-style files with braces in column 0.
+    {
+      "]]",
+      function()
+        Snacks.words.jump(vim.v.count1)
+      end,
+      desc = "Next Reference",
+    },
+    {
+      "[[",
+      function()
+        Snacks.words.jump(-vim.v.count1)
+      end,
+      desc = "Prev Reference",
+    },
+
     -- Undo (replaces undotree)
     {
       "<leader>u",

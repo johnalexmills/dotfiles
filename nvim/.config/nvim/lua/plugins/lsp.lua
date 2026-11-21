@@ -109,7 +109,7 @@ return {
         end,
         desc = "Workspace Symbols",
       },
-      { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action" },
+      { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "x" } },
       { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", desc = "Info" },
       {
         "<leader>lj",
@@ -125,7 +125,7 @@ return {
         end,
         desc = "Prev Diagnostic",
       },
-      { "<leader>lq", vim.diagnostic.setloclist, desc = "Quickfix" },
+      { "<leader>lq", vim.diagnostic.setloclist, desc = "Diagnostics to Loclist" },
       {
         "<leader>lR",
         function()

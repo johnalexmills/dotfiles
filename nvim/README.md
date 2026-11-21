@@ -36,6 +36,7 @@ A modern Neovim config built on Neovim 0.11+ features: native LSP config (`vim.l
 - A [Nerd Font](https://www.nerdfonts.com/) (CaskaydiaCove recommended)
 - `git`, `curl`
 - `tree-sitter` CLI (for parser compilation)
+- `ripgrep` (`rg`) for the grep pickers (`<leader>sg`, `<leader>ss`, `<leader>sT`)
 - Optional: `lazygit` for the git UI (`<leader>gg`)
 - Optional: `yazi` for the file explorer (`-`)
 
@@ -88,6 +89,9 @@ Leader key is `<Space>`.
 | `<leader>sr` | Registers |
 | `<leader>sC` | Colorschemes |
 | `<leader>sT` | TODO comments |
+| `<leader>sd` | Diff current buffer with a file |
+| `<leader>so` | Autocmds |
+| `<leader>sn` | Notification history |
 | `<leader>fn` | New file |
 | `<leader>fr` | Rename current file |
 
@@ -172,6 +176,7 @@ Save the RESULT buffer and close Diffview when done.
 |---|---|
 | `gd` | Go to definition |
 | `gD` | Go to declaration |
+| `]]` / `[[` | Next / prev reference to word under cursor |
 | `<leader>lg` | Signature help |
 | `<leader>lh` | Toggle inlay hints |
 | `<leader>la` | Code action |
@@ -188,11 +193,10 @@ Save the RESULT buffer and close Diffview when done.
 | `<leader>lR` | References (picker) |
 | `<leader>lm` | Implementations (picker) |
 | `<leader>lt` | Type definitions (picker) |
-| `<leader>lC` | Code lens |
 | `<leader>li` | LSP info (checkhealth) |
 | `<leader>lI` | Mason installer |
 | `<leader>lq` | Send diagnostics to location list |
-| `<leader>lx` | Refresh diagnostics |
+| `<leader>lx` | Clear diagnostics (they return on next lint / LSP update) |
 
 ### Diagnostics & Trouble
 
@@ -213,7 +217,6 @@ Save the RESULT buffer and close Diffview when done.
 | `<leader>nf` | Run all tests in file |
 | `<leader>ns` | Run entire test suite |
 | `<leader>nl` | Re-run last test |
-| `<leader>nd` | Debug nearest test (DAP) |
 | `<leader>no` | Show test output |
 | `<leader>nO` | Toggle output panel |
 | `<leader>np` | Toggle summary panel |
@@ -231,7 +234,9 @@ Save the RESULT buffer and close Diffview when done.
 | `<leader>c` | Close current buffer |
 | `<leader>bd` | Close current buffer (Snacks) |
 | `<leader>bo` | Close all other buffers |
-| `<leader>Sr` | Restore session |
+| `<leader>Sr` | Restore session (cwd) |
+| `<leader>Sl` | Restore last session |
+| `<leader>SS` | Select session |
 | `<leader>Ss` | Save session |
 | `<leader>Sd` | Stop session (don't save on exit) |
 
@@ -241,6 +246,17 @@ Save the RESULT buffer and close Diffview when done.
 |---|---|
 | `<C-\>` | Toggle floating terminal |
 | `<leader>z` | Toggle zen mode |
+| `<leader>d` | Dashboard |
+
+### Tabs
+
+| Key | Action |
+|---|---|
+| `<leader>Tn` / `<leader>Tc` | New / close tab |
+| `<leader>To` | Close other tabs |
+| `<leader>Th` / `<leader>Tl` | Previous / next tab |
+| `<leader>Tf` / `<leader>TL` | First / last tab |
+| `<leader>Tmh` / `<leader>Tml` | Move tab left / right |
 
 ### Editing
 
@@ -264,7 +280,7 @@ Save the RESULT buffer and close Diffview when done.
 **Surrounding identifiers:**
 
 | Char | Meaning |
-|---|---|---|
+|---|---|
 | `)`, `(` | Parentheses (`(` adds inner padding spaces, `)` does not) |
 | `]`, `[` | Square brackets (`[` adds padding, `]` does not) |
 | `}`, `{` | Curly braces (`{` adds padding, `}` does not) |
@@ -289,6 +305,10 @@ Save the RESULT buffer and close Diffview when done.
 
 **Note:** `sd` and `sr` take a surrounding **character**, not a motion/text object. For example, use `sd)` to delete parentheses — not `sdiw)`.
 
+### Toggles
+
+| Key | Action |
+|---|---|
 | `<leader>/` | Toggle search highlight |
 | `<leader>r` | Toggle relative line numbers |
 
