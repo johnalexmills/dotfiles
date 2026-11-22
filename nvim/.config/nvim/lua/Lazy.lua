@@ -23,23 +23,9 @@ require("lazy").setup("plugins", {
   debug = false,
   performance = {
     rtp = {
-      disabled_plugins = {
-        "gzip",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-        "rplugin",
-        "spellfile",
-        -- NOTE: do not disable "man". Snacks' man picker (<leader>sm) opens
-        -- results with :Man, and autocommands.lua binds q in man buffers.
-        -- NOTE: "health" is not a runtime plugin in Neovim 0.12 (:checkhealth
-        -- is built in), so listing it here did nothing.
-        -- NOTE: "matchit" (extended % on language constructs) and "matchparen"
-        -- (highlight the matching bracket) are deliberately left enabled;
-        -- nothing else in this config provides either.
-      },
+      -- netrw must stay off so yazi.nvim (open_for_directories) handles
+      -- `nvim <dir>` instead.
+      disabled_plugins = { "netrwPlugin" },
     },
   },
 })

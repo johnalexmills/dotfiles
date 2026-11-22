@@ -85,9 +85,6 @@ local options = {
   -- Editing
   virtualedit = "block", -- Allow cursor past end of line in visual block mode
 
-  -- GUI Settings
-  guifont = "CaskaydiaCove Nerd Font:h17:i", -- Font for GUI versions of neovim
-
   -- Fill Characters
   fillchars = { eob = " " }, -- Hide ~ on empty lines after end of buffer
 
@@ -138,17 +135,3 @@ vim.opt.whichwrap:append "<>[]hl"
 
 -- Note: formatoptions "c" and "r" removal is handled in autocommands.lua
 -- (must be done in a FileType autocmd because ftplugins reset formatoptions)
-
--- Windows-specific configuration (use Git Bash)
-if vim.fn.has "win32" ~= 0 then
-  vim.env.NODE_TLS_REJECT_UNAUTHORIZED = "0" -- Disable Node.js TLS cert verification
-  -- Configure shell to use Git Bash for all shell operations
-  vim.o.shell = "bash.exe" -- Use bash.exe as the shell
-  vim.o.shellcmdflag = "-c" -- Flag to execute a command
-  vim.o.shellredir = ">%s 2>&1" -- Redirect stdout and stderr
-  vim.o.shellquote = "" -- No quoting of the command
-  vim.o.shellxescape = "" -- No special escaping
-  vim.o.shellxquote = "" -- No extra quoting
-  vim.o.shellpipe = "2>&1| tee" -- Pipe command with tee
-  vim.env.TMP = "/tmp" -- Set temp directory to Unix-style path
-end

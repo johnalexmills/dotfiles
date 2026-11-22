@@ -86,90 +86,26 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
 -- handled by persistence.nvim, which registers its own VimLeavePre autocmd
 -- (see plugins/persistence.lua). Snacks has no session module.
 
--- Per-filetype colorcolumn
--- Prose/text formats get no ruler; code files get language-appropriate limits
+-- Per-filetype colorcolumn and formatoptions
+-- Prose gets no ruler and keeps its formatoptions. Everything else is treated
+-- as code: a ruler at 100 (88 for Python, the Black/ruff default; 72 for
+-- commit messages) and no auto comment leaders or comment wrapping
+-- ("o", "r", "c"). Done in a FileType autocmd because ftplugins reset
+-- formatoptions.
+local prose = { markdown = true, text = true, tex = true, rst = true, asciidoc = true, org = true, mail = true }
+local colorcolumn = { python = "88", gitcommit = "72" }
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "Set colorcolumn per filetype",
-  callback = function()
-    local ft = vim.bo.filetype
-    local col = ({
-      -- Prose — no column ruler
-      markdown = "",
-      text = "",
-      tex = "",
-      rst = "",
-      asciidoc = "",
-      org = "",
-      gitcommit = "72", -- git commit subject line convention
-      -- Web / config — 100 cols
-      html = "100",
-      css = "100",
-      scss = "100",
-      json = "100",
-      yaml = "100",
-      toml = "100",
-      -- Systems / scripting — 100 cols
-      lua = "100",
-      bash = "100",
-      sh = "100",
-      fish = "100",
-      vim = "100",
-      -- Python — PEP 8 recommends 79, Black uses 88
-      python = "88",
-      -- Terraform / HCL — 100 cols
-      terraform = "100",
-      hcl = "100",
-      -- SQL — 100 cols
-      sql = "100",
-      -- GDScript — 100 cols
-      gdscript = "100",
-    })[ft]
-    -- Default for unlisted filetypes
-    if col == nil then
-      col = "100"
+  desc = "Set colorcolumn and formatoptions per filetype",
+  callback = function(event)
+    local ft = event.match
+    if prose[ft] then
+      vim.opt_local.colorcolumn = ""
+      return
     end
-    vim.opt_local.colorcolumn = col
-  end,
-})
-
--- Per-filetype: remove "o", "c", "r" from formatoptions for code files
--- "o" stops o/O from auto-inserting a comment leader
--- "c" stops auto-wrapping comments using textwidth
--- "r" stops auto-inserting comment leader after Enter
--- Must be done in a FileType autocmd because ftplugins reset formatoptions
-local code_filetypes = {
-  "lua",
-  "python",
-  "bash",
-  "sh",
-  "fish",
-  "vim",
-  "html",
-  "css",
-  "scss",
-  "json",
-  "yaml",
-  "toml",
-  "terraform",
-  "hcl",
-  "sql",
-  "gdscript",
-  "javascript",
-  "typescript",
-  "tsx",
-  "jsx",
-  "c",
-  "cpp",
-  "rust",
-  "go",
-  "java",
-  "ruby",
-}
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = code_filetypes,
-  desc = "Remove 'o', 'c', 'r' from formatoptions for code filetypes",
-  callback = function()
-    vim.opt_local.formatoptions:remove { "o", "c", "r" }
+    vim.opt_local.colorcolumn = colorcolumn[ft] or "100"
+    if ft ~= "gitcommit" then
+      vim.opt_local.formatoptions:remove { "o", "c", "r" }
+    end
   end,
 })
 
