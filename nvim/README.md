@@ -16,17 +16,13 @@ A modern Neovim config built on Neovim 0.11+ features: native LSP config (`vim.l
 | `snacks.nvim` | Picker, dashboard, terminal, indent guides, notifications, undo history |
 | `gitsigns.nvim` | Git signs and hunk operations |
 | `harpoon` (v2) | File bookmarks |
-| `neotest` + `neotest-python` | Test runner |
 | `lualine.nvim` | Status line |
-| `trouble.nvim` | Diagnostics list |
 | `render-markdown.nvim` | Markdown rendering |
 | `yazi.nvim` | File explorer |
 | `mini.surround` | Surround text objects |
 | `mini.pairs` | Auto-close brackets and quotes |
-| `todo-comments.nvim` | Highlight TODO/FIXME comments |
 | `which-key.nvim` | Keybinding hints |
 | `lazydev.nvim` | Lua LSP for Neovim config |
-| `tiny-inline-diagnostic.nvim` | Inline diagnostics |
 
 ## Requirements
 
@@ -34,7 +30,7 @@ A modern Neovim config built on Neovim 0.11+ features: native LSP config (`vim.l
 - A [Nerd Font](https://www.nerdfonts.com/) (CaskaydiaCove recommended)
 - `git`, `curl`
 - `tree-sitter` CLI (for parser compilation)
-- `ripgrep` (`rg`) for the grep pickers (`<leader>sg`, `<leader>ss`, `<leader>sT`)
+- `ripgrep` (`rg`) for the grep pickers (`<leader>sg`, `<leader>ss`)
 - Optional: `lazygit` for the git UI (`<leader>gg`)
 - Optional: `yazi` for the file explorer (`-`)
 
@@ -100,7 +96,6 @@ Leader key is `<Space>`.
 | `<leader>sm` | Man pages |
 | `<leader>sr` | Registers |
 | `<leader>sC` | Colorschemes |
-| `<leader>sT` | TODO comments |
 | `<leader>sd` | Diff current buffer with a file |
 | `<leader>so` | Autocmds |
 | `<leader>sn` | Notification history |
@@ -139,8 +134,7 @@ The undo picker shows a visual, searchable tree of every state your buffer has b
 |---|---|
 | `<leader>gg` | Open LazyGit |
 | `<leader>gd` | Diff panel: changed files + side-by-side diff (gitsigns) |
-| `<leader>gh` | File history (picker, same as `<leader>gC`) |
-| `<leader>gH` | Repo history (picker, same as `<leader>gc`) |
+| `<leader>gh` | File history (picker) |
 | `<leader>gi` | Diff this file against the index (3-way on conflicts) |
 | `<leader>gb` | Toggle inline git blame |
 | `<leader>gp` | Preview hunk |
@@ -149,8 +143,7 @@ The undo picker shows a visual, searchable tree of every state your buffer has b
 | `]c` / `[c` | Next / prev git hunk |
 | `<leader>gf` | Git files (picker) |
 | `<leader>gB` | Git branches (picker) |
-| `<leader>gc` | Git commits (picker) |
-| `<leader>gC` | Buffer commits (picker) |
+| `<leader>gc` | Repo history (picker) |
 | `<leader>gs` | Git status (picker) |
 
 #### Diff panel
@@ -181,63 +174,35 @@ or edit the markers in the centre window directly.
 |---|---|
 | `gd` | Go to definition |
 | `gD` | Go to declaration |
+| `grn` | Rename symbol |
+| `gra` | Code action |
+| `grr` | References (picker) |
+| `gri` | Implementations (picker) |
+| `grt` | Type definitions (picker) |
+| `gO` | Document symbols (picker) |
+| `K` | Hover |
+| `]d` / `[d` | Next / prev diagnostic |
 | `]]` / `[[` | Next / prev reference to word under cursor |
+| `<C-s>` (insert) | Signature help |
 | `<leader>lg` | Signature help |
 | `<leader>lh` | Toggle inlay hints |
-| `<leader>la` | Code action |
-| `<leader>lr` | Rename symbol |
 | `<leader>lf` | Format file |
 | `<leader>ll` | Lint file |
 | `<leader>lL` | Lint all open buffers |
-| `<leader>lj` / `<leader>lk` | Next / prev diagnostic |
-| `<leader>ld` | Toggle inline diagnostics |
+| `<leader>ld` | Toggle inline diagnostic (cursor line) |
 | `<leader>lD` | Document diagnostics (picker) |
 | `<leader>lw` | Workspace diagnostics (picker) |
-| `<leader>ls` | Document symbols (picker) |
 | `<leader>lS` | Workspace symbols (picker) |
-| `<leader>lR` | References (picker) |
-| `<leader>lm` | Implementations (picker) |
-| `<leader>lt` | Type definitions (picker) |
 | `<leader>li` | LSP info (checkhealth) |
 | `<leader>lI` | Mason installer |
 | `<leader>lq` | Send diagnostics to location list |
 | `<leader>lx` | Clear diagnostics (they return on next lint / LSP update) |
-
-### Diagnostics & Trouble
-
-| Key | Action |
-|---|---|
-| `<leader>tt` | All workspace diagnostics |
-| `<leader>tT` | Buffer diagnostics |
-| `<leader>ts` | Document symbols |
-| `<leader>tl` | LSP definitions / references (right panel) |
-| `<leader>tL` | Location list |
-| `<leader>tQ` | Quickfix list |
-
-### Neotest (Python & more)
-
-| Key | Action |
-|---|---|
-| `<leader>nt` | Run nearest test |
-| `<leader>nf` | Run all tests in file |
-| `<leader>ns` | Run entire test suite |
-| `<leader>nl` | Re-run last test |
-| `<leader>no` | Show test output |
-| `<leader>nO` | Toggle output panel |
-| `<leader>np` | Toggle summary panel |
-| `<leader>nq` | Stop tests |
-| `]n` / `[n` | Next / prev failed test |
-
-**Summary panel** (`<leader>np`) shows a file tree of all tests with pass/fail icons. Inside the panel: `<CR>` to jump to a test, `r` to run it, `o` to open its output.
-
-**Virtualenv detection:** Automatically uses `.venv`, `venv`, or `.env` in the project root, then falls back to the system Python.
 
 ### Buffers & Sessions
 
 | Key | Action |
 |---|---|
 | `<leader>c` | Close current buffer |
-| `<leader>bd` | Close current buffer (Snacks) |
 | `<leader>bo` | Close all other buffers |
 | `<leader>Sr` | Restore session (cwd) |
 | `<leader>Sl` | Restore last session |
@@ -259,7 +224,7 @@ or edit the markers in the centre window directly.
 |---|---|
 | `<leader>Tn` / `<leader>Tc` | New / close tab |
 | `<leader>To` | Close other tabs |
-| `<leader>Th` / `<leader>Tl` | Previous / next tab |
+| `gt` / `gT` | Next / previous tab (built-in) |
 | `<leader>Tf` / `<leader>TL` | First / last tab |
 | `<leader>Tmh` / `<leader>Tml` | Move tab left / right |
 
@@ -314,7 +279,6 @@ or edit the markers in the centre window directly.
 
 | Key | Action |
 |---|---|
-| `<leader>/` | Toggle search highlight |
 | `<leader>r` | Toggle relative line numbers |
 
 ### Resize

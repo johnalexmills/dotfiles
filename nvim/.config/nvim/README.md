@@ -33,7 +33,6 @@ Modern Neovim config with LSP, Snacks picker, blink.cmp, Catppuccin.
 | `<leader>sC` | Colorschemes                             |
 | `<leader>so` | Autocmds                                 |
 | `<leader>sn` | Notification history                     |
-| `<leader>sT` | Todo comments                            |
 | `<leader>sd` | Diff current buffer with a file          |
 | `<leader>u`  | Undo history                             |
 
@@ -99,11 +98,9 @@ Modern Neovim config with LSP, Snacks picker, blink.cmp, Catppuccin.
 | `]c` / `[c`  | Next/prev git hunk (diff-aware) |
 | `<leader>gd` | Diff panel (`:Gitsigns diff`)   |
 | `<leader>gh` | File history                    |
-| `<leader>gH` | Repo history                    |
 | `<leader>gf` | Git files                       |
 | `<leader>gB` | Git branches                    |
-| `<leader>gc` | Git commits                     |
-| `<leader>gC` | Buffer commits                  |
+| `<leader>gc` | Repo history                    |
 | `<leader>gs` | Git status                      |
 
 ## LSP
@@ -112,54 +109,31 @@ Modern Neovim config with LSP, Snacks picker, blink.cmp, Catppuccin.
 | -------------- | ---------------------------------------------- |
 | `gd`           | Go to definition (picker)                      |
 | `gD`           | Go to declaration                              |
-| `<leader>lr`   | Rename symbol                                  |
-| `<leader>la`   | Code actions                                   |
+| `grn`          | Rename symbol                                  |
+| `gra`          | Code actions                                   |
+| `grr`          | References (picker)                            |
+| `gri`          | Implementations (picker)                       |
+| `grt`          | Type definitions (picker)                      |
+| `gO`           | Document symbols (picker)                      |
+| `K`            | Hover                                          |
+| `]d` / `[d`    | Next/prev diagnostic                           |
+| `Ctrl+s`       | Signature help (insert)                        |
 | `<leader>lg`   | Signature help                                 |
 | `<leader>lh`   | Toggle inlay hints (servers that support them) |
-| `<leader>lR`   | References                                     |
-| `<leader>lt`   | Type definitions                               |
-| `<leader>lm`   | Implementations                                |
-| `<leader>ls`   | Document symbols                               |
 | `<leader>lS`   | Workspace symbols                              |
 | `<leader>lD`   | Document diagnostics                           |
 | `<leader>lw`   | Workspace diagnostics                          |
-| `<leader>lj/k` | Next/prev diagnostic                           |
 | `<leader>lq`   | Diagnostics to loclist                         |
 | `<leader>lx`   | Clear diagnostics                              |
-| `<leader>ld`   | Toggle inline diagnostics                      |
+| `<leader>ld`   | Toggle inline diagnostic (cursor line)         |
 | `<leader>lf`   | Format document                                |
 | `<leader>ll`   | Lint current file                              |
 | `<leader>lL`   | Lint all open buffers                          |
 | `<leader>li`   | LSP health check                               |
 | `<leader>lI`   | Open Mason installer                           |
 
-Neovim's built-in LSP mappings (`grn`, `gra`, `grr`, `gri`, `gO`, `Ctrl+s`)
-also remain available.
-
-## Trouble (Diagnostics Panel)
-
-| Keybinding   | Action                            |
-| ------------ | --------------------------------- |
-| `<leader>tt` | Toggle workspace diagnostics      |
-| `<leader>tT` | Toggle buffer diagnostics         |
-| `<leader>ts` | Toggle symbols                    |
-| `<leader>tl` | Toggle LSP definitions/references |
-| `<leader>tL` | Toggle location list              |
-| `<leader>tQ` | Toggle quickfix list              |
-
-## Testing (Neotest)
-
-| Keybinding   | Action                    |
-| ------------ | ------------------------- |
-| `<leader>nt` | Run nearest test          |
-| `<leader>nf` | Run file tests            |
-| `<leader>ns` | Run test suite            |
-| `<leader>nl` | Run last test             |
-| `<leader>no` | Show test output          |
-| `<leader>nO` | Toggle output panel       |
-| `<leader>np` | Toggle test summary panel |
-| `<leader>nq` | Stop running tests        |
-| `]n` / `[n`  | Next/prev failed test     |
+`grr`, `gri`, `grt` and `gO` are Neovim's built-in LSP maps, remapped to Snacks
+pickers.
 
 ## Tabs
 
@@ -168,19 +142,11 @@ also remain available.
 | `<leader>Tn`  | New tab          |
 | `<leader>Tc`  | Close tab        |
 | `<leader>To`  | Close other tabs |
-| `<leader>Th`  | Previous tab     |
-| `<leader>Tl`  | Next tab         |
+| `gt` / `gT`   | Next/prev tab    |
 | `<leader>Tf`  | First tab        |
 | `<leader>TL`  | Last tab         |
 | `<leader>Tmh` | Move tab left    |
 | `<leader>Tml` | Move tab right   |
-
-## Todo Comments
-
-| Keybinding   | Action         |
-| ------------ | -------------- |
-| `]t` / `[t`  | Next/prev todo |
-| `<leader>sT` | Search todos   |
 
 ## Editing
 
@@ -210,7 +176,6 @@ also remain available.
 | `Ctrl+d/u`  | Page down/up (cursor centered) |
 | `n/N`       | Next/prev search (centered)    |
 | `Esc`       | Clear search highlight         |
-| `<leader>/` | Toggle search highlight        |
 | `<leader>r` | Toggle relative line numbers   |
 
 ## Session Management
@@ -234,10 +199,8 @@ Press `<leader>` and wait:
 - `g` — Git operations
 - `h` — Harpoon
 - `l` — LSP operations
-- `n` — Neotest
 - `s` — Snacks picker (search)
 - `S` — Session
-- `t` — Trouble
 - `T` — Tab
 
 ## Features
@@ -245,8 +208,8 @@ Press `<leader>` and wait:
 - **lazy.nvim** — fast lazy-loaded plugin management
 - **blink.cmp** — completion (LSP, snippets, path, buffer), pinned to 1.x
 - **Snacks.nvim** — picker, dashboard, terminal, notifications, indent, undo, zen, rename
-- **nvim-lint** — linting (luacheck, shellcheck, fish, yamllint, jsonlint, markdownlint, tflint, hadolint, sqlfluff, gdlint, rubocop)
-- **conform.nvim** — format-on-save (stylua, ruff format + import sort, prettier, taplo, hclfmt, terraform_fmt, gdformat, rubocop)
+- **nvim-lint** — linting (luacheck, shellcheck, fish, yamllint, jsonlint, markdownlint, hadolint, gdlint)
+- **conform.nvim** — format-on-save (stylua, ruff format + import sort, prettier, taplo, shfmt, gdformat)
 - **yazi.nvim** — file explorer
 - **harpoon** — quick file navigation
 - **Catppuccin Mocha** — colorscheme
@@ -254,8 +217,6 @@ Press `<leader>` and wait:
 - **Which-key** — keybinding hints
 - **Treesitter** — highlighting, folds and indent (nvim-treesitter `main` branch)
 - **Gitsigns** — git signs, blame, hunk ops
-- **Trouble** — enhanced diagnostics panel
-- **Todo-comments** — TODO/FIXME highlighting
 - **mini.surround/mini.pairs** — surround + auto-pairs
 - **render-markdown** — live markdown preview
 - **persistence.nvim** — session management
@@ -263,10 +224,10 @@ Press `<leader>` and wait:
 ## Language Servers
 
 Installed via Mason, enabled explicitly in `lua/plugins/lsp.lua`:
-`ty` and `ruff` (Python), `lua_ls`, `bashls`, `terraformls`, `gdscript`, `yamlls`.
+`ty` and `ruff` (Python), `lua_ls`, `bashls`, `gdscript`, `yamlls`.
 
-`mason-lspconfig` runs with `automatic_enable = false`, so adding a server to
-Mason does not enable it by itself — add it to the `vim.lsp.enable` list too.
+Installing a server in Mason does not enable it — add its lspconfig name to the
+`vim.lsp.enable` list too.
 
 ## Requirements
 
