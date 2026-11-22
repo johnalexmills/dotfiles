@@ -25,6 +25,7 @@ return {
           "lua-language-server",
           "bash-language-server",
           "yaml-language-server",
+          "terraform-ls",
           "ty", -- Python type checker (Astral)
           "ruff", -- Python linter/formatter (Astral)
 
@@ -33,6 +34,7 @@ return {
           "prettier", -- json, yaml, markdown
           "taplo", -- toml
           "shfmt",
+          "hclfmt", -- hcl (terragrunt)
 
           -- Linters
           "luacheck",
@@ -41,6 +43,8 @@ return {
           "jsonlint",
           "markdownlint",
           "hadolint", -- dockerfile
+          "tflint", -- terraform
+          "sqlfluff", -- sql
 
           -- gdscript (gdlint + gdformat); the LSP is Godot itself
           "gdtoolkit",
@@ -120,7 +124,7 @@ return {
         },
       })
 
-      vim.lsp.enable { "ty", "ruff", "lua_ls", "bashls", "gdscript", "yamlls" }
+      vim.lsp.enable { "ty", "ruff", "lua_ls", "bashls", "terraformls", "gdscript", "yamlls" }
 
       vim.diagnostic.config {
         -- Inline message for the cursor line only (<leader>ld toggles it).

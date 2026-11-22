@@ -208,8 +208,8 @@ Press `<leader>` and wait:
 - **lazy.nvim** — fast lazy-loaded plugin management
 - **blink.cmp** — completion (LSP, snippets, path, buffer), pinned to 1.x
 - **Snacks.nvim** — picker, dashboard, terminal, notifications, indent, undo, zen, rename
-- **nvim-lint** — linting (luacheck, shellcheck, fish, yamllint, jsonlint, markdownlint, hadolint, gdlint)
-- **conform.nvim** — format-on-save (stylua, ruff format + import sort, prettier, taplo, shfmt, gdformat)
+- **nvim-lint** — linting (luacheck, shellcheck, fish, yamllint, jsonlint, markdownlint, tflint, hadolint, sqlfluff, gdlint)
+- **conform.nvim** — format-on-save (stylua, ruff format + import sort, prettier, taplo, shfmt, hclfmt, terraform_fmt, gdformat)
 - **yazi.nvim** — file explorer
 - **harpoon** — quick file navigation
 - **Catppuccin Mocha** — colorscheme
@@ -224,7 +224,7 @@ Press `<leader>` and wait:
 ## Language Servers
 
 Installed via Mason, enabled explicitly in `lua/plugins/lsp.lua`:
-`ty` and `ruff` (Python), `lua_ls`, `bashls`, `gdscript`, `yamlls`.
+`ty` and `ruff` (Python), `lua_ls`, `bashls`, `terraformls`, `gdscript`, `yamlls`.
 
 Installing a server in Mason does not enable it — add its lspconfig name to the
 `vim.lsp.enable` list too.

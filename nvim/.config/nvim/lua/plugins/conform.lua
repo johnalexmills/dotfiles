@@ -14,6 +14,12 @@ return {
   config = function()
     local conform = require "conform"
 
+    -- Custom formatter for hclfmt (generic HCL, used by Terragrunt)
+    conform.formatters.hclfmt = {
+      command = "hclfmt",
+      stdin = true,
+    }
+
     -- shfmt uses conform's built-in definition: it passes no style flags when
     -- an .editorconfig exists, so shfmt reads indent/switch_case_indent from
     -- there (the dotfiles repo's matches CI and the pre-commit hook), and
@@ -33,6 +39,9 @@ return {
         yaml = { "prettier" },
         toml = { "taplo" },
         markdown = { "prettier" },
+        terraform = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
+        hcl = { "hclfmt" },
         gdscript = { "gdformat" },
       },
       format_on_save = {
