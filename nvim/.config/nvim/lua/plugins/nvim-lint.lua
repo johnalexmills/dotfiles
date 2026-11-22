@@ -17,25 +17,16 @@ return {
       fish = { "fish" },
 
       -- Configuration Languages
-      -- NOTE: the "tf" filetype is Tads, not Terraform. Neovim only falls back
-      -- to it for .tf files that are empty or comment-only; real Terraform
-      -- files are detected as "terraform" (see vim.filetype.detect.tf).
       yaml = { "yamllint" },
       json = { "jsonlint" },
-      terraform = { "tflint" },
-      ["terraform-vars"] = { "tflint" },
 
       -- Documentation
       markdown = { "markdownlint" },
-
-      -- Data Languages
-      sql = { "sqlfluff" },
 
       -- Game Development
       gdscript = { "gdlint" },
 
       -- Other Languages
-      ruby = { "rubocop" },
       dockerfile = { "hadolint" },
     }
 

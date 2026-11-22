@@ -21,8 +21,6 @@ local parsers = {
   "markdown",
   "markdown_inline",
   "json",
-  "terraform",
-  "hcl",
   "vim",
   "vimdoc",
   "query",
@@ -33,12 +31,10 @@ local parsers = {
   "toml",
   "yaml",
   "dockerfile",
-  "sql",
   "gdscript",
   "javascript",
   "typescript",
   "tsx",
-  "ruby",
 }
 
 -- Skip treesitter on files above this size (bytes) to keep large-file editing
