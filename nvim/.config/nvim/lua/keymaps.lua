@@ -30,9 +30,7 @@ map("n", "<S-Tab>", "<cmd>bprevious<CR>", { silent = true, desc = "Previous buff
 map("n", "<leader>bo", function()
   require("snacks").bufdelete.other()
 end, { silent = true, desc = "Close others" })
-map("n", "<leader>bd", function()
-  require("snacks").bufdelete()
-end, { silent = true, desc = "Close buffer" })
+-- Close the current buffer: <leader>c (plugins/snacks.lua)
 
 -- Resize with Alt+hjkl
 map("n", "<A-h>", "<cmd>vertical resize -2<CR>", { silent = true, desc = "Shrink window width" })
@@ -81,26 +79,15 @@ map("n", "N", "Nzzzv", { silent = true, desc = "Prev search result (centered)" }
 -- New file
 map("n", "<leader>fn", "<cmd>enew<cr>", { silent = true, desc = "New File" })
 
--- Toggle search highlight
-map("n", "<leader>/", function()
-  if vim.v.hlsearch == 1 then
-    vim.cmd "nohlsearch"
-  else
-    vim.cmd "set hlsearch"
-  end
-end, { silent = true, desc = "Toggle Search Highlight" })
-
 -- Toggle relative line numbers
 map("n", "<leader>r", function()
   vim.wo.relativenumber = not vim.wo.relativenumber
 end, { silent = true, desc = "Toggle Relative Numbers" })
 
--- Tab management
+-- Tab management (next / previous tab: built-in gt / gT)
 map("n", "<leader>Tn", "<cmd>tabnew<CR>", { desc = "New tab" })
 map("n", "<leader>Tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
 map("n", "<leader>To", "<cmd>tabonly<CR>", { desc = "Close other tabs" })
-map("n", "<leader>Th", "<cmd>tabprev<CR>", { desc = "Previous tab" })
-map("n", "<leader>Tl", "<cmd>tabnext<CR>", { desc = "Next tab" })
 map("n", "<leader>Tf", "<cmd>tabfirst<CR>", { desc = "First tab" })
 map("n", "<leader>TL", "<cmd>tablast<CR>", { desc = "Last tab" })
 map("n", "<leader>Tmh", "<cmd>-tabmove<CR>", { desc = "Move tab left" })

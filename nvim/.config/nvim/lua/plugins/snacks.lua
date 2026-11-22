@@ -168,13 +168,6 @@ return {
       desc = "Colorschemes",
     },
     {
-      "<leader>sT",
-      function()
-        Snacks.picker.todo_comments()
-      end,
-      desc = "Todo Comments",
-    },
-    {
       "<leader>so",
       function()
         Snacks.picker.autocmds()
@@ -209,14 +202,7 @@ return {
       function()
         Snacks.picker.git_log()
       end,
-      desc = "Git Commits",
-    },
-    {
-      "<leader>gC",
-      function()
-        Snacks.picker.git_log_file()
-      end,
-      desc = "Buffer Commits",
+      desc = "Repo History",
     },
     {
       "<leader>gs",
@@ -225,20 +211,12 @@ return {
       end,
       desc = "Git Status",
     },
-    -- History keys kept from diffview; same pickers as <leader>gC / <leader>gc.
     {
       "<leader>gh",
       function()
         Snacks.picker.git_log_file()
       end,
       desc = "File History",
-    },
-    {
-      "<leader>gH",
-      function()
-        Snacks.picker.git_log()
-      end,
-      desc = "Repo History",
     },
 
     -- Diff current buffer with a file

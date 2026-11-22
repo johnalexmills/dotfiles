@@ -1,40 +1,16 @@
--- Mason moved from the personal "williamboman" namespace to the "mason-org"
--- organisation with the v2 releases (mason v2.x, mason-lspconfig v2.x). The old
--- paths still resolve through a GitHub redirect, but are no longer canonical.
 return {
   {
     "mason-org/mason.nvim",
     cmd = "Mason",
-    config = function()
-      require("mason").setup {
-        ui = {
-          icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
-          },
+    opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
         },
-      }
-    end,
-  },
-
-  {
-    -- Bridges Mason package names <-> nvim-lspconfig server names (e.g.
-    -- "lua-language-server" <-> "lua_ls").
-    --
-    -- Loaded as a dependency of nvim-lspconfig (not on its own event) so that
-    -- it is always ready before any server is started.
-    "mason-org/mason-lspconfig.nvim",
-    dependencies = { "mason-org/mason.nvim" },
-    config = function()
-      require("mason-lspconfig").setup {
-        -- v2 defaults this to true, which calls vim.lsp.enable() for *every*
-        -- server Mason has installed. That silently resurrects servers left
-        -- over from previous configs (e.g. pyright attaching to Python
-        -- alongside ty). We enable servers explicitly below instead.
-        automatic_enable = false,
-      }
-    end,
+      },
+    },
   },
 
   {
@@ -42,45 +18,33 @@ return {
     dependencies = { "mason-org/mason.nvim" },
     event = "VeryLazy",
     config = function()
-      local tools = {
-        -- LSP servers
-        "lua-language-server",
-        "bash-language-server",
-        "terraform-ls",
-        "yaml-language-server",
-        "ty", -- Python type checker LSP (Astral)
-        "ruff", -- Python linter/formatter LSP (Astral)
-
-        -- Formatters (non-LSP)
-        "stylua", -- lua
-        "prettier", -- json, yaml, markdown
-        "taplo", -- toml
-        "hclfmt", -- hcl (terragrunt)
-        "shfmt", -- bash/sh
-
-        -- Linters (non-LSP)
-        "luacheck", -- lua
-        "shellcheck", -- bash/sh
-        "yamllint", -- yaml
-        "jsonlint", -- json
-        "markdownlint", -- markdown
-        "tflint", -- terraform
-
-        -- Multi-purpose (linter + formatter)
-        "gdtoolkit", -- gdscript (gdlint + gdformat)
-        -- rubocop (ruby; used by conform and nvim-lint) is a gem, so Mason
-        -- can only install it when Ruby is present. Added conditionally below.
-
-        -- Additional tools
-        "hadolint", -- dockerfile
-        "sqlfluff", -- sql
-      }
-      if vim.fn.executable "gem" == 1 then
-        table.insert(tools, "rubocop")
-      end
-
       require("mason-tool-installer").setup {
-        ensure_installed = tools,
+        -- Mason package names (not lspconfig server names).
+        ensure_installed = {
+          -- LSP servers
+          "lua-language-server",
+          "bash-language-server",
+          "yaml-language-server",
+          "ty", -- Python type checker (Astral)
+          "ruff", -- Python linter/formatter (Astral)
+
+          -- Formatters
+          "stylua",
+          "prettier", -- json, yaml, markdown
+          "taplo", -- toml
+          "shfmt",
+
+          -- Linters
+          "luacheck",
+          "shellcheck",
+          "yamllint",
+          "jsonlint",
+          "markdownlint",
+          "hadolint", -- dockerfile
+
+          -- gdscript (gdlint + gdformat); the LSP is Godot itself
+          "gdtoolkit",
+        },
         auto_update = false,
         run_on_start = true,
       }
@@ -92,18 +56,21 @@ return {
   },
 
   {
+    -- Supplies cmd / filetypes / root_markers for every server below via its
+    -- lsp/<name>.lua files. Capabilities come from blink.cmp, which registers
+    -- them for all servers with vim.lsp.config("*") on its own.
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- Mason must be set up before any server is spawned: mason.setup()
-      -- is what prepends ~/.local/share/nvim/mason/bin to PATH. Loading it
-      -- on its own lazy event raced with this plugin's BufReadPre and left
-      -- every Mason-installed server unresolvable on the first file opened.
+      -- mason.setup() is what puts ~/.local/share/nvim/mason/bin on PATH, so
+      -- it must run before any server is spawned.
       "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
       "saghen/blink.cmp",
-      "rachartier/tiny-inline-diagnostic.nvim",
     },
+    -- Neovim's built-in LSP maps cover the rest (and are remapped to Snacks
+    -- pickers in LspAttach below): grn rename, gra code action, grr refs,
+    -- gri implementations, grt type definition, gO symbols, K hover,
+    -- [d / ]d diagnostics, <C-s> signature help (insert).
     keys = {
       {
         "<leader>lD",
@@ -111,54 +78,6 @@ return {
           Snacks.picker.diagnostics_buffer()
         end,
         desc = "Document Diagnostics",
-      },
-      { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer" },
-      {
-        "<leader>lS",
-        function()
-          Snacks.picker.lsp_workspace_symbols()
-        end,
-        desc = "Workspace Symbols",
-      },
-      { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "x" } },
-      { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", desc = "Info" },
-      {
-        "<leader>lj",
-        function()
-          vim.diagnostic.jump { count = 1 }
-        end,
-        desc = "Next Diagnostic",
-      },
-      {
-        "<leader>lk",
-        function()
-          vim.diagnostic.jump { count = -1 }
-        end,
-        desc = "Prev Diagnostic",
-      },
-      { "<leader>lq", vim.diagnostic.setloclist, desc = "Diagnostics to Loclist" },
-      {
-        "<leader>lR",
-        function()
-          Snacks.picker.lsp_references()
-        end,
-        desc = "References",
-      },
-      { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
-      { "<leader>lx", vim.diagnostic.reset, desc = "Clear Diagnostics" },
-      {
-        "<leader>ls",
-        function()
-          Snacks.picker.lsp_symbols()
-        end,
-        desc = "Document Symbols",
-      },
-      {
-        "<leader>lt",
-        function()
-          Snacks.picker.lsp_type_definitions()
-        end,
-        desc = "Type Definitions",
       },
       {
         "<leader>lw",
@@ -168,137 +87,30 @@ return {
         desc = "Workspace Diagnostics",
       },
       {
-        "<leader>lm",
+        "<leader>lS",
         function()
-          Snacks.picker.lsp_implementations()
+          Snacks.picker.lsp_workspace_symbols()
         end,
-        desc = "Implementations",
+        desc = "Workspace Symbols",
       },
+      { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Installer" },
+      { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", desc = "Info" },
+      { "<leader>lq", vim.diagnostic.setloclist, desc = "Diagnostics to Loclist" },
+      { "<leader>lx", vim.diagnostic.reset, desc = "Clear Diagnostics" },
       {
         "<leader>ld",
         function()
-          require("tiny-inline-diagnostic").toggle()
+          local on = vim.diagnostic.config().virtual_text
+          vim.diagnostic.config { virtual_text = not on and { current_line = true } or false }
         end,
         desc = "Toggle Inline Diagnostics",
       },
     },
     config = function()
-      require("tiny-inline-diagnostic").setup {
-        preset = "modern",
-        hi = {
-          error = "DiagnosticError",
-          warn = "DiagnosticWarn",
-          info = "DiagnosticInfo",
-          hint = "DiagnosticHint",
-          arrow = "NonText",
-          background = "CursorLine",
-          mixing_color = "Normal",
-        },
-        options = {
-          show_source = {
-            enabled = true,
-            if_many = true,
-          },
-          throttle = 20,
-          softwrap = 15,
-          multilines = {
-            enabled = false,
-          },
-          show_all_diags_on_cursorline = false,
-          enable_on_insert = false,
-          enable_on_select = false,
-          overflow = {
-            mode = "wrap",
-            padding = 0,
-          },
-          break_line = {
-            enabled = false,
-            after = 30,
-          },
-          virt_texts = {
-            priority = 2048,
-          },
-          severity = {
-            vim.diagnostic.severity.ERROR,
-            vim.diagnostic.severity.WARN,
-            vim.diagnostic.severity.INFO,
-            vim.diagnostic.severity.HINT,
-          },
-        },
-      }
-      require("tiny-inline-diagnostic").enable()
-
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-      -- Configure LSP servers using Neovim 0.11+ native config (function form,
-      -- which merges with anything declared in lsp/<name>.lua on the runtimepath).
-      --
-      -- NOTE: cmd is intentionally omitted for most servers; nvim-lspconfig
-      -- (a dependency) populates default cmd / filetypes / root_dir for each
-      -- known server, and our config is then merged on top, overriding only
-      -- what we specify. Removing nvim-lspconfig would require adding explicit
-      -- cmd fields here.
-
-      vim.lsp.config("ty", {
-        capabilities = capabilities,
-        filetypes = { "python" },
-        root_markers = { "ty.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
-      })
-
-      -- Ruff's defaults are sensible. Note: an empty `init_options.settings`
-      -- table is rejected by the server ("invalid client settings"), so omit
-      -- init_options entirely rather than leaving a placeholder.
-      vim.lsp.config("ruff", {
-        capabilities = capabilities,
-        filetypes = { "python" },
-        root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
-      })
-
-      vim.lsp.config("lua_ls", {
-        capabilities = capabilities,
-        filetypes = { "lua" },
-        root_markers = {
-          ".luarc.json",
-          ".luarc.jsonc",
-          ".luacheckrc",
-          ".stylua.toml",
-          "stylua.toml",
-          "selene.toml",
-          "selene.yml",
-          ".git",
-        },
-        -- No `settings` block: lazydev.nvim supplies the vim global and the
-        -- Neovim runtime library, and .luarc.json covers the rest. The only
-        -- entry that used to live here declared a "ConfigMode" global that
-        -- nothing in this config has ever referenced.
-      })
-
-      vim.lsp.config("bashls", {
-        capabilities = capabilities,
-        filetypes = { "sh", "bash" },
-        root_markers = { ".git" },
-      })
-
-      -- "tf" is the Tads filetype, not Terraform; terraform-ls wants
-      -- terraform / terraform-vars.
-      vim.lsp.config("terraformls", {
-        capabilities = capabilities,
-        filetypes = { "terraform", "terraform-vars" },
-        root_markers = { ".terraform", ".git" },
-      })
-
-      vim.lsp.config("gdscript", {
-        capabilities = capabilities,
-        filetypes = { "gdscript" },
-        root_markers = { "project.godot", ".git" },
-      })
-
       vim.lsp.config("yamlls", {
-        capabilities = capabilities,
-        -- Neovim has no "yaml.docker-compose" filetype (compose files are
-        -- plain "yaml"), so listing it only produced a checkhealth warning.
+        -- lspconfig also lists yaml.docker-compose etc., which Neovim never
+        -- detects and checkhealth warns about.
         filetypes = { "yaml" },
-        root_markers = { ".git" },
         settings = {
           yaml = {
             schemaStore = { enable = true },
@@ -308,12 +120,11 @@ return {
         },
       })
 
-      -- Enable all configured LSP servers
-      vim.lsp.enable { "ty", "ruff", "lua_ls", "bashls", "terraformls", "gdscript", "yamlls" }
+      vim.lsp.enable { "ty", "ruff", "lua_ls", "bashls", "gdscript", "yamlls" }
 
-      -- Enhanced diagnostic configuration (modern features)
       vim.diagnostic.config {
-        virtual_text = false,
+        -- Inline message for the cursor line only (<leader>ld toggles it).
+        virtual_text = { current_line = true },
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = "✘",
@@ -332,25 +143,11 @@ return {
         update_in_insert = false,
         severity_sort = true,
         float = {
-          focusable = false,
-          style = "minimal",
           border = "rounded",
           source = true,
-          header = "",
-          prefix = "",
-          format = function(diagnostic)
-            return string.format(
-              "%s (%s) [%s]",
-              diagnostic.message,
-              diagnostic.source or "unknown",
-              diagnostic.code or "no-code"
-            )
-          end,
         },
       }
 
-      -- Use LspAttach autocommand to only map the following keys
-      -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
@@ -359,49 +156,28 @@ return {
             return
           end
 
-          -- Buffer local mappings
-          -- Use the Snacks pickers rather than vim.lsp.buf.definition: when a
-          -- symbol resolves to several locations the builtin dumps them into
-          -- the quickfix list, whereas the picker shows them with previews.
-          vim.keymap.set("n", "gd", function()
-            Snacks.picker.lsp_definitions()
-          end, { buffer = ev.buf, desc = "Go to Definition" })
-          vim.keymap.set("n", "gD", function()
-            Snacks.picker.lsp_declarations()
-          end, { buffer = ev.buf, desc = "Go to Declaration" })
+          local function map(lhs, picker, desc)
+            vim.keymap.set("n", lhs, function()
+              Snacks.picker[picker]()
+            end, { buffer = ev.buf, desc = desc })
+          end
+          -- Snacks pickers instead of the builtins, which dump multiple
+          -- results into the quickfix list without previews.
+          map("gd", "lsp_definitions", "Go to Definition")
+          map("gD", "lsp_declarations", "Go to Declaration")
+          map("grr", "lsp_references", "References")
+          map("gri", "lsp_implementations", "Implementations")
+          map("grt", "lsp_type_definitions", "Type Definitions")
+          map("gO", "lsp_symbols", "Document Symbols")
           vim.keymap.set("n", "<leader>lg", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature Help" })
 
-          -- Inlay hints: only enable for clients that support them, and provide a per-buffer toggle.
           if client:supports_method "textDocument/inlayHint" then
             vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
             vim.keymap.set("n", "<leader>lh", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf }, { bufnr = ev.buf })
             end, { buffer = ev.buf, desc = "Toggle Inlay Hints" })
           end
-
-          -- Document highlight
-          if client:supports_method "textDocument/documentHighlight" then
-            local highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-              buffer = ev.buf,
-              group = highlight_group,
-              callback = vim.lsp.buf.document_highlight,
-            })
-            vim.api.nvim_create_autocmd("CursorMoved", {
-              buffer = ev.buf,
-              group = highlight_group,
-              callback = vim.lsp.buf.clear_references,
-            })
-          end
-        end,
-      })
-
-      -- Clean up document highlight autocmds when LSP detaches
-      vim.api.nvim_create_autocmd("LspDetach", {
-        group = vim.api.nvim_create_augroup("UserLspDetach", {}),
-        callback = function(ev)
-          vim.lsp.buf.clear_references()
-          vim.api.nvim_clear_autocmds { group = "lsp_document_highlight", buffer = ev.buf }
+          -- Reference highlighting under the cursor is done by Snacks.words.
         end,
       })
     end,

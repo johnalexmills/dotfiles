@@ -50,8 +50,6 @@ return {
         mason = true,
         mini = true,
         harpoon = true,
-        neotest = true,
-        lsp_trouble = true,
         render_markdown = true,
         notifier = true, -- snacks.notifier
         dashboard = true,

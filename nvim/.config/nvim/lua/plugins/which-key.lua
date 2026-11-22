@@ -11,10 +11,8 @@ return {
       { "<leader>b", group = "Buffer", nowait = true, remap = false },
       { "<leader>g", group = "Git", nowait = true, remap = false },
       { "<leader>l", group = "LSP", nowait = true, remap = false },
-      { "<leader>t", group = "Trouble", nowait = true, remap = false },
       { "<leader>s", group = "Search", nowait = true, remap = false },
       { "<leader>S", group = "Session", nowait = true, remap = false },
-      { "<leader>n", group = "Neotest", nowait = true, remap = false },
       { "<leader>T", group = "Tab", nowait = true, remap = false },
       { "<leader>Tm", group = "Move tab", nowait = true, remap = false },
     }
